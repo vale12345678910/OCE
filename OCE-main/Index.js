@@ -7,7 +7,7 @@ import path from 'path';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 
-man this is driving me insane
+
 // Create an Express application
 const app = express();
 
