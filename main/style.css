@@ -1,3 +1,51 @@
 body {
-    background-color: black;
+    background-color: rgb(41, 41, 41);
+}
+
+.def-text{
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 32px;
+}
+
+.drop-down{
+    left: 0;
+    width: 100%;
+    height: 200px;
+    background-color: rgb(41, 41, 41);
+    top: 0;
+    box-shadow: 2px 2px 3px rgb(26, 26, 26);
+
+    
+}
+.drop-down ul{
+    left: 0;
+    position: fixed;
+}
+.drop-down ul li{
+    float: left;
+    list-style: none;
+    position: relative;
+}
+.drop-down ul li a{
+    font-family: Arial, Helvetica, sans-serif;
+    color: white;
+    font-size: 24px;
+    text-decoration: none;
+    padding: 28px;
+    display: block;
+}
+.drop-down ul li a:hover{
+    background-color: rgb(15, 15, 15);
+    border-radius: 10px;
+
+}
+.drop-down ul li ul{
+    display: block;
+    position: absolute;
+}
+.drop-down ul li ul li a{
+    color: white;
+    font-size: 10px;
+    
 }
