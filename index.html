@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Express Server Example</title>
+</head>
+<body>
+  <link href="style.css" rel="stylesheet" type="text/css">
+  
+  <h1>Welcome to Express Server!</h1>
+  
+  <!-- Save button -->
+  <form id="saveForm">
+    <button type="submit">Save</button>
+  </form>
+
+  <!-- Load button -->
+  <button id="loadButton">Load</button>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const saveForm = document.getElementById('saveForm');
+      const loadButton = document.getElementById('loadButton');
+      
+      // Event listener for save form submission
+      saveForm.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        try {
+          const response = await fetch('/api/save', {
+            method: 'POST'
+          });
+          if (response.ok) {
+            alert('Data saved successfully!');
+          } else {
+            throw new Error('Failed to save data');
+          }
+        } catch (error) {
+          console.error(error);
+          alert('Failed to save data');
+        }
+      });
+
+      // Event listener for load button click
+      loadButton.addEventListener('click', async () => {
+        try {
+          const response = await fetch('/api/load');
+          if (response.ok) {
+            const data = await response.json();
+            alert(`Loaded data: ${JSON.stringify(data)}`);
+          } else {
+            throw new Error('Failed to load data');
+          }
+        } catch (error) {
+          console.error(error);
+          alert('Failed to load data');
+        }
+      });
+    });
+  </script>
+</body>
+</html>
