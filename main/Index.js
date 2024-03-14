@@ -24,7 +24,7 @@ app.post('/api/save', (req, res) => {
 });
 
 // Dummy load request
-app.get('/api/load', (req, res) => {
+app.get('/api/save', (req, res) => {
   // Dummy logic for loading data
   const data = { name: 'John', age: 30 }; // Dummy data
   res.json(data);
