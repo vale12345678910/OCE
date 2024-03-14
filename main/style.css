@@ -1,5 +1,6 @@
 body {
     background-color: rgb(41, 41, 41);
+    overflow: hidden;
 }
 
 .def-text{
@@ -22,10 +23,29 @@ body {
 
 #loadButton{
     cursor: pointer;
+    border: none;
+    border-radius: 10px;
+    border-color: white;
+    width: 80px;
+    height: 40px;
+    font-size: 100%;
+    background-color: black;
+    color: white;
+    border: 1px solid white;
+    padding: 0px 0px;
 }
 
 #saveButton{
+    border: 1px solid white;
     cursor: pointer;
+    border-radius: 10px;
+    border-color: white;
+    width: 80px;
+    height: 40px;
+    font-size: 100%;
+    background-color: black;
+    color: white;
+
 }
 
 .container {
@@ -58,26 +78,45 @@ body {
     border-left: 1px solid #ccc; /* Add border to separate left and right content */
 }
 
-.create-exercice{
-    border-radius: 60px;
-    background-color: green;
+#create-exercice{
+    left: 80%;
+    border-radius: 100px;
+    background-color: rgb(0, 145, 0);
     color: white;
-    font-size: 300%;
-    border-color: none;
-    padding: 200px, 10%;
-    
-    
-    border: 0.5%;
-    border-color: white;
-    
-    
+    font-size: 150%;
+    height: 50px;
+    width: 100px;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid white;
+    display: flex;
+    font-weight: none;
+    cursor: pointer;
+}
+
+#exercises_title{
+    color: white;
+    font-size: 250%;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    position: absolute;
+    left: 52%;
+    top: 10%;
 
 }
 
-.add-button{
-    position: fixed;
+#editor_title{
+    color: white;
+    font-size: 250%;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    position: absolute;
+    left: 2%;
+    top: 10%;
+}
+
+.container_button{
     right: 1%;
-    top: 9%;
-    justify-content: justify;
-    
+    display: block;
+    position: absolute;
 }
