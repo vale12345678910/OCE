@@ -29,7 +29,8 @@ body {
     right: 4%;
 }
 
-#loadButton{
+.loadButton{
+    transition: all 0.1s linear;
     cursor: pointer;
     border: none;
     border-radius: 5px;
@@ -42,7 +43,14 @@ body {
     padding: 0px 0px;
 }
 
-#saveButton{
+.loadButton:hover{
+    color: black;
+    background-color: white;
+    border-color: black;
+}
+
+.saveButton{
+    transition: all 0.1s linear;
     border: 2px solid rgb(218, 227, 229);
     cursor: pointer;
     border-radius: 5px;
@@ -52,6 +60,12 @@ body {
     background-color: rgb(19, 21, 21);
     color: white;
 
+}
+
+.saveButton:hover{
+    color: black;
+    background-color: white;
+    border-color: black;
 }
 
 .container {
@@ -64,7 +78,7 @@ body {
 .vertical-line {
     width: 2px;
     height: 100%;
-    background-color: black;
+    background-color: white;
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
@@ -84,7 +98,8 @@ body {
     border-left: 1px solid #ccc; /* Add border to separate left and right content */
 }
 
-#add-button{
+.add-button{
+    transition: all 0.1s linear;
     left: 80%;
     border-radius: 5px;
     background-color: rgb(19, 21, 21);
@@ -100,7 +115,14 @@ body {
     cursor: pointer;
 }
 
-#run-button{
+.add-button:hover{
+    color: black;
+    background-color: white;
+    border-color: black;
+}
+
+.run-button{
+    transition: all 0.1s linear;
     left: 80%;
     border-radius: 5px;
     background-color: rgb(19, 21, 21);
@@ -114,6 +136,12 @@ body {
     display: flex;
     font-weight: none;
     cursor: pointer;
+}
+
+.run-button:hover{
+    background-color: white;
+    color: black;
+    border-color: black;
 }
 
 .container_run{
