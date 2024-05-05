@@ -4,66 +4,43 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Express Server Example</title>
-</head>
-<body>
   <link href="style.css" rel="stylesheet" type="text/css">
   
-  <h1 class="menu">Online Code Editor</h1>
-  
-<div class="container_add">
-  <button class="add-button"><p id="plus">+</p>Add</button>
-  </div>
-
-
-<div class="container_run">
-  <button class="run-button">Run</button>
-  </div>
+</head>
+<body>
+ 
 
 
 
-
-
-  <div class="top-line"></div>
-    <div class="container">
-        <div class="vertical-line"></div>
-        <div class="left-content">
-            <!-- CODE EDITOR / LEFT SIDE -->
-        </div>
-        <div class="right-content">
-            <!--DESCRIPTION OF THE EXERCICE / RIGHT SIDE-->
-        </div>
-    </div>
-
-
-<div id="exercises_title">Exercises</div>
-
-<div id="editor_title">Editor</div>
+  <script src="Ace/JS/ace.js"></script>
+  <script src="Components/my-editor.js"></script>
+  <script src="Ace/JS/Index.js"></script>
 
 
 
 
+<div class="vertical-line"></div>
 
-  <!-- Save button -->
+<div class="container_editor">
+  <div class="editor_title">Editor</div>
   <form class="saveForm">
     <button class="saveButton" type="submit">Save</button>
   </form>
-
-  <!-- Load button -->
   <button class="loadButton">Load</button>
+  <my-editor class="editor" value = "//your code here"></my-editor>
+  <button class="run-button">Run</button>
+</div>
 
-
-
-
-
-
-
-
+<div class="container_exercises">
+  <div class="exercises_title">Exercises</div>
+  <button class="add-button">Add +</button>
+</div>
 
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      const saveForm = document.getElementById('saveForm');
-      const loadButton = document.getElementById('loadButton');
+      const saveForm = document.querySelector('.saveForm');
+      const loadButton = document.querySelector('.loadButton');
       
       // Event listener for save form submission
       saveForm.addEventListener('submit', async (event) => {
@@ -100,5 +77,10 @@
       });
     });
   </script>
+
+
+  
+ 
+
 </body>
 </html>
