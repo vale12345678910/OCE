@@ -17,25 +17,25 @@
   <script src="Ace/JS/Index.js"></script>
 
 
+<div class="main_container">
+  
+  <div class="container_editor">
+    <div class="editor_title">Editor</div>
+    <my-editor class="editor" value = "//your code here"></my-editor>
+      <div class="editor_buttons">
+        <form class="saveForm">
+          <button class="saveButton" type="submit">Save</button>
+        </form>
+        <button class="loadButton">Load</button>
+        <button class="run-button">Run</button>
+    </div>
+  </div>
 
-
-<div class="vertical-line"></div>
-
-<div class="container_editor">
-  <div class="editor_title">Editor</div>
-  <form class="saveForm">
-    <button class="saveButton" type="submit">Save</button>
-  </form>
-  <button class="loadButton">Load</button>
-  <my-editor class="editor" value = "//your code here"></my-editor>
-  <button class="run-button">Run</button>
+  <div class="container_exercises">
+    <div class="exercises_title">Exercises</div>
+    <button class="add-button">Add +</button>
+  </div>
 </div>
-
-<div class="container_exercises">
-  <div class="exercises_title">Exercises</div>
-  <button class="add-button">Add +</button>
-</div>
-
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
