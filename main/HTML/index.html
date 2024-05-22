@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Express Server Example</title>
+  <link rel="stylesheet" href="CSS/style.css">
+  
+</head>
+<body>
+
+  <!-- MODAL FOR EXERCISES -->
+  <dialog  class="modal" id="modal" open>
+    <div id="modal-title">Exercise <span id="exerciseCount"></span> </div>
+    <textarea id="textarea">Exercise text...</textarea>
+    <button class="save-button" id="save-button">Save</button>
+    <button class="close-button" id="close-button">Close</button>
+  </dialog>
+
+<div class="main_container">
+  
+  <div class="container_editor">
+    <div class="editor_title">Editor</div>
+    <div class="control-panel">
+      &nbsp; &nbsp;
+      <select id="languages" class="languages" onchange="changeLanguage()">
+          <option value="c"> C </option>
+          <option value="cpp"> C++ </option>
+          <option value="php"> PHP </option>
+          <option value="python"> Py. </option>
+          <option value="node"> JS </option>
+      </select>
+  </div>
+    <my-editor class="editor" value = "//your code here"></my-editor>
+      <div class="editor_buttons">
+        <form class="saveForm">
+          <button class="saveButton" type="submit">Save</button>
+        </form>
+        <button class="loadButton">Load</button>
+        <button class="run-button" onclick="executeCode()">Run</button>
+    </div>
+  </div>
+
+  <div class="container_exercises">
+    <div class="exercises_title">Exercises</div>
+    <button class="add-button">Add +</button>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const saveForm = document.querySelector('.saveForm');
+      const loadButton = document.querySelector('.loadButton');
+      
+      // Event listener for save form submission
+      saveForm.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        try {
+          const response = await fetch('/api/save', {
+            method: 'POST'
+          });
+          if (response.ok) {
+            alert('Data saved successfully!');
+          } else {
+            throw new Error('Failed to save data');
+          }
+        } catch (error) {
+          console.error(error);
+          alert('Failed to save data');
+        }
+      });
+
+      // Event listener for load button click
+      loadButton.addEventListener('click', async () => {
+        try {
+          const response = await fetch('/api/load');
+          if (response.ok) {
+            const data = await response.json();
+            alert(`Loaded data: ${JSON.stringify(data)}`);
+          } else {
+            throw new Error('Failed to load data');
+          }
+        } catch (error) {
+          console.error(error);
+          alert('Failed to load data');
+        }
+      });
+    });
+  </script>
+
+
+
+
+<script src="JS/LIB_Ace/ace.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="JS/my-editor.js"></script>
+<script src="JS/Index.js"></script>
+<script src="JS/import.js" type="module"></script>
+
+
+
+</body>
+</html>

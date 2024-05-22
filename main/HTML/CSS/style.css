@@ -1,0 +1,273 @@
+body {
+    background-color: rgb(19, 21, 21);
+    overflow: hidden;
+}
+
+
+
+.loadButton{
+    transition: all 0.1s linear;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    width: 80px;
+    height: 40px;
+    font-size: 100%;
+    background-color: rgb(19, 21, 21);
+    color: white;
+    border: 2px solid rgb(218, 227, 229);
+    padding: 0px 0px;
+}
+
+.loadButton:hover{
+    color: black;
+    background-color: white;
+    border-color: black;
+}
+
+.saveButton{
+    transition: all 0.1s linear;
+    border: 2px solid rgb(218, 227, 229);
+    cursor: pointer;
+    border-radius: 5px;
+    width: 80px;
+    height: 40px;
+    font-size: 100%;
+    background-color: rgb(19, 21, 21);
+    color: white
+}
+
+.saveButton:hover{
+    color: black;
+    background-color: white;
+    border-color: black;
+}
+
+
+.main_container {
+    width: 1600px;
+    position: relative;
+    margin: 100px;
+    justify-content: space-between;
+    display: flex;
+    
+}
+
+.container_editor {
+    height: 460px;
+    width: 700px;
+    display: flex;
+    outline: 2px solid white;
+    
+}
+
+
+.editor_buttons{
+    display: flex;
+    /* outline: 2px solid yellow; */
+    margin-left: auto;
+    justify-content: space-between;
+    width: 245px;
+}
+
+.container_exercises {
+    height: 460px;
+    width: 700px;
+    display: flex;
+    outline: 2px solid white;
+}
+
+.container_editor .control-panel{
+    justify-content: center;
+}
+.control-panel{
+    font-size: 100%;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
+.languages{
+    position: relative;
+    left: 20px;
+    top: 10px;
+    
+    cursor: pointer;
+    color: white;
+    font-size: 100%;
+    background-color: rgb(19, 21, 21);
+    width: 70px;
+    height: 30px;
+    border-radius: 5px;
+    border: 1px solid white;
+}
+
+
+
+
+.add-button{
+    transition: all 0.1s linear;
+    border-radius: 5px;
+    background-color: rgb(19, 21, 21);
+    color: white;
+    font-size: 120%;
+    width: 80px;
+    height: 40px;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid white;
+    font-weight: none;
+    cursor: pointer;
+    margin-left: auto;
+}
+
+.add-button:hover{
+    color: black;
+    background-color: white;
+    border-color: black;
+}
+
+.run-button{
+    transition: all 0.1s linear;
+    border-radius: 5px;
+    background-color: rgb(19, 21, 21);
+    color: white;
+    font-size: 120%;
+    height: 40px;
+    width: 80px;
+    border: 2px solid white;
+    cursor: pointer;
+}
+
+.run-button:hover{
+    background-color: white;
+    color: black;
+    border-color: black;
+}
+
+
+
+.exercises_title{
+    color: white;
+    font-size: 250%;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+
+
+
+}
+
+.editor_title{
+    color: white;
+    font-size: 250%;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+}
+
+
+
+
+.editor{
+    font-size: 15px;
+    position: absolute;
+    width: 700px;
+    height: 410px;
+    top: 25px;
+}
+
+#modal-title{
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    font-size: 30px;
+    font-weight: 600;
+    margin: 10px;
+
+}
+
+#modal{
+    z-index: 5;
+    font-size: 20px;
+    font-weight: 200;
+    font-family: Arial, Helvetica, sans-serif;
+    color: white;
+    background-color: rgb(19, 21, 21);
+    width: 800px;
+    height: 500px;
+    position: absolute;
+    border-radius: 5px;
+    top: 40px;
+    
+}
+
+#exercise::backdrop{
+    background: black;
+}
+
+#textarea{
+    font-size: 20px;
+    position: absolute;
+    resize: none;
+    width: 500px;
+    height: 400px;
+    background-color: rgb(19, 21, 21);
+    color: white;
+    border-bottom-right-radius: 5px;
+    border-top-right-radius: 5px;
+    /* outline: white solid 1px; */
+    border: none;
+    top: 50px;
+    left: 10px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
+
+#close-button{
+    z-index: 100;
+    transition: all 0.1s linear;
+    border-radius: 5px;
+    background-color: rgb(19, 21, 21);
+    color: white;
+    font-size: 16px;
+    height: 40px;
+    width: 80px;
+    border: 2px solid white;
+    cursor: pointer;
+    position: absolute;
+    right: 82px;
+    bottom: 0px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+}
+
+#close-button:hover{
+    background-color: white;
+    color: black;
+    border-color: black;
+}
+
+
+#save-button{
+    z-index: 100;
+    transition: all 0.1s linear;
+    border-radius: 5px;
+    background-color: rgb(19, 21, 21);
+    color: white;
+    font-size: 16px;
+    height: 40px;
+    width: 80px;
+    border: 2px solid white;
+    cursor: pointer;
+    position: absolute;
+    right: 0px;
+    bottom: 0px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+}
+
+#save-button:hover{
+    background-color: white;
+    color: black;
+    border-color: black;
+}
