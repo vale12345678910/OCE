@@ -55,18 +55,31 @@ closeModal.addEventListener("click", () =>{
   console.log("MODAL CLOSED")
 });
 
+// Textarea.Value is getting updated.
+document.getElementById("textarea").value = "New text..."
+textarea.addEventListener("input", function(){
+  console.log("Value Updated")
+  return textarea.value;
+})
 
 
 
 
-
-
-
-function saveModal(){
+function saveModal(textareaValue){
+  const container_exercises = document.querySelector(".container_exercises")
+  const newDiv = document.createElement("div")
+  newDiv.id="EX"+ exerciseCount;
+  newDiv.className="EX"+ exerciseCount;
+  newDiv.textContent = textareaValue
+  container_exercises.appendChild(newDiv)
+  modal.close();
   console.log("MODAL SAVED")
   // Code to save written Exercise -> Lüthi fragen
 }
 
+document.querySelector(".save-button").addEventListener("click", function(){
+  saveModal(textarea.value)
+})
 
 
 
