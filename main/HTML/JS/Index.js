@@ -1,7 +1,6 @@
 
 //ChangeLanguage fun.
 
-let exerciseCount = 0;
 
 
 
@@ -38,26 +37,39 @@ function executeCode() {
 }
 
 
+//OWN CODE
+let exerciseCount = 0;
+const textarea_1 = document.getElementById('textarea_1');
+const textarea_2 = document.getElementById('textarea_2');
+
+
 
 const modal = document.querySelector("#modal")
 const openModal = document.querySelector(".add-button")
-const closeModal = document.querySelector(".close-button")
+const closeModal = document.querySelector(".closeButton-modal")
 
 
 
 openModal.addEventListener("click", () =>{
-  modal.showModal();
+  exerciseCount++;
+
+  const exerciseCountSpan = document.getElementById("exerciseCount")
+  exerciseCountSpan.innerText = exerciseCount;
+  modal.style.display = "flex" // -> Lüthi Fragen ob bessere Methode
+  modal.showModal()
   console.log("MODAL OPEN")
 });
 
 closeModal.addEventListener("click", () =>{
+  modal.style.display = "none"
   modal.close()
+  exerciseCount--; 
   console.log("MODAL CLOSED")
 });
 
 // Textarea.Value is getting updated.
-document.getElementById("textarea").value = "New text..."
-textarea.addEventListener("input", function(){
+document.getElementById("textarea_1").value = "New text..."
+textarea_1.addEventListener("input", function(){
   console.log("Value Updated")
   return textarea.value;
 })
@@ -66,19 +78,23 @@ textarea.addEventListener("input", function(){
 
 
 function saveModal(textareaValue){
-  const container_exercises = document.querySelector(".container_exercises")
-  const newDiv = document.createElement("div")
-  newDiv.id="EX"+ exerciseCount;
-  newDiv.className="EX"+ exerciseCount;
+  const content_1 = textarea_1.value;
+  const content_2 = textarea_2.value;
+  const container_list = document.querySelector(".container_list") //where the saved ex. should go.
+  const newDiv = document.createElement("div") //create new ex.
+
+
+  newDiv.id="newEx";
+  newDiv.className="newEx"
   newDiv.textContent = textareaValue
-  container_exercises.appendChild(newDiv)
+  container_list.appendChild(newDiv)
+  modal.style.display = "none"
   modal.close();
   console.log("MODAL SAVED")
-  // Code to save written Exercise -> Lüthi fragen
 }
 
-document.querySelector(".save-button").addEventListener("click", function(){
-  saveModal(textarea.value)
+document.querySelector(".saveButton-modal").addEventListener("click", function(){
+  saveModal(textarea_1.value, textarea_2.value)
 })
 
 

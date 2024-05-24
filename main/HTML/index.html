@@ -11,39 +11,62 @@
 
   <!-- MODAL FOR EXERCISES -->
   <dialog  class="modal" id="modal">
-    <div id="modal-title">Exercise <span id="exerciseCount"></span> </div>
-    <textarea id="textarea">Exercise text...</textarea>
-    <button class="save-button" id="save-button">Save</button>
-    <button class="close-button" id="close-button">Close</button>
+
+    <div class="modal_header">
+      <div id="modal_title">Exercise <span id="exerciseCount"></span> </div>
+    </div>
+
+    <div class="container_textarea">
+    <textarea class="textarea_1" id="textarea_1"></textarea>
+    <textarea class="textarea_2" id="textarea_2"></textarea>
+
+  </div>
+
+  <div class="modal_buttons">
+    <button class="saveButton-modal" id="saveButton-modal">Save</button>
+    <button class="closeButton-modal" id="closeButton-modal">Cancel</button>
+  </div>
+
   </dialog>
 
 <div class="main_container">
   
   <div class="container_editor">
-    <div class="editor_title">Editor</div>
-    <div class="control-panel">
-      &nbsp; &nbsp;
-      <select id="languages" class="languages" onchange="changeLanguage()">
-          <option value="c"> C </option>
-          <option value="cpp"> C++ </option>
-          <option value="php"> PHP </option>
-          <option value="python"> Py. </option>
-          <option value="node"> JS </option>
-      </select>
-  </div>
-    <my-editor class="editor" value = "//your code here"></my-editor>
-      <div class="editor_buttons">
-        <form class="saveForm">
-          <button class="saveButton" type="submit">Save</button>
-        </form>
-        <button class="loadButton">Load</button>
-        <button class="run-button" onclick="executeCode()">Run</button>
+    <div class="editor_header">
+      <div class="editor_title">Editor</div>
+      <div class="control-panel">
+        &nbsp; &nbsp;
+        <select id="languages" class="languages" onchange="changeLanguage()">
+            <option value="c"> C </option>
+            <option value="cpp"> C++ </option>
+            <option value="php"> PHP </option>
+            <option value="python"> Py. </option>
+            <option value="node"> JS </option>
+        </select>
     </div>
+    <div class="buttons">
+      <form class="saveForm">
+        <button class="saveButton" type="submit">Save</button>
+      </form>
+      <button class="loadButton">Load</button>
+      <button class="run-button" onclick="executeCode()">Run</button>
+  </div>
+
+    </div>
+    <div class="container_code">
+      <my-editor class="editor" value = "//your code here"></my-editor>
+    </div>
+    
   </div>
 
   <div class="container_exercises">
-    <div class="exercises_title">Exercises</div>
-    <button class="add-button">Add +</button>
+    <div class="exercises_header">
+      <div class="exercises_title">Exercises</div>
+      <button class="add-button">+</button>
+    </div>
+    <div class="container_list">
+      <!-- LIST CONTENT -->
+    </div>
   </div>
 </div>
 
