@@ -82,7 +82,7 @@ body {
     cursor: pointer;
     color: white;
     font-size: 120%;
-    width: 50px;
+    width: 70px;
     height: 40px;
     background-color: rgb(19, 21, 21);
     border-radius: 5px;
@@ -160,6 +160,7 @@ body {
     font-size: 100%;
     width: 700px;
     height: 450px;
+    z-index: 1;
 }
 
 #modal_title{
@@ -184,12 +185,12 @@ body {
 }
 
 .textarea_1{
-    font-weight: bold;
+    font-weight: 400;
     overflow: hidden;
-    font-size: 30px;
+    font-size: 28px;
     resize: none;
     width: 500px;
-    height: 32px;
+    height: 28px;
     background-color: rgb(19, 21, 21);
     color: white;
     border-bottom-right-radius: 5px;
@@ -268,12 +269,9 @@ body {
 
 
 .newEx{
-    font-family: Arial, Helvetica, sans-serif;
-    color: white;
-    font-size: 120%;
-    background-color: rgb(19, 21, 21);
+    display: flex;
+    flex-direction: column;
     outline: white solid 1px;
-    width: 700px;
     height: 100px;  
 }
 
@@ -281,10 +279,9 @@ body {
     width: 700px;
     height: 450px;
     margin-top: 10px;
-    outline: 1px solid white;
+    /* outline: 1px solid white; */
     display: flex;
     flex-direction: column;
-
 }
 
 .container_list > * {
@@ -315,4 +312,28 @@ body {
     height: 40px;
     width: 165px;
     margin-left: auto;
+}
+
+.text1{
+    font-size: 120%;
+    font-family: Arial, Helvetica, sans-serif;
+    color: white;
+}
+
+.text2{
+    font-size: 80%;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+
+}
+
+input#textarea_1::placeholder{
+    color: grey;
+    font-style: italic;
+    font-size: 80%;
+}
+
+textarea#textarea_2::placeholder{
+    color: grey;
+    font-style: italic;
 }

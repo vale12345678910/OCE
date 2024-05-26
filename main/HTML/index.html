@@ -9,17 +9,19 @@
 </head>
 <body>
 
+
+
+
+
   <!-- MODAL FOR EXERCISES -->
   <dialog  class="modal" id="modal">
 
     <div class="modal_header">
-      <div id="modal_title">Exercise <span id="exerciseCount"></span> </div>
+      <input id="textarea_1" class="textarea_1"></input>
     </div>
 
     <div class="container_textarea">
-    <textarea class="textarea_1" id="textarea_1"></textarea>
     <textarea class="textarea_2" id="textarea_2"></textarea>
-
   </div>
 
   <div class="modal_buttons">
@@ -54,7 +56,7 @@
 
     </div>
     <div class="container_code">
-      <my-editor class="editor" value = "//your code here"></my-editor>
+      <div class="editor" id="editor"></div>
     </div>
     
   </div>
@@ -120,10 +122,14 @@
     });
   </script>
 
+  <script src="JS/LIB_Ace/ace.js"></script>
+
+  <script>
+    
+
+  </script>
 
 
-
-<script src="JS/LIB_Ace/ace.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="JS/my-editor.js"></script>
 <script src="JS/Index.js"></script>
