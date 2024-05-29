@@ -17,16 +17,17 @@
   <dialog  class="modal" id="modal">
     <h1 class="modal_title" id="modal_title">Add new exercise:</h1>
 
-    
-      
-
-
     <div class="container_textarea">
-      <div class="input-data">
-        <input type="text"  id="textarea_1" class="textarea_1">
-        <lable>Title</lable>
+      <div class="input_title">
+        <input autocomplete="off" type="text"  required id="textarea_1" class="textarea_1">
+        <label>Title</label>
       </div>
-      <textarea class="textarea_2" id="textarea_2"></textarea>
+
+      <div class="input_desc">
+        <textarea rows="1" autocomplete="off" type="text" required class="textarea_2" id="textarea_2"></textarea>
+        <label>Description</label>
+      </div>
+      
     </div>
 
   <div class="modal_buttons">
@@ -69,7 +70,9 @@
   <div class="container_exercises">
     <div class="exercises_header">
       <div class="exercises_title">Exercises</div>
-      <button class="add-button">+</button>
+      <button class="add-button">
+        <div class="add-plus">+</div>
+      </button>
     </div>
     <div class="container_list">
       <!-- LIST CONTENT -->

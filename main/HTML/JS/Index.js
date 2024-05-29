@@ -129,5 +129,17 @@ function createTextinNewEx(newDiv){
 }
 
 
+document.addEventListener('DOMContentLoaded', function() {
+  const textarea = document.getElementById('textarea_2');
+
+  textarea.addEventListener('input', function() {
+      this.style.height = 'auto';
+      this.style.height = this.scrollHeight + 'px';
+  });
+
+  // Trigger the input event on page load to adjust the initial height
+  textarea.dispatchEvent(new Event('input'));
+});
+
 
 
