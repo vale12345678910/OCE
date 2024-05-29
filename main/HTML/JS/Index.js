@@ -61,8 +61,6 @@ const closeModal = document.querySelector(".closeButton-modal")
 
 openModal.addEventListener("click", () =>{
   exerciseCount++;
-  textarea_1.placeholder = exerciseCount +". Exercise /(Pts.)";
-  textarea_2.placeholder = "description of exercise"
   modal.style.display = "flex" // -> Lüthi Fragen ob bessere Methode, Problem: Wenn Escape gedrückt (Modal offen), dann schliesst es sich, flex bleibt aber (nicht auf none gesetzt.)
   modal.showModal()
   console.log("MODAL OPEN")
@@ -85,7 +83,7 @@ textarea_1.addEventListener("input", function(){
 })
 
 // Textarea_1.updated() is getting updated.
-textarea_1.addEventListener("input", function(){
+textarea_2.addEventListener("input", function(){
   console.log("Value Updated")
   return textarea_2.value;
 })

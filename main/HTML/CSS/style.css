@@ -97,12 +97,13 @@ body {
     transition: all 0.1s linear;
     border: 1px solid rgb(255, 255, 255);
     cursor: pointer;
-    border-radius: 5px;
-    width: 40px;
-    height: 40px;
-    font-size: 150%;
+    border-radius: 100%;
+    width: 45px;
+    height: 45px;
+    font-size: 200%;
     background-color: rgb(19, 21, 21);
-    color: white
+    color: white;
+    
 }
 
 .add-button:hover{
@@ -171,6 +172,7 @@ body {
 }
 
 #modal{
+    padding: 100px;
     display: none;
     flex-direction: column;
     z-index: 1;
@@ -180,26 +182,26 @@ body {
     border-radius: 5px;
 }
 
-#exercise::backdrop{
-    background: black;
+#modal::backdrop{
+    background-color: black;
+    opacity: 0.3;
 }
+
+
+.container_textarea{
+    width: 600px;
+}
+
+
 
 .textarea_1{
-    font-weight: 400;
-    overflow: hidden;
-    font-size: 28px;
-    resize: none;
-    width: 500px;
-    height: 28px;
-    background-color: rgb(19, 21, 21);
-    color: white;
-    border-bottom-right-radius: 5px;
-    border-top-right-radius: 5px;
-    outline: white solid 1px;
-    font-family: Arial, Helvetica, sans-serif;
+  
 }
 
+
+
 .textarea_2{
+    display: none;
     font-weight: 100;
     overflow: hidden;
     font-size: 17px;
@@ -240,7 +242,6 @@ body {
     /* outline: 2px solid yellow; */
     justify-content: space-between;
     margin-left: auto;
-    /* styling */
     transition: all 0.1s linear;
     background-color: rgb(19, 21, 21);
     height: 40px;
@@ -269,10 +270,16 @@ body {
 
 
 .newEx{
+    border-radius: 10px;
+    transition: all 0.1s linear;
     display: flex;
     flex-direction: column;
-    outline: white solid 1px;
+    /* outline: white solid 1px; */
     height: 100px;  
+}
+
+.newEx:hover{
+    background-color: rgb(73, 68, 68);
 }
 
 .container_list{
@@ -315,6 +322,8 @@ body {
 }
 
 .text1{
+    margin-top: 5px;
+    margin-left: 5px;
     font-size: 120%;
     font-family: Arial, Helvetica, sans-serif;
     color: white;
@@ -327,13 +336,9 @@ body {
 
 }
 
-input#textarea_1::placeholder{
-    color: grey;
-    font-style: italic;
-    font-size: 80%;
+
+#modal_title{
+    font-size: larger;
+
 }
 
-textarea#textarea_2::placeholder{
-    color: grey;
-    font-style: italic;
-}
