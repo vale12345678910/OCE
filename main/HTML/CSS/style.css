@@ -8,7 +8,7 @@ body {
 
 
 .loadButton{
-    transition: all 1s linear;
+    transition: all 0.1s linear;
     cursor: pointer;
     border: none;
     border-radius: 5px;
@@ -25,7 +25,7 @@ body {
 }
 
 .saveButton{
-    transition: all 1s linear;
+    transition: all 0.1s linear;
     border: none;
     cursor: pointer;
     border-radius: 5px;
@@ -42,9 +42,9 @@ body {
 
 
 .main_container {
-    width: 1600px;
-    margin: 100px;
-    justify-content: space-between;
+    width: 100%;
+    height: 100%;
+    padding: 5%;
     display: flex;
     
 }
@@ -54,6 +54,7 @@ body {
     width: 700px;
     display: flex;
     flex-direction: column;
+    margin-right: 10%;
     /* outline: 2px solid white;  */
 }
 
@@ -90,36 +91,51 @@ body {
 
 
 .add-plus{
-    font-size: 220%;
-    padding: 0;
+    font-size: 35px;
     font-weight: 500;
 }
 
-.add-button{
-    border: 1px solid white;
-    padding: 0;
-    cursor: pointer;
+
+.circle{
+    width: 60px;
+    height: 60px;
     border-radius: 100%;
-    width: 45px;
-    height: 45px;
+    display: flex;
     background-color: rgb(19, 21, 21);
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border: 1px solid white;
     color: white;
+}
+
+
+
+.add-button{
+    display: flex;
+    position: absolute;
+    bottom: 100px;
+    right: 100px;
+    background-color: transparent;
+    /* border:1px red solid; */
+    border: none;
+    border-radius: 100%;
+    width: 80px;
+    height: 80px;
     justify-content: center;
     align-items: center;
-    margin-left: auto;
-    display: flex;
 }
 
 
-.add-button:hover{
-    transition: all 1s linear;
-    background-color: grey;
-    border: transparent;
+.circle:hover{
+    transition: all 0.1s ease;
+    background-color: rgb(255, 255, 255, 0.5);
+    border: none;
+    color: white;
 }
-
 
 .run-button{
-    transition: all 1s linear;
+    transition: all 0.1s linear;
     border-radius: 5px;
     background-color: rgb(19, 21, 21);
     color: white;
@@ -168,7 +184,7 @@ body {
     z-index: 1;
 }
 
-#modal_title{
+.modal_title{
     font-size: 150%;
     font-weight: 500;
     color: white;
@@ -187,7 +203,6 @@ body {
     outline: none;
     border-radius: 5px;
     overflow: hidden;
-
 }
 
 #modal::backdrop{
@@ -226,23 +241,15 @@ body {
     font-family: Arial, Helvetica, sans-serif;
     left: 0;
     pointer-events: none;
+    transition: all 0.2s ease;
 }
 
 .input_title input:focus ~ label,
 .input_title input:valid ~ label {
-    transition: all 0.3s ease;
     transform: translateY(-20px);
     font-size: 15px;
     color: rgb(255, 255, 255);
 }
-
-.input_title input:not(:focus):not(:placeholder-shown) ~ label {
-    transition: all 0.3s ease;
-    transform: translateY(0);
-    font-size: 20px;
-    color: rgb(255, 255, 255, 0.5);
-}
-
 
 
 
@@ -252,9 +259,10 @@ body {
     min-height: 20px;
     height: auto;
     border: none;
-    border-bottom: 1px solid white;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.5);
     background-color: rgb(19, 21, 21);
     outline: none;
+    overflow: hidden;
 }
 
 .container_textarea .input_desc label{
@@ -265,39 +273,34 @@ body {
     font-size: 20px;
     position: absolute;
     left: 0;
+    top: 63px;
+    transition: all 0.2s ease;
 }
 
 .input_desc textarea:focus ~ label,
 .input_desc textarea:valid ~ label{
-    transition: all 0.3s ease;
-    transform: translateY(-20px);
+    transform: translateY(-22px);
     font-size: 15px;
     color: rgb(255, 255, 255);
 }
 
 
-.input_desc textarea:not(:focus):not(:placeholder-shown) ~ label {
-    transition: all 0.3s ease;
-    transform: translateY(0);
-    font-size: 20px;
-    color: rgb(255, 255, 255, 0.5);
+
+.exerciseTitleTextInput{
+    color: rgb(255, 255, 255);
+    font-size: 18px;
 }
 
-
-.textarea_1{
+.exerciseDescTextInput{
     color: rgb(255, 255, 255);
-    font-size: 100%;
-}
-
-.textarea_2{
-    color: rgb(255, 255, 255);
-    font-size: 100%;
+    font-size: 18px;
     font-family: Arial, Helvetica, sans-serif;
+    font-weight:100;
 }
 
 
 
-#closeButton-modal{
+.closeButton-modal{
     transition: all 0.1s linear;
     border-radius: 5px;
     background-color: rgb(19, 21, 21);
@@ -309,8 +312,8 @@ body {
     cursor: pointer;
 }
 
-#closeButton-modal:hover{
-    transition: 1s all ease;
+.closeButton-modal:hover{
+    transition: 0.1s all ease;
     background-color: grey;
 }
 
@@ -326,8 +329,7 @@ body {
     width: 250px;
 }
 
-#saveButton-modal{
-    transition: all 0.1s linear;
+.saveButton-modal{
     border-radius: 5px;
     background-color: rgb(19, 21, 21);
     color: rgb(255, 255, 255);
@@ -341,8 +343,8 @@ body {
 
 
 
-#saveButton-modal:hover{
-    transition: 1s ease all;
+.saveButton-modal:hover{
+    transition: 0.1s ease all;
     background-color: grey;
 }
 
@@ -352,7 +354,6 @@ body {
     transition: all 0.1s linear;
     display: flex;
     flex-direction: column;
-    /* outline: white solid 1px; */
     height: 100px;  
     cursor: pointer;
 }
@@ -368,6 +369,7 @@ body {
     /* outline: 1px solid white; */
     display: flex;
     flex-direction: column;
+    z-index: 2000;
 }
 
 .container_list > * {
@@ -402,7 +404,7 @@ body {
     margin-left: auto;
 }
 
-.text1{
+.exerciseTitleText{
     margin-top: 5px;
     margin-left: 5px;
     font-size: 120%;
@@ -410,7 +412,8 @@ body {
     color: white;
 }
 
-.text2{
+.exerciseDescText{
+    margin-left: 5px;
     font-size: 80%;
     color: white;
     font-family: Arial, Helvetica, sans-serif;
@@ -418,3 +421,16 @@ body {
 }
 
 
+#modal_editExercise{
+    padding: 20px;
+    display: none;
+    flex-direction: column;
+    z-index: 1222;
+    background-color: rgb(19, 21, 21);
+    width: 500px;
+    height: max-content;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    overflow: hidden;
+}

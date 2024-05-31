@@ -9,22 +9,18 @@
 </head>
 <body>
 
-
-
-
-
   <!-- MODAL FOR EXERCISES -->
   <dialog  class="modal" id="modal">
     <h1 class="modal_title" id="modal_title">Add new exercise:</h1>
 
     <div class="container_textarea">
       <div class="input_title">
-        <input autocomplete="off" type="text"  required id="textarea_1" class="textarea_1">
+        <input autocomplete="off" type="text"  required id="exerciseTitleTextInput" class="exerciseTitleTextInput">
         <label>Title</label>
       </div>
 
       <div class="input_desc">
-        <textarea rows="1" autocomplete="off" type="text" required class="textarea_2" id="textarea_2"></textarea>
+        <textarea rows="1" autocomplete="off" type="text" required class="exerciseDescTextInput" id="exerciseDescTextInput"></textarea>
         <label>Description</label>
       </div>
       
@@ -36,6 +32,34 @@
   </div>
 
   </dialog>
+
+
+
+  <dialog  class="modal_editExercise" id="modal_editExercise">
+    <h1 class="modal_title">Edit Exercise</h1>
+
+    <div class="container_textarea">
+      <div class="input_title">
+        <input autocomplete="off" type="text"  required id="exerciseTitleTextInputedit" class="exerciseTitleTextInput">
+        <label>Title</label>
+      </div>
+
+      <div class="input_desc">
+        <textarea rows="1" autocomplete="off" type="text" required class="exerciseDescTextInput" id="exerciseDescTextInputedit"></textarea>
+        <label>Description</label>
+      </div>
+      
+    </div>
+
+  <div class="modal_buttons">
+    <button class="saveButton-modal" id="saveButton-editExercise">Save</button>
+    <button class="closeButton-modal" id="closeButton-editExercise">Cancel</button>
+  </div>
+
+  </dialog>
+
+
+
 
 <div class="main_container">
   
@@ -70,9 +94,7 @@
   <div class="container_exercises">
     <div class="exercises_header">
       <div class="exercises_title">Exercises</div>
-      <button class="add-button">
-        <div class="add-plus">+</div>
-      </button>
+      
     </div>
     <div class="container_list">
       <!-- LIST CONTENT -->
@@ -82,7 +104,11 @@
 
 
 
-
+<button class="add-button" id="add-button">
+  <span class="circle">
+    <p class="add-plus">+</p>
+  </span>
+</button>
 
 
 
@@ -139,7 +165,6 @@
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<script src="JS/my-editor.js"></script>
 <script src="JS/Index.js"></script>
 <script src="JS/import.js" type="module"></script>
 
