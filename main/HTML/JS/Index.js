@@ -1,5 +1,25 @@
 
+let exerciseCount = 0;
+
+
+
 const newEx = document.getElementById("newEx")
+const saveButton = document.getElementById("saveButton-modal")
+const modal_editExercise = document.getElementById("modal_editExercise")
+
+
+const modal_closeEditExercise = document.getElementById("closeButton-editExercise")
+const exerciseTitleTextInputedit = document.getElementById("exerciseTitleTextInputedit")
+const exerciseDescTextInputedit = document.getElementById("exerciseDescTextInputedit")
+
+
+const saveEditedExerciseButton = document.getElementById("saveButton-editExercise")
+const closeEditedExerciseButton = document.getElementById("closeButton-editExercise")
+
+const alert_div = document.querySelector(".alert")
+const alert_cross = document.querySelector(".alert-cross")
+
+
 
 
 let editor;
@@ -8,7 +28,21 @@ window.onload = function() {
     editor = ace.edit("editor");
     editor.setTheme("ace/theme/twilight");
     editor.session.setMode("ace/mode/c_cpp");
+
+
+    editor.session.on("change", function(delta){
+      const ace_content = editor.getValue();
+    })
 }
+
+
+
+
+
+
+
+
+
 
 
 //ChangeLanguage fun.
@@ -21,6 +55,8 @@ function changeLanguage() {
   else if(language == 'php')editor.session.setMode("ace/mode/php");
   else if(language == 'python')editor.session.setMode("ace/mode/python");
   else if(language == 'node')editor.session.setMode("ace/mode/javascript");
+
+  console.log("Language:", language)
 }
 
 
@@ -47,7 +83,7 @@ function executeCode() {
 
 
 //OWN CODE
-let exerciseCount = 0;
+
 const exerciseTitleTextInput = document.getElementById('exerciseTitleTextInput');
 const exerciseDescTextInput = document.getElementById('exerciseDescTextInput');
 
@@ -71,6 +107,7 @@ openModal.addEventListener("click", () =>{
   exerciseCount++;
   exerciseTitleTextInput.value ="";
   exerciseDescTextInput.value = "";
+  exerciseDescTextInput.style.height="18px";
   modal.style.display = "flex" // -> Lüthi Fragen ob bessere Methode, Problem: Wenn Escape gedrückt (Modal offen), dann schliesst es sich, flex bleibt aber (nicht auf none gesetzt.)
   modal.showModal()
   console.log("MODAL OPEN")
@@ -100,6 +137,9 @@ exerciseDescTextInput.addEventListener("input", function(){
 
 
 function saveModal(){
+  // if(getElementById("checkbox")){
+  //   //Editor value (ace_content) should get appended to the exercise. but it does not have to be shown. (only for the student later on.)
+  // }
   const newDiv = createNewEx()
   createTextinNewEx(newDiv)
   modal.style.display = "none"
@@ -107,7 +147,10 @@ function saveModal(){
   console.log("MODAL SAVED")
 }
 
-document.querySelector("#saveButton-modal").addEventListener("click", function(){
+
+
+
+saveButton.addEventListener("click", function(){
   saveModal(exerciseTitleTextInput.value, exerciseDescTextInput.value)
 })
 
@@ -139,8 +182,9 @@ document.addEventListener('DOMContentLoaded', function() {
   const textarea = document.getElementById('exerciseDescTextInput');
 
   textarea.addEventListener('input', function() {
+      this.style.minHeight ="20" + "px";
       this.style.height = 'auto';
-      this.style.height = this.scrollHeight + 'px';
+      this.style.height = (this.scrollHeight-5) + 'px';
   });
 
   // Trigger the input event on page load to adjust the initial height
@@ -150,17 +194,34 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
-const modal_editExercise = document.getElementById("modal_editExercise")
-// const openEditExercise = document.getElementById("add-button")
-const modal_closeEditExercise = document.getElementById("closeButton-editExercise")
-const exerciseTitleTextInputedit = document.getElementById("exerciseTitleTextInputedit")
-const exerciseDescTextInputedit = document.getElementById("exerciseDescTextInputedit")
+
+document.addEventListener('DOMContentLoaded', function() {
+  const textareaEdit = document.getElementById('exerciseDescTextInputedit');
+
+  textareaEdit.addEventListener('input', function() {
+      this.style.minHeight ="20" + "px";
+      this.style.height = 'auto';
+      this.style.height = (this.scrollHeight-5) + 'px';
+  });
+
+  // Trigger the input event on page load to adjust the initial height
+  textareaEdit.dispatchEvent(new Event('input'));
+});
 
 
 
 
-const saveEditedExerciseButton = document.getElementById("saveButton-editExercise")
-const closeEditedExerciseButton = document.getElementById("closeButton-editExercise")
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -170,6 +231,7 @@ const closeEditedExerciseButton = document.getElementById("closeButton-editExerc
 
 let lastNumber = null; // Define lastNumber outside the event listeners
 
+// Event listener for container_list
 container_list.addEventListener("click", function(event) {
   // Check if the clicked element or its parent has the class "newEx", "exerciseTitleText", or "exerciseDescText"
   if (
@@ -184,15 +246,31 @@ container_list.addEventListener("click", function(event) {
       const divID = newExDiv.id;
       lastNumber = divID.match(/\d+$/)[0]; // Store lastNumber in the outer scope
       editExercise(lastNumber);
+  
+      
     }
   }
 });
+
+
+saveButton.addEventListener('click', function() {
+  
+  const ExTitle = document.getElementById("exerciseTitleText" + exerciseCount);
+
+  if (ExTitle.textContent == "") {
+    ExTitle.textContent ="Title undefined"
+  } else {
+    return
+  }
+});
+
+
 
 // SAVE EDITED MODAL
 saveEditedExerciseButton.addEventListener("click", function() {
   console.log(lastNumber); // Access lastNumber from the outer scope
   // Now you can use lastNumber here
-  document.getElementById("exerciseTitleText" + lastNumber).textContent = exerciseTitleTextInputedit.value;
+  document.getElementById("exerciseTitleText" + lastNumber).textContent = exerciseTitleTextInputedit.value || "Title undefined";
   document.getElementById("exerciseDescText" + lastNumber).textContent = exerciseDescTextInputedit.value;
   modal_editExercise.style.display = "none";
   modal_editExercise.close();
@@ -216,3 +294,42 @@ closeEditedExerciseButton.addEventListener("click", function(){
   modal_editExercise.showModal();
   console.log("MODAL EDIT OPEN")
 }
+
+
+
+//createTest Function
+document.getElementById('createTestButton').addEventListener('click', function() {
+  if (exerciseCount == 0) {
+    alert_div.style.visibility = "visible";
+  } else {
+    const exercises = document.querySelectorAll('.newEx');
+    const zip = new JSZip();
+    const testFolder = zip.folder('test');
+
+    exercises.forEach((exercise, index) => {
+      console.log(index);
+      const title = exercise.querySelector(`#exerciseTitleText${index + 1}`).textContent;
+      const description = exercise.querySelector(`#exerciseDescText${index + 1}`).textContent;
+      const exerciseFolder = testFolder.folder(`exercise${index + 1}`);
+
+      exerciseFolder.file('title.txt', title);
+      exerciseFolder.file('description.txt', description);
+    });
+
+    zip.generateAsync({ type: 'blob' }).then(function(content) {
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(content);
+      a.download = 'test.zip';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    });
+  }
+});
+
+
+
+
+alert_cross.addEventListener("click", function(){
+  alert_div.style.visibility = "hidden"
+})

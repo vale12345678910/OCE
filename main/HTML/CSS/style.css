@@ -5,9 +5,26 @@ body {
     display: flex;
 }
 
+.buttons{
+    transition: all 0.1s ease;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    width: 80px;
+    height: 40px;
+    font-size: 100%;
+    background-color: rgb(19, 21, 21);
+    color: white;
+}
+
+.buttons:hover{
+    background-color: grey;
+}
 
 
-.loadButton{
+
+
+#loadButton{
     transition: all 0.1s linear;
     cursor: pointer;
     border: none;
@@ -17,14 +34,13 @@ body {
     font-size: 100%;
     background-color: rgb(19, 21, 21);
     color: white;
-    border: none;
 }
 
-.loadButton:hover{
+#loadButton:hover{
     background-color: grey;
 }
 
-.saveButton{
+#saveButton{
     transition: all 0.1s linear;
     border: none;
     cursor: pointer;
@@ -36,7 +52,7 @@ body {
     color: white
 }
 
-.saveButton:hover{
+#saveButton:hover{
     background-color: grey;
 }
 
@@ -90,51 +106,34 @@ body {
 }
 
 
-.add-plus{
+
+#add-button{
+    color: rgb(255, 255, 255);
     font-size: 35px;
     font-weight: 500;
-}
-
-
-.circle{
-    width: 60px;
-    height: 60px;
-    border-radius: 100%;
-    display: flex;
-    background-color: rgb(19, 21, 21);
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    border: 1px solid white;
-    color: white;
-}
-
-
-
-.add-button{
     display: flex;
     position: absolute;
     bottom: 100px;
     right: 100px;
     background-color: transparent;
-    /* border:1px red solid; */
-    border: none;
+    border:1px rgb(255, 255, 255) solid;
     border-radius: 100%;
-    width: 80px;
-    height: 80px;
+    width: 60px;
+    height: 60px;
     justify-content: center;
     align-items: center;
 }
 
 
-.circle:hover{
+#add-button:hover{
     transition: all 0.1s ease;
     background-color: rgb(255, 255, 255, 0.5);
     border: none;
     color: white;
+    cursor: pointer;
 }
 
-.run-button{
+#run-button{
     transition: all 0.1s linear;
     border-radius: 5px;
     background-color: rgb(19, 21, 21);
@@ -146,7 +145,7 @@ body {
     cursor: pointer;
 }
 
-.run-button:hover{
+#run-button:hover{
     background-color: grey;
 }
 
@@ -197,7 +196,7 @@ body {
     flex-direction: column;
     z-index: 1;
     background-color: rgb(19, 21, 21);
-    width: 500px;
+    width: 600px;
     height: max-content;
     border: none;
     outline: none;
@@ -212,7 +211,7 @@ body {
 
 
 .container_textarea{
-    width: 500px;
+    width: fit-content;
     height: 200px;
     margin-top: 20px;
     position: relative;
@@ -295,12 +294,13 @@ body {
     color: rgb(255, 255, 255);
     font-size: 18px;
     font-family: Arial, Helvetica, sans-serif;
-    font-weight:100;
+    height: auto;
+    
 }
 
 
 
-.closeButton-modal{
+#closeButton-modal{
     transition: all 0.1s linear;
     border-radius: 5px;
     background-color: rgb(19, 21, 21);
@@ -312,13 +312,13 @@ body {
     cursor: pointer;
 }
 
-.closeButton-modal:hover{
+#closeButton-modal:hover{
     transition: 0.1s all ease;
     background-color: grey;
 }
 
 
-.buttons{
+.editor_buttons_container{
     display: flex;
     /* outline: 2px solid yellow; */
     justify-content: space-between;
@@ -329,7 +329,7 @@ body {
     width: 250px;
 }
 
-.saveButton-modal{
+#saveButton-modal{
     border-radius: 5px;
     background-color: rgb(19, 21, 21);
     color: rgb(255, 255, 255);
@@ -343,13 +343,14 @@ body {
 
 
 
-.saveButton-modal:hover{
+#saveButton-modal:hover{
     transition: 0.1s ease all;
     background-color: grey;
 }
 
 
 .newEx{
+    outline: 1px rgb(255, 255, 255, 0.5) solid;
     border-radius: 10px;
     transition: all 0.1s linear;
     display: flex;
@@ -396,10 +397,9 @@ body {
 
 .modal_buttons{
     z-index: 1111;
-    margin-top: 10px;
     display: flex;
     justify-content: space-between;
-    height: 40px;
+    height: fit-content;
     width: 165px;
     margin-left: auto;
 }
@@ -413,7 +413,9 @@ body {
 }
 
 .exerciseDescText{
+    position: relative;
     margin-left: 5px;
+    top: 0px;
     font-size: 80%;
     color: white;
     font-family: Arial, Helvetica, sans-serif;
@@ -433,4 +435,224 @@ body {
     outline: none;
     border-radius: 5px;
     overflow: hidden;
+}
+
+#container_modal_content{
+    display: flex;
+}
+
+
+
+
+
+
+
+
+
+#container_options{
+    width: auto;
+    height: 200px;
+    padding-left: 20px;
+    display: flex;
+}
+
+
+.checkboxes{
+    width: 15px;
+    height: 15px;
+}
+
+
+#tooltip_code{
+    position: absolute;
+    cursor:pointer;
+    padding: 10px;
+    font-family: Arial, Helvetica, sans-serif;
+
+}
+
+#tooltip_code_text{
+    position: absolute;
+    left: 50%;
+    top: 0;
+    margin-top: 25px;
+    transform: translateX(-50%);
+    background-color: transparent;
+    border: 1px rgb(255, 255, 255, 0.5) solid;
+    color: rgb(255, 255, 255, 0.5);
+    white-space: nowrap;
+    padding: 5px 10px;
+    border-radius: 5px;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.1s ease;
+    pointer-events: none;
+    font-size: 14px;
+}
+
+
+#tooltip_code:hover #tooltip_code_text{
+    top: -130%;
+    visibility: visible;
+    opacity: 1;
+    
+}
+
+#code_option_button{
+    color: white;
+}
+
+
+
+
+
+#tooltip_code_editable{
+    position: absolute;
+    cursor:pointer;
+    padding: 10px;
+    margin-top: 50px;
+    font-family: Arial, Helvetica, sans-serif;
+
+}
+
+#tooltip_code_editable_text{
+    z-index: 1111;
+    position: absolute;
+    left: 50%;
+    top: 0;
+    margin-top: 25px;
+    transform: translateX(-50%);
+    background-color: rgb(19, 21, 21);
+    border: 1px rgb(255, 255, 255, 0.5) solid;
+    color: rgb(255, 255, 255, 0.5);
+    white-space: nowrap;
+    padding: 5px 10px;
+    border-radius: 5px;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.1s ease;
+    pointer-events: none;
+    font-size: 14px;
+}
+
+
+#tooltip_code_editable:hover #tooltip_code_editable_text{
+    z-index: 1111;
+    top: -130%;
+    visibility: visible;
+    opacity: 1;
+    
+}
+
+#code_editable_option_button{
+    color: white;
+}
+
+
+
+
+
+
+
+
+#tooltip_code_runnable{
+    position: absolute;
+    cursor:pointer;
+    padding: 10px;
+    margin-top: 100px;
+    font-family: Arial, Helvetica, sans-serif;
+
+}
+
+#tooltip_code_runnable_text{
+    z-index: 1111;
+    position: absolute;
+    left: 50%;
+    top: 0;
+    margin-top: 25px;
+    transform: translateX(-50%);
+    background-color: rgb(19, 21, 21);
+    border: 1px rgb(255, 255, 255, 0.5) solid;
+    color: rgb(255, 255, 255, 0.5);
+    white-space: nowrap;
+    padding: 5px 10px;
+    border-radius: 5px;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.1s ease;
+    pointer-events: none;
+    font-size: 14px;
+}
+
+
+#tooltip_code_runnable:hover #tooltip_code_runnable_text{
+    z-index: 1111;
+    top: -130%;
+    visibility: visible;
+    opacity: 1;
+    
+}
+
+#code_runnable_option_button{
+    color: white;
+}
+
+#createTestButton{
+    width: 120px;
+    margin-left: auto;
+}
+
+
+
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 24
+}
+
+.alert{
+    visibility: hidden;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 10px;
+    box-sizing: border-box;
+    border-radius: 5px;
+    width: 100%;
+    height: 50px;
+    background-color: grey;
+    margin-top: 20px;
+}
+
+
+
+
+
+.alert-icon{
+    display: flex;
+    align-items: center;
+}
+
+.container_alerts{
+    position: absolute;
+    width: 480px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.alert-text{
+    font-family: Arial, Helvetica, sans-serif;
+    font-style: italic;
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    color: black;
+    font-size: 18px;
+}
+
+
+.alert-cross{
+    cursor: pointer;
 }

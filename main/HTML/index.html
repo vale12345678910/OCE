@@ -3,32 +3,59 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Express Server Example</title>
+  <title>Code Editor Integration for SEB Exams</title>
   <link rel="stylesheet" href="CSS/style.css">
-  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+
 </head>
 <body>
 
   <!-- MODAL FOR EXERCISES -->
   <dialog  class="modal" id="modal">
-    <h1 class="modal_title" id="modal_title">Add new exercise:</h1>
+    <h1 class="modal_title" id="modal_title">Add exercise</h1>
 
-    <div class="container_textarea">
-      <div class="input_title">
-        <input autocomplete="off" type="text"  required id="exerciseTitleTextInput" class="exerciseTitleTextInput">
-        <label>Title</label>
-      </div>
 
-      <div class="input_desc">
-        <textarea rows="1" autocomplete="off" type="text" required class="exerciseDescTextInput" id="exerciseDescTextInput"></textarea>
-        <label>Description</label>
-      </div>
+    <div id="container_modal_content">
+      <div class="container_textarea">
+        <div class="input_title">
+          <input autocomplete="off" type="text"  required id="exerciseTitleTextInput" class="exerciseTitleTextInput">
+          <label>Title</label>
+        </div>
+  
+        <div class="input_desc">
+          <textarea rows="1" autocomplete="off" type="text" required class="exerciseDescTextInput" id="exerciseDescTextInput"></textarea>
+          <label>Description</label>
+        </div>
       
+        </div>
+      <div id="container_options">
+        <div id="tooltip_code">
+          <span id="tooltip_code_text">Current editor code is used in the exercise</span>
+          <input class="checkboxes" id="checkbox_code" type="checkbox">
+          <span id="code_option_button">Code</span>
+        </div>
+
+        <div id="tooltip_code_editable">
+          <span id="tooltip_code_editable_text">Custom Code can be edited</span>
+          <input class="checkboxes" id="checkbox_code_editable" type="checkbox">
+          <span id="code_editable_option_button">Edit</span>
+        </div>
+
+        <div id="tooltip_code_runnable">
+          <span id="tooltip_code_runnable_text">Code is runnable</span>
+          <input class="checkboxes" id="checkbox_code_runnable" type="checkbox">
+          <span id="code_runnable_option_button">Run</span>
+        </div>
+
+      </div>
     </div>
+    
 
   <div class="modal_buttons">
-    <button class="saveButton-modal" id="saveButton-modal">Save</button>
-    <button class="closeButton-modal" id="closeButton-modal">Cancel</button>
+    <button class="buttons" id="saveButton-modal">Save</button>
+    <button class="buttons" id="closeButton-modal">Cancel</button>
   </div>
 
   </dialog>
@@ -36,10 +63,10 @@
 
 
   <dialog  class="modal_editExercise" id="modal_editExercise">
-    <h1 class="modal_title">Edit Exercise</h1>
+    <h1 class="modal_title">Edit exercise</h1>
 
     <div class="container_textarea">
-      <div class="input_title">
+      <div class="input_title" id="input_title">
         <input autocomplete="off" type="text"  required id="exerciseTitleTextInputedit" class="exerciseTitleTextInput">
         <label>Title</label>
       </div>
@@ -52,16 +79,35 @@
     </div>
 
   <div class="modal_buttons">
-    <button class="saveButton-modal" id="saveButton-editExercise">Save</button>
-    <button class="closeButton-modal" id="closeButton-editExercise">Cancel</button>
+    <button class="buttons" id="closeButton-editExercise">Cancel</button>
+    <button class="buttons" id="saveButton-editExercise">Save</button>
   </div>
 
   </dialog>
 
 
+<div class="container_alerts">
+  <div class="alert">
+    <div class="alert-icon">
+      <span class="material-symbols-outlined">
+        info
+        </span>
+    </div>
+    <div class="alert-text">
+      You dont have enough exercises created!
+    </div>
+    <div class="alert-cross">
+      <span class="material-symbols-outlined">
+        close
+        </span>
+    </div>
+  </div>
+</div>
+
 
 
 <div class="main_container">
+  
   
   <div class="container_editor">
     <div class="editor_header">
@@ -76,12 +122,12 @@
             <option value="node"> JS </option>
         </select>
     </div>
-    <div class="buttons">
+    <div class="editor_buttons_container">
       <form class="saveForm">
-        <button class="saveButton" type="submit">Save</button>
+        <button class="buttons" type="submit">Save</button>
       </form>
-      <button class="loadButton">Load</button>
-      <button class="run-button" onclick="executeCode()">Run</button>
+      <button class="buttons" id="loadButton">Load</button>
+      <button class="buttons" id="runButton" onclick="executeCode()">Run</button>
   </div>
 
     </div>
@@ -94,6 +140,7 @@
   <div class="container_exercises">
     <div class="exercises_header">
       <div class="exercises_title">Exercises</div>
+      <button class="buttons" id="createTestButton">Create Test</button>
       
     </div>
     <div class="container_list">
@@ -104,18 +151,14 @@
 
 
 
-<button class="add-button" id="add-button">
-  <span class="circle">
-    <p class="add-plus">+</p>
-  </span>
-</button>
+<button class="buttons" id="add-button">+</button>
 
 
 
 
 
 
-  <script>
+  <!-- <script>
     document.addEventListener('DOMContentLoaded', () => {
       const saveForm = document.querySelector('.saveForm');
       const loadButton = document.querySelector('.loadButton');
@@ -154,21 +197,18 @@
         }
       });
     });
-  </script>
+  </script> -->
 
   <script src="JS/LIB_Ace/ace.js"></script>
 
-  <script>
-    
-
-  </script>
-
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="JS/Index.js"></script>
-<script src="JS/import.js" type="module"></script>
+<!-- <script src="JS/import.js" type="module"></script> -->
+<!-- ZIP the Test -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script> 
 
 
 
 </body>
 </html>
+
