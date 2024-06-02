@@ -1,6 +1,6 @@
 
 let exerciseCount = 0;
-
+let lastNumber = null; 
 
 
 const newEx = document.getElementById("newEx")
@@ -142,6 +142,8 @@ function saveModal(){
   // }
   const newDiv = createNewEx()
   createTextinNewEx(newDiv)
+  placeCrossInEx(newDiv)
+  placePenInEx(newDiv)
   modal.style.display = "none"
   modal.close();
   console.log("MODAL SAVED")
@@ -176,6 +178,30 @@ function createTextinNewEx(newDiv){
   newDiv.appendChild(exerciseTitleText)
   newDiv.appendChild(exerciseDescText)
 }
+
+function placeCrossInEx(newDiv){
+  const ExCross = document.createElement("span")
+  ExCross.className = "material-symbols-outlined ExCross"
+  ExCross.id ="ExCross" + exerciseCount;
+  ExCross.textContent = "close"
+  ExCross.setAttribute("onclick", `handleExCrossClick(event, ${exerciseCount})`);
+  newDiv.appendChild(ExCross)
+
+}
+
+function placePenInEx(newDiv){
+  const ExPen = document.createElement("span")
+  ExPen.className = "material-symbols-outlined ExPen"
+  ExPen.id ="ExPen" + exerciseCount;
+  ExPen.textContent = "edit"
+  ExPen.setAttribute("onclick", `handleExPenClick(event, ${exerciseCount})`);
+  newDiv.appendChild(ExPen)
+
+}
+
+
+
+
 
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -216,41 +242,37 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-let lastNumber = null; // Define lastNumber outside the event listeners
-
-// Event listener for container_list
-container_list.addEventListener("click", function(event) {
-  // Check if the clicked element or its parent has the class "newEx", "exerciseTitleText", or "exerciseDescText"
-  if (
-    event.target.classList.contains("newEx") ||
-    event.target.classList.contains("exerciseTitleText") ||
-    event.target.classList.contains("exerciseDescText") ||
-    event.target.parentElement.classList.contains("newEx")
-  ) {
-    // Find the closest ancestor with the class "newEx"
-    const newExDiv = event.target.closest(".newEx");
-    if (newExDiv) {
+function handleExPenClick(event, number) {
+  lastNumber = number
+  const newExDiv = event.target.closest('.newEx'); // Adjust the selector as needed
+  if (newExDiv) {
       const divID = newExDiv.id;
-      lastNumber = divID.match(/\d+$/)[0]; // Store lastNumber in the outer scope
+      const lastNumber = divID.match(/\d+$/)[0]; // Store lastNumber in the outer scope
       editExercise(lastNumber);
-  
-      
-    }
+      console.log("your are the biggest Clown:", lastNumber)
   }
-});
+}
+
+
+function handleExCrossClick(event, number){
+  lastNumber = number  //VERY IMPORTANT BUT I DONT GET IT actually maybe i get it (check with lüthi maybe)
+  const newExDiv = event.target.closest('.newEx');
+  if(newExDiv){
+    const divID = newExDiv.id;
+      const lastNumber = divID.match(/\d+$/)[0]; // Store lastNumber in the outer scope
+      deleteExercise(lastNumber);
+      console.log("your are the biggest Clown:", lastNumber)
+  }
+}
+
+function deleteExercise(lastNumber){
+  const exerciseToRemove = document.getElementById("newEx"+ lastNumber)
+  container_list.removeChild(exerciseToRemove);
+}
+
+
+
+
 
 
 saveButton.addEventListener('click', function() {
@@ -267,15 +289,17 @@ saveButton.addEventListener('click', function() {
 
 
 // SAVE EDITED MODAL
-saveEditedExerciseButton.addEventListener("click", function() {
-  console.log(lastNumber); // Access lastNumber from the outer scope
-  // Now you can use lastNumber here
+function saveEditedExercise(){
+  console.log(lastNumber); 
+
   document.getElementById("exerciseTitleText" + lastNumber).textContent = exerciseTitleTextInputedit.value || "Title undefined";
   document.getElementById("exerciseDescText" + lastNumber).textContent = exerciseDescTextInputedit.value;
   modal_editExercise.style.display = "none";
   modal_editExercise.close();
   console.log("MODAL EDIT SAVED");
-});
+};
+
+
 
 
 //CLOSE EDITED MODAL (DONT SAVE)
@@ -293,6 +317,7 @@ closeEditedExerciseButton.addEventListener("click", function(){
   modal_editExercise.style.display = "flex"
   modal_editExercise.showModal();
   console.log("MODAL EDIT OPEN")
+  console.log("CLOWN:", lastNumber)
 }
 
 

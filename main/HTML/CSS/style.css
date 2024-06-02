@@ -357,11 +357,12 @@ body {
     flex-direction: column;
     height: 100px;  
     cursor: pointer;
+    position: relative;
 }
 
-.newEx:hover{
+/* .newEx:hover{
     background-color: rgb(73, 68, 68);
-}
+} */
 
 .container_list{
     width: 700px;
@@ -605,11 +606,18 @@ body {
 
 
 .material-symbols-outlined {
+    color: rgb(255, 255, 255, 0.5);
   font-variation-settings:
   'FILL' 0,
   'wght' 400,
   'GRAD' 0,
-  'opsz' 24
+  'opsz' 20
+}
+
+.material-symbols-outlined:hover{
+    border-radius: 100%;
+    background-color: rgb(255, 255, 255, 0.25);
+    color: white;
 }
 
 .alert{
@@ -655,4 +663,21 @@ body {
 
 .alert-cross{
     cursor: pointer;
+}
+
+.ExCross{
+    display: flex;
+    top: 0;
+    
+    position: absolute;
+    right: 0;
+    padding: 5px;
+}
+
+.ExPen{
+    display: flex;
+    bottom: 0;
+    position: absolute;
+    right: 0;
+    padding: 5px;
 }
