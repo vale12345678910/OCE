@@ -1,0 +1,38 @@
+html {
+    font-size: 1vw;
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+  
+
+body {
+    background-color: rgb(19, 21, 21);
+    /* background-color: grey; */
+    overflow: hidden;
+}
+
+
+#title{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 3em;
+}
+
+#title2{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 2em;
+}
+
+.login_button{
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

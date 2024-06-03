@@ -9,12 +9,23 @@ import path from 'path';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 
+
 // Create an Express application
 const app = express();
 
+// Define the path to the static folder
+const staticFolderPath = path.join(__dirname, 'HTML');
+
+// Serve static files from the 'public' folder
+app.use(express.static(staticFolderPath));
+
 // Serve HTML file
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'index.html'));
+  res.sendFile(path.join(__dirname, 'HTML/index.html'));
+});
+
+app.get('/login', (req, res) => {
+  res.redirect("/teacher.html");
 });
 
 // Dummy save request
