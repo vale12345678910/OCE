@@ -2,14 +2,17 @@ html {
     font-size: 1vw;
 }
 
+
+
+
 *, *::before, *::after {
     box-sizing: border-box;
 }
   
 
 body {
-    background-color: rgb(19, 21, 21);
-    /* background-color: grey; */
+    /* background-color: rgb(19, 21, 21); */
+    background-color: lightblue;
     overflow: hidden;
     display: flex;
 }
@@ -19,7 +22,7 @@ body {
     cursor: pointer;
     border: none;
     border-radius: 5px;
-    width: 8em;
+    width: 4em;
     height: 40px;
     font-size: 100%;
     background-color: rgb(19, 21, 21);
@@ -38,8 +41,6 @@ body {
     cursor: pointer;
     border: none;
     border-radius: 5px;
-    width: 8em;
-    height: 40px;
     font-size: 100%;
     background-color: rgb(19, 21, 21);
     color: white;
@@ -54,8 +55,6 @@ body {
     border: none;
     cursor: pointer;
     border-radius: 5px;
-    width: 8em;
-    height: 40px;
     font-size: 100%;
     background-color: rgb(19, 21, 21);
     color: white
@@ -75,21 +74,21 @@ body {
 }
 
 .container_editor {
-    height: 500px;
-    width: 60em;
+    height: 400px;
+    width: 40em;
     display: flex;
     flex-direction: column;
     margin-right: 10%;
-    /* outline: 2px solid white;  */
+    outline: 2px solid white; 
 }
 
 
 .container_exercises {
-    height: 500px;
-    width: 70em;
+    height: 400px;
+    width: 40em;
     display: flex;
     flex-direction: column;
-    /* outline: 2px solid white; */
+    outline: 2px solid white;
 }
 
 
@@ -105,7 +104,7 @@ body {
     cursor: pointer;
     color: white;
     font-size: 120%;
-    width: 7em;
+    width: 4em;
     height: 40px;
     background-color: rgb(19, 21, 21);
     border-radius: 5px;
@@ -122,13 +121,13 @@ body {
     font-weight: 500;
     display: flex;
     position: absolute;
-    bottom: 100px;
-    right: 100px;
+    bottom: 2em;
+    right: 2em;
     background-color: transparent;
     border:1px rgb(255, 255, 255) solid;
     border-radius: 100%;
-    width: 6em;
-    height: 60px;
+    width: 2em;
+    height: 70px;
     justify-content: center;
     align-items: center;
 }
@@ -148,8 +147,6 @@ body {
     background-color: rgb(19, 21, 21);
     color: white;
     font-size: 100%;
-    height: 40px;
-    width: 8em;
     border: none;
     cursor: pointer;
 }
@@ -168,7 +165,7 @@ body {
 .exercises_header{
     display: flex;
     height: 40px;
-    width: 70em;
+    width: 40em;
 }
 
 .editor_title{
@@ -179,21 +176,20 @@ body {
 }
 
 .editor_header{
-    width: 70em;
+    width: 40em;
     height: 40px;
     display: flex;
 }
 
 
 .editor{
-    font-size: 100%;
-    width: 70em;
-    height: 450px;
+    width: 40vw;
+    height: 350px;
     z-index: 1;
 }
 
 .modal_title{
-    font-size: 150%;
+    font-size: 1.5em;
     font-weight: 500;
     color: white;
     font-family: Arial, Helvetica, sans-serif;
@@ -205,7 +201,7 @@ body {
     flex-direction: column;
     z-index: 1;
     background-color: rgb(19, 21, 21);
-    width: 60em;
+    width: 30em;
     height: max-content;
     border: none;
     outline: none;
@@ -224,16 +220,21 @@ body {
     height: 200px;
     margin-top: 20px;
     position: relative;
+    margin-right: 5em;
+
 }
 
 .container_textarea .input_title{
+    display: flex;
+    justify-content: center;
+    align-items: center;
     margin-bottom: 40px;
     height: 20px;
-    width: 100%;
+    width: fit-content;
 }
 
 .container_textarea .input_title input{
-    width: 40em;
+    width: fit-content;
     height: 20px;
     border: none;
     outline: none;
@@ -247,9 +248,9 @@ body {
     font-size: 20px;
     font-weight: 300;
     font-family: Arial, Helvetica, sans-serif;
-    left: 0;
     pointer-events: none;
     transition: all 0.2s ease;
+    left: 0;
 }
 
 .input_title input:focus ~ label,
@@ -259,11 +260,20 @@ body {
     color: rgb(255, 255, 255);
 }
 
+.input_desc{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 20em;
+    min-height: 20px;
+    width: fit-content;
+}
+
 
 
 .container_textarea .input_desc textarea {
     resize: none;
-    width: 40em;
+    width: fit-content;
     min-height: 20px;
     height: auto;
     border: none;
@@ -279,10 +289,9 @@ body {
     color: rgb(255, 255, 255, 0.5);
     pointer-events: none;
     font-size: 20px;
+    transition: all 0.2s ease;
     position: absolute;
     left: 0;
-    top: 63px;
-    transition: all 0.2s ease;
 }
 
 .input_desc textarea:focus ~ label,
@@ -296,15 +305,14 @@ body {
 
 .exerciseTitleTextInput{
     color: rgb(255, 255, 255);
-    font-size: 18px;
+    font-size: 1em;
 }
 
 .exerciseDescTextInput{
     color: rgb(255, 255, 255);
-    font-size: 18px;
+    font-size: 1em;
     font-family: Arial, Helvetica, sans-serif;
-    height: auto;
-    
+    height: 20px;
 }
 
 
@@ -315,10 +323,9 @@ body {
     background-color: rgb(19, 21, 21);
     color: rgb(255, 255, 255);
     font-size: 100%;
-    height: 40px;
-    width: 8em;
     border: none;
     cursor: pointer;
+    margin-right: 0.5em;
 }
 
 #closeButton-modal:hover{
@@ -329,13 +336,11 @@ body {
 
 .editor_buttons_container{
     display: flex;
-    /* outline: 2px solid yellow; */
-    justify-content: space-between;
+    outline: 2px solid yellow;
     margin-left: auto;
-    transition: all 0.1s linear;
     background-color: rgb(19, 21, 21);
     height: 40px;
-    width: 25em;
+    width: fit-content;
 }
 
 #saveButton-modal{
@@ -343,8 +348,6 @@ body {
     background-color: rgb(19, 21, 21);
     color: rgb(255, 255, 255);
     font-size: 100%;
-    height: 40px;
-    width: 8em;
     border: none;
     cursor: pointer;
     order: 1;
@@ -410,7 +413,6 @@ body {
     display: flex;
     justify-content: space-between;
     height: fit-content;
-    width: 16.5em;
     margin-left: auto;
 }
 
@@ -449,6 +451,7 @@ body {
 
 #container_modal_content{
     display: flex;
+    width: fit-content;
 }
 
 
@@ -460,10 +463,12 @@ body {
 
 
 #container_options{
-    width: auto;
+    outline: 1px red solid;
+    width: 10em;
     height: 200px;
-    padding-left: 20px;
+    padding-left: 2em;
     display: flex;
+    flex-direction: column;
 }
 
 
@@ -474,9 +479,11 @@ body {
 
 
 #tooltip_code{
-    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     cursor:pointer;
-    padding: 10px;
+    padding: 1em;
     font-family: Arial, Helvetica, sans-serif;
 
 }
@@ -510,6 +517,9 @@ body {
 
 #code_option_button{
     color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 

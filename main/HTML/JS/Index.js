@@ -208,9 +208,9 @@ document.addEventListener('DOMContentLoaded', function() {
   const textarea = document.getElementById('exerciseDescTextInput');
 
   textarea.addEventListener('input', function() {
-      this.style.minHeight ="20" + "px";
+      this.style.minHeight ="1" + "em";
       this.style.height = 'auto';
-      this.style.height = (this.scrollHeight-5) + 'px';
+      this.style.height = (this.scrollHeight) + 'em';
   });
 
   // Trigger the input event on page load to adjust the initial height
