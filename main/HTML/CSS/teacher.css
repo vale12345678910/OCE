@@ -80,7 +80,7 @@ body {
     display: flex;
     flex-direction: column;
     margin-right: 7em;
-    /* outline: 2px solid white;  */
+    outline: 2px solid white; 
 }
 
 
@@ -89,28 +89,31 @@ body {
     width: 40em;
     display: flex;
     flex-direction: column;
-    /* outline: 2px solid white; */
+    outline: 2px solid white;
 }
 
 
 .control-panel{
-    font-size: 100%;
     color: white;
     font-family: Arial, Helvetica, sans-serif;
+    outline: 1px red solid;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: fit-content;
+    height: fit-content;
 }
-
 
 
 .languages{
     cursor: pointer;
     color: white;
-    font-size: 120%;
+    font-size: 1em;
     width: fit-content;
+    height: fit-content;
     height: 40px;
     background-color: rgb(19, 21, 21);
-    border-radius: 5px;
     border: none;
-    overflow: hidden;
     outline: none;
 }
 
@@ -762,12 +765,11 @@ body {
 
 .container_output{
     margin-top: 4em;
-    height: 100px;
+    height: fit-content;
     width: 40em;
     display: flex;
     flex-direction: column;
-    
-    /* outline: 2px solid white;  */
+    outline: 2px solid white; 
 }
 
 #output_area{
