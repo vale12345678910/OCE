@@ -11,8 +11,7 @@ html {
   
 
 body {
-    /* background-color: rgb(19, 21, 21); */
-    background-color: lightblue;
+    background-color: rgb(19, 21, 21); 
     overflow: hidden;
     display: flex;
 }
@@ -44,6 +43,8 @@ body {
     font-size: 100%;
     background-color: rgb(19, 21, 21);
     color: white;
+    margin-left: 0.2em;
+    margin-right: 0.2em;
 }
 
 #loadButton:hover{
@@ -78,8 +79,8 @@ body {
     width: 40em;
     display: flex;
     flex-direction: column;
-    margin-right: 10%;
-    outline: 2px solid white; 
+    margin-right: 7em;
+    /* outline: 2px solid white;  */
 }
 
 
@@ -88,7 +89,7 @@ body {
     width: 40em;
     display: flex;
     flex-direction: column;
-    outline: 2px solid white;
+    /* outline: 2px solid white; */
 }
 
 
@@ -104,7 +105,7 @@ body {
     cursor: pointer;
     color: white;
     font-size: 120%;
-    width: 4em;
+    width: fit-content;
     height: 40px;
     background-color: rgb(19, 21, 21);
     border-radius: 5px;
@@ -117,7 +118,7 @@ body {
 
 #add-button{
     color: rgb(255, 255, 255);
-    font-size: 35px;
+    font-size: 2em;
     font-weight: 500;
     display: flex;
     position: absolute;
@@ -127,7 +128,7 @@ body {
     border:1px rgb(255, 255, 255) solid;
     border-radius: 100%;
     width: 2em;
-    height: 70px;
+    height: 2em;
     justify-content: center;
     align-items: center;
 }
@@ -157,7 +158,7 @@ body {
 
 .exercises_title{
     color: white;
-    font-size: 250%;
+    font-size: 2.3em;
     font-family: Arial, Helvetica, sans-serif;
     font-weight: bold;
 }
@@ -170,7 +171,7 @@ body {
 
 .editor_title{
     color: white;
-    font-size: 250%;
+    font-size: 2.3em;
     font-family: Arial, Helvetica, sans-serif;
     font-weight: bold;
 }
@@ -183,6 +184,7 @@ body {
 
 
 .editor{
+    font-size: 0.8em;
     width: 40vw;
     height: 350px;
     z-index: 1;
@@ -195,19 +197,53 @@ body {
     font-family: Arial, Helvetica, sans-serif;
 }
 
+
 #modal{
-    padding: 2em;
-    display: none;
-    flex-direction: column;
-    z-index: 1;
+    width: fit-content;
+    height: fit-content;
     background-color: rgb(19, 21, 21);
-    width: 30em;
-    height: max-content;
     border: none;
     outline: none;
     border-radius: 5px;
     overflow: hidden;
 }
+
+#modal_editExercise{
+    width: fit-content;
+    height: fit-content;
+    background-color: rgb(19, 21, 21);
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+#modal_edit_div{
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(19, 21, 21);
+    width: fit-content;
+    height: max-content;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    margin: 1em;
+}
+
+
+#modal_div{
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(19, 21, 21);
+    width: fit-content;
+    height: max-content;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    margin: 1em;
+}
+
+
 
 #modal::backdrop{
     background-color: black;
@@ -220,7 +256,7 @@ body {
     height: 200px;
     margin-top: 20px;
     position: relative;
-    margin-right: 5em;
+    margin-right: 2em;
 
 }
 
@@ -228,14 +264,12 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 40px;
+    margin-bottom: 30px;
     height: 20px;
-    width: fit-content;
 }
 
 .container_textarea .input_title input{
-    width: fit-content;
-    height: 20px;
+    height: 1.5em;
     border: none;
     outline: none;
     border-bottom: 2px solid rgb(255, 255, 255, 0.5);
@@ -245,7 +279,7 @@ body {
 .container_textarea .input_title label{
     position: absolute;
     color: rgb(255, 255, 255, 0.5);
-    font-size: 20px;
+    font-size: 1.5em;
     font-weight: 300;
     font-family: Arial, Helvetica, sans-serif;
     pointer-events: none;
@@ -256,7 +290,7 @@ body {
 .input_title input:focus ~ label,
 .input_title input:valid ~ label {
     transform: translateY(-20px);
-    font-size: 15px;
+    font-size: 1em;
     color: rgb(255, 255, 255);
 }
 
@@ -264,17 +298,16 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 20em;
-    min-height: 20px;
+    min-height: 1.5em;
     width: fit-content;
 }
 
 
 
 .container_textarea .input_desc textarea {
+    font-family: Arial, Helvetica, sans-serif;
     resize: none;
-    width: fit-content;
-    min-height: 20px;
+    min-height: 1.5em;
     height: auto;
     border: none;
     border-bottom: 2px solid rgba(255, 255, 255, 0.5);
@@ -288,7 +321,7 @@ body {
     font-family: Arial, Helvetica, sans-serif;
     color: rgb(255, 255, 255, 0.5);
     pointer-events: none;
-    font-size: 20px;
+    font-size: 1.5em;
     transition: all 0.2s ease;
     position: absolute;
     left: 0;
@@ -297,7 +330,7 @@ body {
 .input_desc textarea:focus ~ label,
 .input_desc textarea:valid ~ label{
     transform: translateY(-22px);
-    font-size: 15px;
+    font-size: 1em;
     color: rgb(255, 255, 255);
 }
 
@@ -306,13 +339,13 @@ body {
 .exerciseTitleTextInput{
     color: rgb(255, 255, 255);
     font-size: 1em;
+    width: 12em;
 }
 
 .exerciseDescTextInput{
     color: rgb(255, 255, 255);
     font-size: 1em;
-    font-family: Arial, Helvetica, sans-serif;
-    height: 20px;
+    width: 12em;
 }
 
 
@@ -336,9 +369,8 @@ body {
 
 .editor_buttons_container{
     display: flex;
-    outline: 2px solid yellow;
+    /* outline: 2px solid yellow; */
     margin-left: auto;
-    background-color: rgb(19, 21, 21);
     height: 40px;
     width: fit-content;
 }
@@ -363,11 +395,12 @@ body {
 
 .newEx{
     outline: 1px rgb(255, 255, 255, 0.5) solid;
-    border-radius: 10px;
+    border-radius: 1em;
     transition: all 0.1s linear;
     display: flex;
     flex-direction: column;
     height: 100px;  
+    width: 40em;
     cursor: pointer;
     position: relative;
 }
@@ -466,7 +499,6 @@ body {
     outline: 1px red solid;
     width: 10em;
     height: 200px;
-    padding-left: 2em;
     display: flex;
     flex-direction: column;
 }
@@ -475,6 +507,7 @@ body {
 .checkboxes{
     width: 1.5em;
     height: 15px;
+    cursor: pointer;
 }
 
 
@@ -618,23 +651,28 @@ body {
 }
 
 #createTestButton{
-    width: 12em;
+    width: 8em;
     margin-left: auto;
 }
 
 
 
 .material-symbols-outlined {
-    color: rgb(255, 255, 255, 0.5);
+    color: rgb(255, 255, 255);
   font-variation-settings:
   'FILL' 0,
-  'wght' 400,
+  'wght' 300,
   'GRAD' 0,
-  'opsz' 20
+  'opsz' 20;
+  font-size: 2em !important;
 }
 
-.material-symbols-outlined:hover{
-    border-radius: 100%;
+
+
+
+
+.icons-animation:hover{
+    border-radius: 1em;
     background-color: rgb(255, 255, 255, 0.25);
     color: white;
 }
@@ -644,13 +682,14 @@ body {
     display: flex;
     justify-content: space-evenly;
     align-items: center;
-    padding: 10px;
+    padding: 0.5em;
     box-sizing: border-box;
     border-radius: 5px;
-    width: 100%;
-    height: 50px;
-    background-color: grey;
-    margin-top: 20px;
+    width: fit-content;
+    height: 2.5em;
+    background-color: rgba(255, 30, 30, 0.5);
+    margin-top: 0.9em;
+    
 }
 
 
@@ -658,13 +697,16 @@ body {
 
 
 .alert-icon{
+    margin-right: 0.3em;
     display: flex;
+    align-items: center;
+    justify-content: center;
     align-items: center;
 }
 
 .container_alerts{
     position: absolute;
-    width: 48em;
+    width: fit-content;
     left: 50%;
     transform: translateX(-50%);
 }
@@ -675,28 +717,91 @@ body {
     display: flex;
     align-items: center;
     font-weight: bold;
-    color: black;
-    font-size: 18px;
+    color: white;
+    font-size: 1em;
 }
 
 
+#alert_cross{
+    font-size: 1.5em !important;
+    
+}
+
+
+#alert_info{
+    font-size: 1.5em !important;
+}
+
 .alert-cross{
+    margin-left: 0.3em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     cursor: pointer;
+    
 }
 
 .ExCross{
-    display: flex;
-    top: 0;
-    
+    font-size: 1.5em !important;
     position: absolute;
+    top: 0;
     right: 0;
     padding: 5px;
 }
 
+
+
 .ExPen{
-    display: flex;
-    bottom: 0;
+    font-size: 1.5em !important;
     position: absolute;
+    bottom: 0;
     right: 0;
     padding: 5px;
+}
+
+
+.container_output{
+    margin-top: 4em;
+    height: 100px;
+    width: 40em;
+    display: flex;
+    flex-direction: column;
+    
+    /* outline: 2px solid white;  */
+}
+
+#output_area{
+    display: flex;
+    align-items: center;
+    background-color: rgba(21,20,21,255);
+    height: 5em;
+    width: 40em;
+}
+
+.grey_area{
+    background-color: rgba(34,34,35,255);
+    height: 5em;
+    width: 2.2em;
+}
+
+
+#output{
+    padding-left: 0.5em;
+    display: flex;
+    font-family: "Roboto Mono";
+    font-size: 1em;
+    color: white;
+}
+
+.output_header{
+    color: white;
+    font-size: 150%;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    margin-bottom: 0.3em;
+}
+
+.error_text{
+    color: rgba(229,105,99,255) !important;
+    font-style: italic;
 }

@@ -37,19 +37,25 @@ window.onload = function() {
 
 
 
+const output_place = document.getElementById("output")
 
 
-
-
+editor = ace.edit('editor', {
+  enableBasicAutocompletion: true,
+  enableSnippets: true,
+  enableLiveAutocompletion: true
+});
 
 
 
 
 //ChangeLanguage fun.
 
+var language = "node"
+
 function changeLanguage() {
 
-  let language = $("#languages").val();
+  language = $("#languages").val();
 
   if(language == 'c' || language == 'cpp')editor.session.setMode("ace/mode/c_cpp");
   else if(language == 'php')editor.session.setMode("ace/mode/php");
@@ -57,29 +63,67 @@ function changeLanguage() {
   else if(language == 'node')editor.session.setMode("ace/mode/javascript");
 
   console.log("Language:", language)
+  
 }
 
 
-
-
-function executeCode() {
-
-  $.ajax({
-
-      url: "/app/compiler.php",
-
-      method: "POST",
-
-      data: {
-          language: $("#languages").val(),
-          code: editor.getSession().getValue()
-      },
-
-      success: function(response) {
-          $(".output").text(response)
-      }
-  })
+function runCode() {
+  var outputDiv = document.getElementById("output");
+  if (language == "node") {
+    console.log("js executed");
+    var code = editor.getValue();
+    var captured_output = '';
+    outputDiv.className = "";
+    
+    // Override console.log to capture its output
+    var original_console_log = console.log;
+    console.log = function(output) {
+      captured_output += output + '\n';
+    };
+    
+    try {
+      // Check for syntax errors by creating a Function from the code
+      new Function(code); 
+      // If there are no syntax errors, execute the code
+      eval(code); 
+      output_place.textContent = captured_output; // Display the captured output
+      console.log = original_console_log; // Restore original console.log
+    } catch (e) {
+      outputDiv.className = "error_text"
+      outputDiv.innerHTML += ("Error running the code:", e)
+      console.error("Error running the code:", e);
+      console.log = original_console_log; // Restore original console.log in case of error
+    }
+  } else {
+    runPython()
+  }
 }
+
+function runPython() {
+  var code = editor.getValue();
+  var outputDiv = document.getElementById("output");
+  
+  outputDiv.innerHTML = ''; // Clear previous output
+
+  Sk.configure({
+    output: function(text) {
+      outputDiv.innerHTML += text + '\n';
+    }
+  });
+
+  Sk.misceval.asyncToPromise(function() {
+    return Sk.importMainWithBody("<stdin>", false, code, true);
+  }).then(function() {
+    console.log("Python code executed");
+    outputDiv.className = "";
+    
+  }, function(err) {
+    console.error("error:", err.toString());
+    outputDiv.className = "error_text";
+    outputDiv.innerHTML += "error: " + err.toString();
+  });
+}
+
 
 
 //OWN CODE
@@ -107,7 +151,7 @@ openModal.addEventListener("click", () =>{
   exerciseCount++;
   exerciseTitleTextInput.value ="";
   exerciseDescTextInput.value = "";
-  exerciseDescTextInput.style.height="18px";
+  exerciseDescTextInput.style.height="20px";
   modal.style.display = "flex" // -> Lüthi Fragen ob bessere Methode, Problem: Wenn Escape gedrückt (Modal offen), dann schliesst es sich, flex bleibt aber (nicht auf none gesetzt.)
   modal.showModal()
   console.log("MODAL OPEN")
@@ -181,7 +225,7 @@ function createTextinNewEx(newDiv){
 
 function placeCrossInEx(newDiv){
   const ExCross = document.createElement("span")
-  ExCross.className = "material-symbols-outlined ExCross"
+  ExCross.className = "material-symbols-outlined ExCross icons-animation"
   ExCross.id ="ExCross" + exerciseCount;
   ExCross.textContent = "close"
   ExCross.setAttribute("onclick", `handleExCrossClick(event, ${exerciseCount})`);
@@ -191,7 +235,7 @@ function placeCrossInEx(newDiv){
 
 function placePenInEx(newDiv){
   const ExPen = document.createElement("span")
-  ExPen.className = "material-symbols-outlined ExPen"
+  ExPen.className = "material-symbols-outlined ExPen icons-animation"
   ExPen.id ="ExPen" + exerciseCount;
   ExPen.textContent = "edit"
   ExPen.setAttribute("onclick", `handleExPenClick(event, ${exerciseCount})`);
@@ -206,11 +250,12 @@ function placePenInEx(newDiv){
 
 document.addEventListener('DOMContentLoaded', function() {
   const textarea = document.getElementById('exerciseDescTextInput');
-
+  console.log("scrollheight:", this.scrollHeight)
   textarea.addEventListener('input', function() {
       this.style.minHeight ="1" + "em";
       this.style.height = 'auto';
-      this.style.height = (this.scrollHeight) + 'em';
+      this.style.height += 2 + 'em';
+      console.log("scrollheight:", this.scrollHeight)
   });
 
   // Trigger the input event on page load to adjust the initial height
@@ -249,7 +294,6 @@ function handleExPenClick(event, number) {
       const divID = newExDiv.id;
       const lastNumber = divID.match(/\d+$/)[0]; // Store lastNumber in the outer scope
       editExercise(lastNumber);
-      console.log("your are the biggest Clown:", lastNumber)
   }
 }
 
@@ -260,12 +304,12 @@ function handleExCrossClick(event, number){
   if(newExDiv){
     const divID = newExDiv.id;
       const lastNumber = divID.match(/\d+$/)[0]; // Store lastNumber in the outer scope
-      deleteExercise(lastNumber);
-      console.log("your are the biggest Clown:", lastNumber)
+      deleteExercise(lastNumber)
   }
 }
 
 function deleteExercise(lastNumber){
+  exerciseCount--;
   const exerciseToRemove = document.getElementById("newEx"+ lastNumber)
   container_list.removeChild(exerciseToRemove);
 }
@@ -294,7 +338,7 @@ function saveEditedExercise(){
 
   document.getElementById("exerciseTitleText" + lastNumber).textContent = exerciseTitleTextInputedit.value || "Title undefined";
   document.getElementById("exerciseDescText" + lastNumber).textContent = exerciseDescTextInputedit.value;
-  modal_editExercise.style.display = "none";
+  // modal_editExercise.style.display = "none";
   modal_editExercise.close();
   console.log("MODAL EDIT SAVED");
 };
@@ -304,7 +348,7 @@ function saveEditedExercise(){
 
 //CLOSE EDITED MODAL (DONT SAVE)
 closeEditedExerciseButton.addEventListener("click", function(){
-  modal_editExercise.style.display = "none"
+  // modal_editExercise.style.display = "none"
   modal_editExercise.close();
   console.log("MODAL EDIT CLOSED")
 })
@@ -314,10 +358,9 @@ closeEditedExerciseButton.addEventListener("click", function(){
   function editExercise(lastNumber){
   exerciseTitleTextInputedit.value = document.getElementById("exerciseTitleText" + lastNumber ).textContent;
   exerciseDescTextInputedit.value = document.getElementById("exerciseDescText" + lastNumber).textContent;
-  modal_editExercise.style.display = "flex"
+  // modal_editExercise.style.display = "flex"
   modal_editExercise.showModal();
   console.log("MODAL EDIT OPEN")
-  console.log("CLOWN:", lastNumber)
 }
 
 
@@ -358,3 +401,5 @@ document.getElementById('createTestButton').addEventListener('click', function()
 alert_cross.addEventListener("click", function(){
   alert_div.style.visibility = "hidden"
 })
+
+
