@@ -152,7 +152,6 @@ openModal.addEventListener("click", () =>{
   exerciseTitleTextInput.value ="";
   exerciseDescTextInput.value = "";
   exerciseDescTextInput.style.height="20px";
-  modal.style.display = "flex" // -> Lüthi Fragen ob bessere Methode, Problem: Wenn Escape gedrückt (Modal offen), dann schliesst es sich, flex bleibt aber (nicht auf none gesetzt.)
   modal.showModal()
   console.log("MODAL OPEN")
 });
@@ -161,7 +160,6 @@ closeModal.addEventListener("click", () =>{
   exerciseCount--;
   exerciseTitleTextInput.value ="";
   exerciseDescTextInput.value = "";
-  modal.style.display = "none"
   modal.close()
   console.log("MODAL CLOSED")
 });
@@ -188,7 +186,6 @@ function saveModal(){
   createTextinNewEx(newDiv)
   placeCrossInEx(newDiv)
   placePenInEx(newDiv)
-  modal.style.display = "none"
   modal.close();
   console.log("MODAL SAVED")
 }
@@ -338,7 +335,6 @@ function saveEditedExercise(){
 
   document.getElementById("exerciseTitleText" + lastNumber).textContent = exerciseTitleTextInputedit.value || "Title undefined";
   document.getElementById("exerciseDescText" + lastNumber).textContent = exerciseDescTextInputedit.value;
-  // modal_editExercise.style.display = "none";
   modal_editExercise.close();
   console.log("MODAL EDIT SAVED");
 };
@@ -348,7 +344,6 @@ function saveEditedExercise(){
 
 //CLOSE EDITED MODAL (DONT SAVE)
 closeEditedExerciseButton.addEventListener("click", function(){
-  // modal_editExercise.style.display = "none"
   modal_editExercise.close();
   console.log("MODAL EDIT CLOSED")
 })
@@ -358,7 +353,6 @@ closeEditedExerciseButton.addEventListener("click", function(){
   function editExercise(lastNumber){
   exerciseTitleTextInputedit.value = document.getElementById("exerciseTitleText" + lastNumber ).textContent;
   exerciseDescTextInputedit.value = document.getElementById("exerciseDescText" + lastNumber).textContent;
-  // modal_editExercise.style.display = "flex"
   modal_editExercise.showModal();
   console.log("MODAL EDIT OPEN")
 }

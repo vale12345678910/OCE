@@ -38,18 +38,6 @@
                     <input class="checkboxes" id="checkbox_code" type="checkbox">
                     <span id="code_option_button">Code</span>
                 </div>
-                <!--
-                <div id="tooltip_code_editable">
-                    <span id="tooltip_code_editable_text">Custom Code can be edited</span>
-                    <input class="checkboxes" id="checkbox_code_editable" type="checkbox">
-                    <span id="code_editable_option_button">Edit</span>
-                </div>
-                <div id="tooltip_code_runnable">
-                    <span id="tooltip_code_runnable_text">Code is runnable</span>
-                    <input class="checkboxes" id="checkbox_code_runnable" type="checkbox">
-                    <span id="code_runnable_option_button">Run</span>
-                </div>
-                -->
             </div>
         </div>
         <div class="modal_buttons">
@@ -62,28 +50,39 @@
 
 
 
-  <dialog  id="modal_editExercise">
+  <dialog  id="modal_editExercise" open>
     <div id="modal_edit_div">
       <h1 class="modal_title">Edit exercise</h1>
-
-      <div class="container_textarea">
-        <div class="input_title" id="input_title">
-          <input autocomplete="off" type="text"  required id="exerciseTitleTextInputedit" class="exerciseTitleTextInput">
-          <label>Title</label>
+      <div id="container_modal_content_edit">
+        <div class="container_textarea">
+          <div class="input_title" id="input_title">
+            <input autocomplete="off" type="text"  required id="exerciseTitleTextInputedit" class="exerciseTitleTextInput">
+            <label>Title</label>
+          </div>
+    
+          <div class="input_desc">
+            <textarea rows="1" autocomplete="off" type="text" required class="exerciseDescTextInput" id="exerciseDescTextInputedit"></textarea>
+            <label>Description</label>
+          </div>
+          
+          
         </div>
-  
-        <div class="input_desc">
-          <textarea rows="1" autocomplete="off" type="text" required class="exerciseDescTextInput" id="exerciseDescTextInputedit"></textarea>
-          <label>Description</label>
-        </div>
-        
+        <div id="container_options_edit">
+          <div id="tooltip_code_edit">
+              <span id="tooltip_code_text_edit">Current editor code is used in the exercise</span>
+              <input class="checkboxes" id="checkbox_code_edit" type="checkbox">
+              <span id="code_option_button_edit">Code</span>
+          </div>
       </div>
-  
+    
+      
+    </div>
     <div class="modal_buttons">
       <button class="buttons" id="closeButton-editExercise">Cancel</button>
       <button class="buttons" id="saveButton-editExercise" onclick="saveEditedExercise(lastNumber)">Save</button>
     </div>
-  </div>
+      </div>
+      
 </dialog>
 
 

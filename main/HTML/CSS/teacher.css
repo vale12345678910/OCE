@@ -219,6 +219,7 @@ body {
     outline: none;
     border-radius: 5px;
     overflow: hidden;
+    
 }
 
 #modal_edit_div{
@@ -473,7 +474,6 @@ body {
 
 #modal_editExercise{
     padding: 20px;
-    display: none;
     flex-direction: column;
     z-index: 1222;
     background-color: rgb(19, 21, 21);
@@ -486,6 +486,11 @@ body {
 }
 
 #container_modal_content{
+    display: flex;
+    width: fit-content;
+}
+
+#container_modal_conten_edit{
     display: flex;
     width: fit-content;
 }
@@ -506,6 +511,14 @@ body {
     flex-direction: column;
 }
 
+#container_options_edit{
+    outline: 1px red solid;
+    width: 10em;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+}
+
 
 .checkboxes{
     width: 1.5em;
@@ -515,6 +528,16 @@ body {
 
 
 #tooltip_code{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor:pointer;
+    padding: 1em;
+    font-family: Arial, Helvetica, sans-serif;
+
+}
+
+#tooltip_code_edit{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -543,6 +566,25 @@ body {
     font-size: 14px;
 }
 
+#tooltip_code_text_edit{
+    position: absolute;
+    left: 50%;
+    top: 0;
+    margin-top: 25px;
+    transform: translateX(-50%);
+    background-color: transparent;
+    border: 1px rgb(255, 255, 255, 0.5) solid;
+    color: rgb(255, 255, 255, 0.5);
+    white-space: nowrap;
+    padding: 5px 10px;
+    border-radius: 5px;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.1s ease;
+    pointer-events: none;
+    font-size: 14px;
+}
+
 
 #tooltip_code:hover #tooltip_code_text{
     top: -130%;
@@ -551,7 +593,21 @@ body {
     
 }
 
+#tooltip_code_edit:hover #tooltip_code_text_edit{
+    top: -130%;
+    visibility: visible;
+    opacity: 1;
+    
+}
+
 #code_option_button{
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#code_option_button_edit{
     color: white;
     display: flex;
     justify-content: center;
