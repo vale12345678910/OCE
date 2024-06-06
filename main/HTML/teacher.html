@@ -50,7 +50,7 @@
 
 
 
-  <dialog  id="modal_editExercise" open>
+  <dialog  id="modal_editExercise">
     <div id="modal_edit_div">
       <h1 class="modal_title">Edit exercise</h1>
       <div id="container_modal_content_edit">
@@ -141,7 +141,12 @@
 
     </div>
     <div class="container_code">
-      <div class="editor" id="editor"></div>
+      <input type="file" id="fileInput" style="display: none;" accept=".js, .py">
+      <div class="editor" id="editor">function welcome(){<br>console.log("hello world");<br>}<br>welcome();
+  
+   
+  
+    </div>
       <div class="container_output">
         <div class="output_header">Output</div>
         <div id="output_area">
@@ -156,7 +161,7 @@
   <div class="container_exercises">
     <div class="exercises_header">
       <div class="exercises_title">Exercises</div>
-      <button class="buttons" id="createTestButton">Create Test</button>
+      <button class="buttons" id="createTestButton"></button>
       
     </div>
     <div class="container_list">
@@ -175,7 +180,6 @@
 <script src="https://cdn.jsdelivr.net/npm/skulpt@0.10.0/dist/skulpt.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/skulpt@0.10.0/dist/skulpt-stdlib.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<script src="JS/runPython.js"></script>
 <script src="JS/teacher.js"></script>
 <!-- ZIP the Test -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script> 

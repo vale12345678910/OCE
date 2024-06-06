@@ -209,6 +209,7 @@ body {
     outline: none;
     border-radius: 5px;
     overflow: hidden;
+    outline: 1px solid white;
 }
 
 #modal_editExercise{
@@ -219,7 +220,7 @@ body {
     outline: none;
     border-radius: 5px;
     overflow: hidden;
-    
+    outline: 1px solid white;
 }
 
 #modal_edit_div{
@@ -230,7 +231,6 @@ body {
     height: max-content;
     border: none;
     outline: none;
-    border-radius: 5px;
     margin: 1em;
 }
 
@@ -243,7 +243,6 @@ body {
     height: max-content;
     border: none;
     outline: none;
-    border-radius: 5px;
     margin: 1em;
 }
 
@@ -254,10 +253,14 @@ body {
     opacity: 0.5;
 }
 
+#modal_editExercise::backdrop{
+    background-color: black;
+    opacity: 0.5;
+}
 
 .container_textarea{
     width: fit-content;
-    height: 200px;
+    height: 10em;
     margin-top: 20px;
     position: relative;
     margin-right: 2em;
@@ -477,12 +480,13 @@ body {
     flex-direction: column;
     z-index: 1222;
     background-color: rgb(19, 21, 21);
-    width: 50em;
+    width: fit-content;
     height: max-content;
     border: none;
     outline: none;
     border-radius: 5px;
     overflow: hidden;
+    outline: 1px solid white;
 }
 
 #container_modal_content{
@@ -490,7 +494,7 @@ body {
     width: fit-content;
 }
 
-#container_modal_conten_edit{
+#container_modal_content_edit{
     display: flex;
     width: fit-content;
 }
@@ -506,7 +510,7 @@ body {
 #container_options{
     outline: 1px red solid;
     width: 10em;
-    height: 200px;
+    height: fit-content;
     display: flex;
     flex-direction: column;
 }
@@ -514,7 +518,7 @@ body {
 #container_options_edit{
     outline: 1px red solid;
     width: 10em;
-    height: 200px;
+    height: fit-content;
     display: flex;
     flex-direction: column;
 }
@@ -839,7 +843,7 @@ body {
 .grey_area{
     background-color: rgba(34,34,35,255);
     height: 5em;
-    width: 2.2em;
+    width: 40px; /*Beacuse the editor doesnt adjust in size */
 }
 
 
@@ -862,4 +866,9 @@ body {
 .error_text{
     color: rgba(229,105,99,255) !important;
     font-style: italic;
+}
+
+
+#closeButton-editExercise{
+    margin-right: 0.5em;
 }

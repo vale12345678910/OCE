@@ -19,6 +19,9 @@ const closeEditedExerciseButton = document.getElementById("closeButton-editExerc
 const alert_div = document.querySelector(".alert")
 const alert_cross = document.querySelector(".alert-cross")
 
+const loadButton = document.getElementById("loadButton")
+const fileInput = document.getElementById('fileInput');
+
 
 
 
@@ -27,8 +30,26 @@ let editor;
 window.onload = function() {
     editor = ace.edit("editor");
     editor.setTheme("ace/theme/twilight");
-    editor.session.setMode("ace/mode/c_cpp");
+    editor.session.setMode("ace/mode/javascript")
+    editor.setOptions({
+      enableBasicAutocompletion: true,
+      enableSnippets: true,
+      enableLiveAutocompletion: false
+    });
 
+    // Function to load default.js content into the editor
+    function loadDefaultFile() {
+      fetch('default.js')
+          .then(response => response.text())
+          .then(data => {
+              editor.setValue(data, -1); // Set file content to the editor
+          })
+          .catch(error => console.error('Error loading default.js:', error));
+  }
+
+  // Call the function to load the file content
+  loadDefaultFile();
+//end
 
     editor.session.on("change", function(delta){
       const ace_content = editor.getValue();
@@ -38,16 +59,6 @@ window.onload = function() {
 
 
 const output_place = document.getElementById("output")
-
-
-editor = ace.edit('editor', {
-  enableBasicAutocompletion: true,
-  enableSnippets: true,
-  enableLiveAutocompletion: true
-});
-
-
-
 
 //ChangeLanguage fun.
 
@@ -246,6 +257,12 @@ function placePenInEx(newDiv){
 
 
 document.addEventListener('DOMContentLoaded', function() {
+
+
+
+
+    
+
   const textarea = document.getElementById('exerciseDescTextInput');
   console.log("scrollheight:", this.scrollHeight)
   textarea.addEventListener('input', function() {
@@ -397,3 +414,21 @@ alert_cross.addEventListener("click", function(){
 })
 
 
+
+
+
+
+loadButton.addEventListener("click", function() {
+    fileInput.click(); // Open file explorer
+});
+
+fileInput.addEventListener("change", function(event) {
+    const file = event.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            editor.setValue(e.target.result, -1); // Set file content to the editor
+        };
+        reader.readAsText(file); // Read the file as text
+    }
+});
