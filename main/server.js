@@ -21,7 +21,7 @@ app.use(express.static(staticFolderPath));
 
 // Serve HTML file
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'HTML/index.html'));
+  res.sendFile(path.join(__dirname, 'HTML/teacher.html'));
 });
 
 app.get('/login', (req, res) => {

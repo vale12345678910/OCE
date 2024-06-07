@@ -67,10 +67,12 @@ body {
 
 
 .main_container {
-    width: 100%;
-    height: 100%;
+    width: fit-content;
+    height: fit-content;
     padding: 5%;
     display: flex;
+    align-items: center;
+    justify-content: center;
     
 }
 
@@ -160,8 +162,10 @@ body {
 }
 
 .exercises_title{
+    display: flex;
+    align-items: center;
     color: white;
-    font-size: 2.3em;
+    font-size: 2em;
     font-family: Arial, Helvetica, sans-serif;
     font-weight: bold;
 }
@@ -173,8 +177,10 @@ body {
 }
 
 .editor_title{
+    display: flex;
+    align-items: center;
     color: white;
-    font-size: 2.3em;
+    font-size: 2em;
     font-family: Arial, Helvetica, sans-serif;
     font-weight: bold;
 }
@@ -187,9 +193,10 @@ body {
 
 
 .editor{
-    font-size: 0.8em;
-    width: 40vw;
-    height: 350px;
+    font-size: 0.9em;
+    font-family: "Roboto Mono";
+    width: 100%;
+    height: 25em;
     z-index: 1;
 }
 
@@ -370,34 +377,44 @@ body {
     transition: all 0.1s linear;
     display: flex;
     flex-direction: column;
-    height: 100px;  
-    width: 40em;
-    cursor: pointer;
+    min-height: 100px;  
+    width: 39.8em;
     position: relative;
+    z-index: 2;
 }
 
 /* .newEx:hover{
     background-color: rgb(73, 68, 68);
 } */
 
+.container_list::webkit-scrollbar{
+    display: none;
+}
+
 .container_list{
-    width: 70em;
-    height: 450px;
+    scrollbar-width: none;
+    overflow-y: auto;
+    width: 40em;
+    max-height: 26em;
     margin-top: 1em;
-    /* outline: 1px solid white; */
+    margin-bottom: 1em;
     display: flex;
+    align-items: flex-start;
+    justify-content: center;
     flex-direction: column;
-    z-index: 2000;
+    z-index: 1;
+    outline: green solid 2px;
+    position: relative;
 }
 
 .container_list > * {
-    margin-bottom: 10px;
+    margin-bottom: 1em;
 }
 
 .container_code{
     display: flex;
     flex-direction: column;
-    margin-top: 10px;
+    margin-top: 1em;
 }
 
 .modal_header{
@@ -705,6 +722,7 @@ body {
     border-radius: 1em;
     background-color: rgb(255, 255, 255, 0.25);
     color: white;
+    cursor: pointer;
 }
 
 .alert{
@@ -824,7 +842,7 @@ body {
 
 .output_header{
     color: white;
-    font-size: 150%;
+    font-size: 1.5em;
     font-family: Arial, Helvetica, sans-serif;
     font-weight: bold;
     margin-bottom: 0.3em;
