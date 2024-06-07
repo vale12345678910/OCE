@@ -80,7 +80,7 @@ body {
     display: flex;
     flex-direction: column;
     margin-right: 7em;
-    outline: 2px solid white; 
+    /* outline: 2px solid white;  */
 }
 
 
@@ -89,14 +89,14 @@ body {
     width: 40em;
     display: flex;
     flex-direction: column;
-    outline: 2px solid white;
+    /* outline: 2px solid white; */
 }
 
 
 .control-panel{
     color: white;
     font-family: Arial, Helvetica, sans-serif;
-    outline: 1px red solid;
+    /* outline: 1px red solid; */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -198,6 +198,7 @@ body {
     font-weight: 500;
     color: white;
     font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
 }
 
 
@@ -209,19 +210,9 @@ body {
     outline: none;
     border-radius: 5px;
     overflow: hidden;
-    outline: 1px solid white;
+    /* outline: 1px solid white; */
 }
 
-#modal_editExercise{
-    width: fit-content;
-    height: fit-content;
-    background-color: rgb(19, 21, 21);
-    border: none;
-    outline: none;
-    border-radius: 5px;
-    overflow: hidden;
-    outline: 1px solid white;
-}
 
 #modal_edit_div{
     display: flex;
@@ -259,102 +250,75 @@ body {
 }
 
 .container_textarea{
-    width: fit-content;
-    height: 10em;
-    margin-top: 20px;
-    position: relative;
-    margin-right: 2em;
+    width: 30em;
+    height: fit-content;
+    margin-top: 1.5em;
 
 }
 
 .container_textarea .input_title{
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-bottom: 30px;
-    height: 20px;
+    margin-bottom: 2.5em;
 }
 
 .container_textarea .input_title input{
-    height: 1.5em;
-    border: none;
+    width: 100%;
+    margin-right: auto;
+    color: white;
+    font-size: 1em;
+    height: 2em;
+    padding: 0.2em;
+    border: 1px grey solid;
     outline: none;
-    border-bottom: 2px solid rgb(255, 255, 255, 0.5);
     background-color: rgb(19, 21, 21);
 }
 
-.container_textarea .input_title label{
-    position: absolute;
-    color: rgb(255, 255, 255, 0.5);
-    font-size: 1.5em;
-    font-weight: 300;
+#header_title{
+    margin-right: auto;
+    margin-bottom: 0.2em;
+    color: white;
+    font-size: 1em;
     font-family: Arial, Helvetica, sans-serif;
-    pointer-events: none;
-    transition: all 0.2s ease;
-    left: 0;
 }
 
-.input_title input:focus ~ label,
-.input_title input:valid ~ label {
-    transform: translateY(-20px);
-    font-size: 1em;
-    color: rgb(255, 255, 255);
-}
+
 
 .input_desc{
     display: flex;
+    flex-direction: column;
     justify-content: center;
+    height: fit-content;
     align-items: center;
-    min-height: 1.5em;
-    width: fit-content;
 }
 
+#header_desc{
+    margin-right: auto;
+    color: white;
+    font-size: 1em;
+    font-family: Arial, Helvetica, sans-serif;
+    margin-bottom: 0.2em;
+}
 
 
 .container_textarea .input_desc textarea {
+    width: 100%;
+    color: white;
+    font-weight: lighter;
+    font-size: 0.8em;
     font-family: Arial, Helvetica, sans-serif;
+    border: 1px grey solid;
     resize: none;
-    min-height: 1.5em;
-    height: auto;
-    border: none;
-    border-bottom: 2px solid rgba(255, 255, 255, 0.5);
+    height: 10em;
+    border-top-left-radius: 0.5em;
+    border-top-right-radius: 0.5em;
     background-color: rgb(19, 21, 21);
     outline: none;
-    overflow: hidden;
+    padding: 0.5em;
+    margin-right: auto;
 }
-
-.container_textarea .input_desc label{
-    font-weight: 500;
-    font-family: Arial, Helvetica, sans-serif;
-    color: rgb(255, 255, 255, 0.5);
-    pointer-events: none;
-    font-size: 1.5em;
-    transition: all 0.2s ease;
-    position: absolute;
-    left: 0;
-}
-
-.input_desc textarea:focus ~ label,
-.input_desc textarea:valid ~ label{
-    transform: translateY(-22px);
-    font-size: 1em;
-    color: rgb(255, 255, 255);
-}
-
-
-
-.exerciseTitleTextInput{
-    color: rgb(255, 255, 255);
-    font-size: 1em;
-    width: 12em;
-}
-
-.exerciseDescTextInput{
-    color: rgb(255, 255, 255);
-    font-size: 1em;
-    width: 12em;
-}
-
 
 
 #closeButton-modal{
@@ -419,7 +383,7 @@ body {
 .container_list{
     width: 70em;
     height: 450px;
-    margin-top: 10px;
+    margin-top: 1em;
     /* outline: 1px solid white; */
     display: flex;
     flex-direction: column;
@@ -457,28 +421,25 @@ body {
 }
 
 .exerciseTitleText{
-    margin-top: 5px;
-    margin-left: 5px;
-    font-size: 120%;
+    padding-left: 10px;
+    padding-top: 10px;
+    font-size: 1.2em;
     font-family: Arial, Helvetica, sans-serif;
     color: white;
 }
 
 .exerciseDescText{
-    position: relative;
-    margin-left: 5px;
-    top: 0px;
-    font-size: 80%;
-    color: white;
+    padding-left: 10px;
+    font-size: 0.8em;
+    color: rgba(255, 255, 255, 0.5);
     font-family: Arial, Helvetica, sans-serif;
 
 }
 
 
 #modal_editExercise{
-    padding: 20px;
+    padding: 1em;
     flex-direction: column;
-    z-index: 1222;
     background-color: rgb(19, 21, 21);
     width: fit-content;
     height: max-content;
@@ -486,12 +447,12 @@ body {
     outline: none;
     border-radius: 5px;
     overflow: hidden;
-    outline: 1px solid white;
 }
 
 #container_modal_content{
     display: flex;
     width: fit-content;
+    margin-bottom: 2em;
 }
 
 #container_modal_content_edit{
@@ -508,8 +469,9 @@ body {
 
 
 #container_options{
-    outline: 1px red solid;
-    width: 10em;
+    margin-top: 1.5em;
+    /* outline: 1px red solid; */
+    width: fit-content;
     height: fit-content;
     display: flex;
     flex-direction: column;
@@ -535,8 +497,8 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    cursor:pointer;
-    padding: 1em;
+    cursor: pointer;
+    width: fit-content;
     font-family: Arial, Helvetica, sans-serif;
 
 }
@@ -714,10 +676,15 @@ body {
 }
 
 #createTestButton{
-    width: 8em;
+    width: 7.5em;
+    border: 1px solid rgb(255, 255, 255, 0.5);
     margin-left: auto;
 }
 
+#createTestButton:hover{
+    transition: all 0.1s ease;
+    border: none;
+}
 
 
 .material-symbols-outlined {
@@ -829,7 +796,7 @@ body {
     width: 40em;
     display: flex;
     flex-direction: column;
-    outline: 2px solid white; 
+    /* outline: 2px solid white;  */
 }
 
 #output_area{
@@ -871,4 +838,27 @@ body {
 
 #closeButton-editExercise{
     margin-right: 0.5em;
+}
+
+.optionstatus{
+    visibility: hidden;
+    width: 0;
+    height: 0;
+}
+
+.ex_editor_content{
+    visibility: hidden;
+    width: 0;
+    height: 0;
+}
+
+#header_title_edit{
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1em;
+    margin-right: auto;
+}
+
+#header_desc_edit textarea{
+    height: 10em;
 }

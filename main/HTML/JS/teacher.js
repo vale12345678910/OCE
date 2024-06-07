@@ -163,10 +163,12 @@ const closeModal = document.getElementById("closeButton-modal")
 
 
 openModal.addEventListener("click", () =>{
+  optionstatus = 0 //reset the variable
+  checkbox_code.checked = false;
   exerciseCount++;
   exerciseTitleTextInput.value ="";
   exerciseDescTextInput.value = "";
-  exerciseDescTextInput.style.height="20px";
+  // exerciseDescTextInput.style.height="20px";
   modal.showModal()
   console.log("MODAL OPEN")
 });
@@ -223,17 +225,24 @@ function createTextinNewEx(newDiv){
   const exerciseTitleText = document.createElement("div")
   const exerciseDescText = document.createElement("div")
   const optionstatus_div = document.createElement("div")
+  const ex_editor_content = document.createElement("div")
   exerciseTitleText.id = "exerciseTitleText" + exerciseCount;
   exerciseDescText.id = "exerciseDescText" + exerciseCount;
   optionstatus_div.id = "optionstatus" + exerciseCount;
+  ex_editor_content.id  = "ex_editor_content" + exerciseCount;
+  optionstatus_div.className = "optionstatus";
   exerciseTitleText.className= "exerciseTitleText"
   exerciseDescText.className= "exerciseDescText"
+  ex_editor_content.className = "ex_editor_content"
   exerciseTitleText.textContent = content_1
   exerciseDescText.textContent = content_2
-  optionstatus.textContent = checkOptionStatus(optionstatus)
+  ex_editor_content.textContent = editor.getValue()
+  console.log("editor value:", ex_editor_content.textContent)
+  checkOptionStatus(optionstatus_div)
   newDiv.appendChild(exerciseTitleText)
   newDiv.appendChild(exerciseDescText)
   newDiv.appendChild(optionstatus_div)
+  newDiv.appendChild(ex_editor_content)
 }
 
 function placeCrossInEx(newDiv){
@@ -261,25 +270,19 @@ function placePenInEx(newDiv){
 
 
 
-document.addEventListener('DOMContentLoaded', function() {
+// document.addEventListener('DOMContentLoaded', function() {
+//   const textarea = document.getElementById('exerciseDescTextInput');
+//   console.log("scrollheight:", this.scrollHeight)
+//   textarea.addEventListener('input', function() {
+//       this.style.minHeight ="1" + "em";
+//       this.style.height = 'auto';
+//       this.style.height += 2 + 'em';
+//       console.log("scrollheight:", this.scrollHeight)
+//   });
 
-
-
-
-    
-
-  const textarea = document.getElementById('exerciseDescTextInput');
-  console.log("scrollheight:", this.scrollHeight)
-  textarea.addEventListener('input', function() {
-      this.style.minHeight ="1" + "em";
-      this.style.height = 'auto';
-      this.style.height += 2 + 'em';
-      console.log("scrollheight:", this.scrollHeight)
-  });
-
-  // Trigger the input event on page load to adjust the initial height
-  textarea.dispatchEvent(new Event('input'));
-});
+//   // Trigger the input event on page load to adjust the initial height
+//   textarea.dispatchEvent(new Event('input'));
+// });
 
 
 
@@ -357,6 +360,7 @@ function saveEditedExercise(){
 
   document.getElementById("exerciseTitleText" + lastNumber).textContent = exerciseTitleTextInputedit.value || "Title undefined";
   document.getElementById("exerciseDescText" + lastNumber).textContent = exerciseDescTextInputedit.value;
+  checkOptionStatusEdit()
   modal_editExercise.close();
   console.log("MODAL EDIT SAVED");
 };
@@ -370,23 +374,45 @@ closeEditedExerciseButton.addEventListener("click", function(){
   console.log("MODAL EDIT CLOSED")
 })
 
-   
+let checkbox_value = ""
+let optionstatus_edit = 0   
+
 // EDIT EXERCISE
   function editExercise(lastNumber){
+  optionstatus_edit = 0 
   exerciseTitleTextInputedit.value = document.getElementById("exerciseTitleText" + lastNumber ).textContent;
   exerciseDescTextInputedit.value = document.getElementById("exerciseDescText" + lastNumber).textContent;
-  checkOptionStatus();
+  checkbox_value = document.getElementById("optionstatus" + lastNumber).textContent;
+  if(checkbox_value == "1"){
+    optionstatus_edit = 1
+    checkbox_code_edit.checked = true
+  } else{
+    checkbox_code_edit.checked = false
+  }
   modal_editExercise.showModal();
   console.log("MODAL EDIT OPEN")
 }
 
-function checkOptionStatus(value){
-  if(value % 2 == 0){
-    console.log("off")
-    checkbox_code_edit.checked = false 
+let optionstatus = 0
+
+function checkOptionStatus(optionstatus_div){
+  if(optionstatus % 2 == 0){
+    console.log("off", optionstatus)
+    optionstatus_div.textContent = "0"
   } else{
-    checkbox_code_edit.checked = true
-    console.log("on")
+    optionstatus_div.textContent = "1"
+    console.log("on", optionstatus)
+  }
+}
+
+function checkOptionStatusEdit(){
+  const checkbox_div = document.getElementById("optionstatus"+lastNumber)
+  if(optionstatus_edit % 2 == 0){
+    console.log("off", optionstatus_edit)
+    checkbox_div.textContent = "0"
+  } else{
+    checkbox_div.textContent = "1"
+    console.log("on", optionstatus_edit)
   }
 }
 
@@ -405,12 +431,17 @@ document.getElementById('createTestButton').addEventListener('click', function()
       console.log(index);
       const title = exercise.querySelector(`#exerciseTitleText${index + 1}`).textContent;
       const description = exercise.querySelector(`#exerciseDescText${index + 1}`).textContent;
-      // const optionstatus = exercise.querySelector(`#optionstatus${index + 1}`)
+      const optionstatus_div_test = exercise.querySelector(`#optionstatus${index + 1}`).textContent;
+      const editor_content = exercise.querySelector(`#ex_editor_content${index + 1}`).textContent;
+
+
+
       const exerciseFolder = testFolder.folder(`exercise${index + 1}`);
 
-      exerciseFolder.file('title.txt', title);
-      exerciseFolder.file('description.txt', description);
-      // exerciseFolder.file('optionstatus.txt', optionstatus);
+      exerciseFolder.file(`title.txt`, title);
+      exerciseFolder.file(`description.txt`, description);
+      exerciseFolder.file('optionstatus.txt', optionstatus_div_test);
+      exerciseFolder.file("code.txt", editor_content)
     });
 
     zip.generateAsync({ type: 'blob' }).then(function(content) {
@@ -480,7 +511,7 @@ saveCode.addEventListener("click", function() {
 
 
 
-let optionstatus = 0
+
 
 checkbox_code.addEventListener("change", function(){
   optionstatus++;
@@ -489,6 +520,6 @@ checkbox_code.addEventListener("change", function(){
   
 
 checkbox_code_edit.addEventListener("change", function(){
-  optionstatus++;
-  console.log("optionstatus",optionstatus)
+  optionstatus_edit++;
+  console.log("optionstatus_edit",optionstatus_edit)
 })

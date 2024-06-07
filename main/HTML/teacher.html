@@ -24,21 +24,25 @@
         <div id="container_modal_content">
             <div class="container_textarea">
                 <div class="input_title">
+                    <div id="header_title">Title</div>
                     <input autocomplete="off" type="text" required id="exerciseTitleTextInput" class="exerciseTitleTextInput">
-                    <label>Title</label>
+                    
                 </div>
                 <div class="input_desc">
+                  <div id="header_desc">Description</div>
                     <textarea rows="1" autocomplete="off" type="text" required class="exerciseDescTextInput" id="exerciseDescTextInput"></textarea>
-                    <label>Description</label>
                 </div>
-            </div>
-            <div id="container_options">
-                <div id="tooltip_code">
-                    <span id="tooltip_code_text">Current editor code is used in the exercise</span>
-                    <input class="checkboxes" id="checkbox_code" checked="true" type="checkbox">
-                    <span id="code_option_button">Code</span>
-                </div>
-            </div>
+                
+                <div id="container_options">
+                  <div id="tooltip_code">
+                      <span id="tooltip_code_text">Current editor code is used in the exercise</span>
+                      <input class="checkboxes" id="checkbox_code" type="checkbox">
+                      <span id="code_option_button">Code</span>
+                  </div>
+              </div>
+
+              </div>
+            
         </div>
         <div class="modal_buttons">
             <button class="buttons" id="saveButton-modal">Save</button>
@@ -56,13 +60,15 @@
       <div id="container_modal_content_edit">
         <div class="container_textarea">
           <div class="input_title" id="input_title">
+            <div id="header_title_edit">Title</div>
             <input autocomplete="off" type="text"  required id="exerciseTitleTextInputedit" class="exerciseTitleTextInput">
-            <label>Title</label>
+            
           </div>
     
           <div class="input_desc">
-            <textarea rows="1" autocomplete="off" type="text" required class="exerciseDescTextInput" id="exerciseDescTextInputedit"></textarea>
-            <label>Description</label>
+            <div id="header_desc_edit">Description</div>
+            <textarea autocomplete="off" type="text" required class="exerciseDescTextInput" id="exerciseDescTextInputedit"></textarea>
+            
           </div>
           
           
@@ -70,7 +76,7 @@
         <div id="container_options_edit">
           <div id="tooltip_code_edit">
               <span id="tooltip_code_text_edit">Current editor code is used in the exercise</span>
-              <input class="checkboxes" id="checkbox_code_edit" checked = "false" type="checkbox">
+              <input class="checkboxes" id="checkbox_code_edit" type="checkbox">
               <span id="code_option_button_edit">Code</span>
           </div>
       </div>
