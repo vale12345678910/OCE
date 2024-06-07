@@ -35,7 +35,7 @@
             <div id="container_options">
                 <div id="tooltip_code">
                     <span id="tooltip_code_text">Current editor code is used in the exercise</span>
-                    <input class="checkboxes" id="checkbox_code" type="checkbox">
+                    <input class="checkboxes" id="checkbox_code" checked="true" type="checkbox">
                     <span id="code_option_button">Code</span>
                 </div>
             </div>
@@ -70,7 +70,7 @@
         <div id="container_options_edit">
           <div id="tooltip_code_edit">
               <span id="tooltip_code_text_edit">Current editor code is used in the exercise</span>
-              <input class="checkboxes" id="checkbox_code_edit" type="checkbox">
+              <input class="checkboxes" id="checkbox_code_edit" checked = "false" type="checkbox">
               <span id="code_option_button_edit">Code</span>
           </div>
       </div>
@@ -121,13 +121,11 @@
         </select>
     </div>
     <div class="editor_buttons_container">
-      <form class="saveForm">
-        <button class="buttons" type="submit">
+        <button class="buttons" type="submit" id="saveCode">
           <span class="material-symbols-outlined">
             save
             </span>
         </button>
-      </form>
       <button class="buttons" id="loadButton">
         <span class="material-symbols-outlined" id="">
           folder_open
@@ -161,7 +159,7 @@
   <div class="container_exercises">
     <div class="exercises_header">
       <div class="exercises_title">Exercises</div>
-      <button class="buttons" id="createTestButton"></button>
+      <button class="buttons" id="createTestButton">Create Test</button>
       
     </div>
     <div class="container_list">

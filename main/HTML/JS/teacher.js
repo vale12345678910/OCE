@@ -22,6 +22,11 @@ const alert_cross = document.querySelector(".alert-cross")
 const loadButton = document.getElementById("loadButton")
 const fileInput = document.getElementById('fileInput');
 
+const saveCode = document.getElementById("saveCode")
+const checkbox_code = document.getElementById("checkbox_code")
+const checkbox_code_edit = document.getElementById("checkbox_code_edit")
+
+
 
 
 
@@ -62,19 +67,18 @@ const output_place = document.getElementById("output")
 
 //ChangeLanguage fun.
 
-var language = "node"
+var language = "node";
 
 function changeLanguage() {
-
   language = $("#languages").val();
 
-  if(language == 'c' || language == 'cpp')editor.session.setMode("ace/mode/c_cpp");
-  else if(language == 'php')editor.session.setMode("ace/mode/php");
-  else if(language == 'python')editor.session.setMode("ace/mode/python");
-  else if(language == 'node')editor.session.setMode("ace/mode/javascript");
+  if (language == 'python') {
+    editor.session.setMode("ace/mode/python");
+  } else {
+    editor.session.setMode("ace/mode/javascript");
+  }
 
-  console.log("Language:", language)
-  
+  console.log("Language:", language);
 }
 
 
@@ -190,9 +194,6 @@ exerciseDescTextInput.addEventListener("input", function(){
 
 
 function saveModal(){
-  // if(getElementById("checkbox")){
-  //   //Editor value (ace_content) should get appended to the exercise. but it does not have to be shown. (only for the student later on.)
-  // }
   const newDiv = createNewEx()
   createTextinNewEx(newDiv)
   placeCrossInEx(newDiv)
@@ -221,14 +222,18 @@ function createTextinNewEx(newDiv){
   let content_2 = exerciseDescTextInput.value;
   const exerciseTitleText = document.createElement("div")
   const exerciseDescText = document.createElement("div")
+  const optionstatus_div = document.createElement("div")
   exerciseTitleText.id = "exerciseTitleText" + exerciseCount;
   exerciseDescText.id = "exerciseDescText" + exerciseCount;
+  optionstatus_div.id = "optionstatus" + exerciseCount;
   exerciseTitleText.className= "exerciseTitleText"
   exerciseDescText.className= "exerciseDescText"
   exerciseTitleText.textContent = content_1
   exerciseDescText.textContent = content_2
+  optionstatus.textContent = checkOptionStatus(optionstatus)
   newDiv.appendChild(exerciseTitleText)
   newDiv.appendChild(exerciseDescText)
+  newDiv.appendChild(optionstatus_div)
 }
 
 function placeCrossInEx(newDiv){
@@ -370,8 +375,19 @@ closeEditedExerciseButton.addEventListener("click", function(){
   function editExercise(lastNumber){
   exerciseTitleTextInputedit.value = document.getElementById("exerciseTitleText" + lastNumber ).textContent;
   exerciseDescTextInputedit.value = document.getElementById("exerciseDescText" + lastNumber).textContent;
+  checkOptionStatus();
   modal_editExercise.showModal();
   console.log("MODAL EDIT OPEN")
+}
+
+function checkOptionStatus(value){
+  if(value % 2 == 0){
+    console.log("off")
+    checkbox_code_edit.checked = false 
+  } else{
+    checkbox_code_edit.checked = true
+    console.log("on")
+  }
 }
 
 
@@ -389,10 +405,12 @@ document.getElementById('createTestButton').addEventListener('click', function()
       console.log(index);
       const title = exercise.querySelector(`#exerciseTitleText${index + 1}`).textContent;
       const description = exercise.querySelector(`#exerciseDescText${index + 1}`).textContent;
+      // const optionstatus = exercise.querySelector(`#optionstatus${index + 1}`)
       const exerciseFolder = testFolder.folder(`exercise${index + 1}`);
 
       exerciseFolder.file('title.txt', title);
       exerciseFolder.file('description.txt', description);
+      // exerciseFolder.file('optionstatus.txt', optionstatus);
     });
 
     zip.generateAsync({ type: 'blob' }).then(function(content) {
@@ -409,6 +427,7 @@ document.getElementById('createTestButton').addEventListener('click', function()
 
 
 
+
 alert_cross.addEventListener("click", function(){
   alert_div.style.visibility = "hidden"
 })
@@ -416,19 +435,60 @@ alert_cross.addEventListener("click", function(){
 
 
 
-
+//Opens explorer of client and tries to load code of script into editor.Content.
 
 loadButton.addEventListener("click", function() {
-    fileInput.click(); // Open file explorer
+  fileInput.click(); // Open file explorer
 });
 
 fileInput.addEventListener("change", function(event) {
-    const file = event.target.files[0];
-    if (file) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            editor.setValue(e.target.result, -1); // Set file content to the editor
-        };
-        reader.readAsText(file); // Read the file as text
-    }
+  const file = event.target.files[0];
+  if (file) {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+          editor.setValue(e.target.result, -1); // Set file content to the editor
+          fileInput.value = ''; // Reset the input value to allow re-loading the same file
+      };
+      reader.readAsText(file); // Read the file as text
+  }
 });
+
+
+
+//Saves the current editor.Content in a File on clients PC.
+
+saveCode.addEventListener("click", function() {
+  var content = editor.getValue();  // Get the content from the editor
+  var filename;
+
+  if (language == 'python') {
+    filename = "script.py";
+  } else {
+    filename = "script.js";
+  }
+
+  var blob = new Blob([content], { type: "text/plain;charset=utf-8" });
+  var link = document.createElement("a");
+  link.href = URL.createObjectURL(blob);
+  link.download = filename;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+
+  console.log("File saved as:", filename);
+});
+
+
+
+let optionstatus = 0
+
+checkbox_code.addEventListener("change", function(){
+  optionstatus++;
+  console.log("optionstatus",optionstatus)
+})
+  
+
+checkbox_code_edit.addEventListener("change", function(){
+  optionstatus++;
+  console.log("optionstatus",optionstatus)
+})
