@@ -11,6 +11,9 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
   <link href='https://fonts.googleapis.com/css?family=Roboto Mono' rel='stylesheet'>
 
 
@@ -34,10 +37,11 @@
                 </div>
                 
                 <div id="container_options">
-                  <div id="tooltip_code">
-                      <span id="tooltip_code_text">Current editor code is used in the exercise</span>
+                  <div class="buttons_Info_checkbox">
                       <input class="checkboxes" id="checkbox_code" type="checkbox">
                       <span id="code_option_button">Code</span>
+                      <p class="tooltip_info_checkbox">Current code is used in the exercise when checked</p>
+                    </input>
                   </div>
               </div>
 
@@ -67,19 +71,19 @@
     
           <div class="input_desc">
             <div id="header_desc_edit">Description</div>
-            <textarea autocomplete="off" type="text" required class="exerciseDescTextInput" id="exerciseDescTextInputedit"></textarea>
-            
+            <textarea autocomplete="off" type="text" required class="exerciseDescTextInput" id="exerciseDescTextInputedit">
+            </textarea>
           </div>
           
-          
+          <div id="container_options_edit">
+            <div class="buttons_Info_checkbox">
+                <input class="checkboxes" id="checkbox_code_edit" type="checkbox">
+                <span id="code_option_button_edit">Code</span>
+                <p>Current code is used in the exercise when checked</p>
+            </div>
         </div>
-        <div id="container_options_edit">
-          <div id="tooltip_code_edit">
-              <span id="tooltip_code_text_edit">Current editor code is used in the exercise</span>
-              <input class="checkboxes" id="checkbox_code_edit" type="checkbox">
-              <span id="code_option_button_edit">Code</span>
-          </div>
       </div>
+        
     
       
     </div>
@@ -127,17 +131,21 @@
         </select>
     </div>
     <div class="editor_buttons_container">
-        <button class="buttons" type="submit" id="saveCode">
+        
+        <button class="buttons buttons_Info" type="submit" id="saveCode">
+          <p class ="tooltip_info">save file</p>
           <span class="material-symbols-outlined">
             save
             </span>
         </button>
-      <button class="buttons" id="loadButton">
-        <span class="material-symbols-outlined" id="">
+      <button class="buttons buttons_Info" id="loadButton">
+        <p class="tooltip_info">open file</p>
+        <span class="material-symbols-outlined">
           folder_open
           </span>
       </button>
-      <button class="buttons" id="runButton" onclick="runCode()">
+      <button class="buttons buttons_Info" id="runButton" onclick="runCode()">
+        <p class="tooltip_info">run</p>
         <span class="material-symbols-outlined">
           play_arrow
           </span></button>
@@ -146,11 +154,7 @@
     </div>
     <div class="container_code">
       <input type="file" id="fileInput" style="display: none;" accept=".js, .py">
-      <div class="editor" id="editor">function welcome(){<br>console.log("hello world");<br>}<br>welcome();
-  
-   
-  
-    </div>
+      <div class="editor" id="editor"></div>
       <div class="container_output">
         <div class="output_header">Output</div>
         <div id="output_area">
@@ -165,7 +169,13 @@
   <div class="container_exercises">
     <div class="exercises_header">
       <div class="exercises_title">Exercises</div>
-      <button class="buttons" id="createTestButton">Create Test</button>
+      <button class="buttons buttons_Info" id="createTestButton">
+        <p class="tooltip_info">create new test</p>
+        <span class="material-symbols-outlined" id="createTestIcon">
+        download
+        </span>
+        <p>Create Test</p>
+      </button>
       
     </div>
     <div class="container_list">
@@ -178,7 +188,11 @@
 
 
 
-<button class="buttons" id="add-button">+</button>
+<button class="buttons" id="add-button">
+  <span class="material-symbols-outlined" id="add-button_plus">
+    add
+    </span>
+</button>
 
 <script src="JS/LIB_Ace/ace.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/skulpt@0.10.0/dist/skulpt.min.js"></script>

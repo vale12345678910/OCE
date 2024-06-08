@@ -2,8 +2,8 @@
 let exerciseCount = 0;
 let lastNumber = null; 
 
-
-const newEx = document.getElementById("newEx")
+const newEx = document.querySelector(".sortable-list")
+// const newEx = document.getElementById("newEx")
 const saveButton = document.getElementById("saveButton-modal")
 const modal_editExercise = document.getElementById("modal_editExercise")
 
@@ -168,7 +168,6 @@ openModal.addEventListener("click", () =>{
   exerciseCount++;
   exerciseTitleTextInput.value ="";
   exerciseDescTextInput.value = "";
-  // exerciseDescTextInput.style.height="20px";
   modal.showModal()
   console.log("MODAL OPEN")
 });
@@ -213,6 +212,7 @@ saveButton.addEventListener("click", function(){
 
 function createNewEx(){
   const newDiv = document.createElement("div") //create new ex.
+  newDiv.setAttribute("draggable", "true")
   newDiv.id="newEx" + exerciseCount;
   newDiv.className="newEx"
   container_list.appendChild(newDiv)
@@ -231,9 +231,9 @@ function createTextinNewEx(newDiv){
   optionstatus_div.id = "optionstatus" + exerciseCount;
   ex_editor_content.id  = "ex_editor_content" + exerciseCount;
   optionstatus_div.className = "optionstatus";
-  exerciseTitleText.className= "exerciseTitleText"
-  exerciseDescText.className= "exerciseDescText"
-  ex_editor_content.className = "ex_editor_content"
+  exerciseTitleText.className= "exerciseTitleText";
+  exerciseDescText.className= "exerciseDescText";
+  ex_editor_content.className = "ex_editor_content";
   exerciseTitleText.textContent = content_1
   exerciseDescText.textContent = content_2
   ex_editor_content.textContent = editor.getValue()
@@ -264,48 +264,6 @@ function placePenInEx(newDiv){
   newDiv.appendChild(ExPen)
 
 }
-
-
-
-
-
-
-// document.addEventListener('DOMContentLoaded', function() {
-//   const textarea = document.getElementById('exerciseDescTextInput');
-//   console.log("scrollheight:", this.scrollHeight)
-//   textarea.addEventListener('input', function() {
-//       this.style.minHeight ="1" + "em";
-//       this.style.height = 'auto';
-//       this.style.height += 2 + 'em';
-//       console.log("scrollheight:", this.scrollHeight)
-//   });
-
-//   // Trigger the input event on page load to adjust the initial height
-//   textarea.dispatchEvent(new Event('input'));
-// });
-
-
-
-
-
-document.addEventListener('DOMContentLoaded', function() {
-  const textareaEdit = document.getElementById('exerciseDescTextInputedit');
-
-  textareaEdit.addEventListener('input', function() {
-      this.style.minHeight ="20" + "px";
-      this.style.height = 'auto';
-      this.style.height = (this.scrollHeight-5) + 'px';
-  });
-
-  // Trigger the input event on page load to adjust the initial height
-  textareaEdit.dispatchEvent(new Event('input'));
-});
-
-
-
-
-
-
 
 
 
@@ -523,3 +481,7 @@ checkbox_code_edit.addEventListener("change", function(){
   optionstatus_edit++;
   console.log("optionstatus_edit",optionstatus_edit)
 })
+
+
+
+//start
