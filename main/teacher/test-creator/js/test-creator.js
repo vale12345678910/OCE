@@ -376,41 +376,41 @@ function checkOptionStatusEdit(){
 
 
 //createTest Function
-document.getElementById('createTestButton').addEventListener('click', function() {
-  if (exerciseCount == 0) {
-    alert_div.style.visibility = "visible";
-  } else {
-    const exercises = document.querySelectorAll('.newEx');
-    const zip = new JSZip();
-    const testFolder = zip.folder('test');
+// document.getElementById('createTestButton').addEventListener('click', function() {
+//   if (exerciseCount == 0) {
+//     alert_div.style.visibility = "visible";
+//   } else {
+//     const exercises = document.querySelectorAll('.newEx');
+//     const zip = new JSZip();
+//     const testFolder = zip.folder('test');
 
-    exercises.forEach((exercise, index) => {
-      console.log(index);
-      const title = exercise.querySelector(`#exerciseTitleText${index + 1}`).textContent;
-      const description = exercise.querySelector(`#exerciseDescText${index + 1}`).textContent;
-      const optionstatus_div_test = exercise.querySelector(`#optionstatus${index + 1}`).textContent;
-      const editor_content = exercise.querySelector(`#ex_editor_content${index + 1}`).textContent;
+//     exercises.forEach((exercise, index) => {
+//       console.log(index);
+//       const title = exercise.querySelector(`#exerciseTitleText${index + 1}`).textContent;
+//       const description = exercise.querySelector(`#exerciseDescText${index + 1}`).textContent;
+//       const optionstatus_div_test = exercise.querySelector(`#optionstatus${index + 1}`).textContent;
+//       const editor_content = exercise.querySelector(`#ex_editor_content${index + 1}`).textContent;
 
 
 
-      const exerciseFolder = testFolder.folder(`exercise${index + 1}`);
+//       const exerciseFolder = testFolder.folder(`exercise${index + 1}`);
 
-      exerciseFolder.file(`title.txt`, title);
-      exerciseFolder.file(`description.txt`, description);
-      exerciseFolder.file('optionstatus.txt', optionstatus_div_test);
-      exerciseFolder.file("code.txt", editor_content)
-    });
+//       exerciseFolder.file(`title.txt`, title);
+//       exerciseFolder.file(`description.txt`, description);
+//       exerciseFolder.file('optionstatus.txt', optionstatus_div_test);
+//       exerciseFolder.file("code.txt", editor_content)
+//     });
 
-    zip.generateAsync({ type: 'blob' }).then(function(content) {
-      const a = document.createElement('a');
-      a.href = URL.createObjectURL(content);
-      a.download = 'test.zip';
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-    });
-  }
-});
+//     zip.generateAsync({ type: 'blob' }).then(function(content) {
+//       const a = document.createElement('a');
+//       a.href = URL.createObjectURL(content);
+//       a.download = 'test.zip';
+//       document.body.appendChild(a);
+//       a.click();
+//       document.body.removeChild(a);
+//     });
+//   }
+// });
 
 
 
@@ -484,9 +484,42 @@ checkbox_code_edit.addEventListener("change", function(){
 
 
 //HANDLE MENU
+document.getElementById('createTestButton').addEventListener('click', function() {
+  if (exerciseCount == 0) {
+    alert_div.style.visibility = "visible";
+  } else {
+    const exercises = document.querySelectorAll('.newEx');
+    const testValues = [];
+
+    exercises.forEach((exercise, index) => {
+      const title = exercise.querySelector(`#exerciseTitleText${index + 1}`).textContent;
+      const description = exercise.querySelector(`#exerciseDescText${index + 1}`).textContent;
+      const optionstatus_div_test = exercise.querySelector(`#optionstatus${index + 1}`).textContent;
+      const editor_content = exercise.querySelector(`#ex_editor_content${index + 1}`).textContent;
+
+      // Push the values into an array
+      testValues.push({ 
+        title: title, 
+        description: description, 
+        optionstatus: optionstatus_div_test, 
+        editorContent: editor_content 
+      });
+    });
+
+    // Convert the array to JSON and store it in Local Storage
+    localStorage.setItem('testValues', JSON.stringify(testValues));
+
+    // Display a message or indication that the test is created
+    alert('Test created successfully!');
+  }
+});
+
+//end
+
 document.getElementById("testsOverview").addEventListener("click", function(){
   window.location.href = '../test-overview/test-overview.html'
 })
+
 
 document.getElementById("Recieve").addEventListener("click", function(){
   window.location.href = '../recieve/recieve.html'
@@ -495,4 +528,3 @@ document.getElementById("Recieve").addEventListener("click", function(){
 document.getElementById("Correct").addEventListener("click", function(){
   window.location.href = '../correct/correct.html'
 })
-
