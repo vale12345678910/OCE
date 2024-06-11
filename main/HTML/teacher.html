@@ -115,74 +115,84 @@
 </div>
 
 
-
-<div class="main_container">
-  
-  
-  <div class="container_editor">
-    <div class="editor_header">
-      <div class="editor_title">Editor</div>
-      <div class="control-panel">
-        &nbsp; &nbsp;
-        <select id="languages" class="languages" onchange="changeLanguage()">
-            <option value="node"> js </option>
-            <option value="python"> py </option>
-            
-        </select>
-    </div>
-    <div class="editor_buttons_container">
-        
-        <button class="buttons buttons_Info" type="submit" id="saveCode">
-          <p class ="tooltip_info">save file</p>
-          <span class="material-symbols-outlined">
-            save
-            </span>
-        </button>
-      <button class="buttons buttons_Info" id="loadButton">
-        <p class="tooltip_info">open file</p>
-        <span class="material-symbols-outlined">
-          folder_open
-          </span>
-      </button>
-      <button class="buttons buttons_Info" id="runButton" onclick="runCode()">
-        <p class="tooltip_info">run</p>
-        <span class="material-symbols-outlined">
-          play_arrow
-          </span></button>
-  </div>
-
-    </div>
-    <div class="container_code">
-      <input type="file" id="fileInput" style="display: none;" accept=".js, .py">
-      <div class="editor" id="editor"></div>
-      <div class="container_output">
-        <div class="output_header">Output</div>
-        <div id="output_area">
-          <div class="grey_area"></div>
-          <div id="output">Code</div>
-      </div>
-        </div>
-    </div>
-    
-  </div>
-
-  <div class="container_exercises">
-    <div class="exercises_header">
-      <div class="exercises_title">Exercises</div>
-      <button class="buttons buttons_Info" id="createTestButton">
-        <p class="tooltip_info">create new test</p>
-        <span class="material-symbols-outlined" id="createTestIcon">
-        download
-        </span>
-        <p>Create Test</p>
-      </button>
-      
-    </div>
-    <div class="container_list">
-      <!-- LIST CONTENT -->
-    </div>
+<div class="menu">
+  <div class="menuWrapper">
+    <div class="menutext">Test creator</div>
+    <div class="menutext">Tests</div>
+    <div class="menutext">about</div>
+    <div class="menutext">text</div>
+    <div class="menutext">text</div>
   </div>
 </div>
+
+
+
+
+  <div class="main_container">
+    <div class="container_editor">
+      <div class="editor_header">
+        <div class="editor_title">Editor</div>
+        <div class="control-panel">
+          &nbsp; &nbsp;
+          <select id="languages" class="languages" onchange="changeLanguage()">
+              <option value="node"> js </option>
+              <option value="python"> py </option>
+              
+          </select>
+      </div>
+      <div class="editor_buttons_container">
+          
+          <button class="buttons buttons_Info" type="submit" id="saveCode">
+            <p class ="tooltip_info">save file</p>
+            <span class="material-symbols-outlined">
+              save
+              </span>
+          </button>
+        <button class="buttons buttons_Info" id="loadButton">
+          <p class="tooltip_info">open file</p>
+          <span class="material-symbols-outlined">
+            folder_open
+            </span>
+        </button>
+        <button class="buttons buttons_Info" id="runButton" onclick="runCode()">
+          <p class="tooltip_info">run</p>
+          <span class="material-symbols-outlined">
+            play_arrow
+            </span></button>
+    </div>
+
+      </div>
+      <div class="container_code">
+        <input type="file" id="fileInput" style="display: none;" accept=".js, .py">
+        <div class="editor" id="editor"></div>
+        <div class="container_output">
+          <div class="output_header">Output</div>
+          <div id="output_area">
+            <div class="grey_area"></div>
+            <div id="output">Code</div>
+        </div>
+          </div>
+      </div>
+      
+    </div>
+
+    <div class="container_exercises">
+      <div class="exercises_header">
+        <div class="exercises_title">Exercises</div>
+        <button class="buttons buttons_Info" id="createTestButton">
+          <p class="tooltip_info">create new test</p>
+          <span class="material-symbols-outlined" id="createTestIcon">
+          download
+          </span>
+          <p>Create Test</p>
+        </button>
+        
+      </div>
+      <div class="container_list">
+        <!-- LIST CONTENT -->
+      </div>
+    </div>
+  </div>
 
 
 
