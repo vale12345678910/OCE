@@ -1,0 +1,60 @@
+html {
+    font-size: 1vw;
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+  
+
+body {
+    background-color: rgb(5, 5, 5);
+    overflow: hidden;
+}
+
+.mainContainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    opacity: 0;
+}
+
+#title{
+    color: white;
+    font-size: 4em;
+    margin: 0;
+    margin-top: 3em;
+    
+}
+
+.mainContainer.show{
+    transition: opacity 2s ease;
+    opacity: 1;
+}
+
+#subtitle{
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 1.5em;
+    font-style: italic;
+    margin: 0;
+    margin-top: 1em;
+    margin-bottom: 2em;
+}
+
+.connect{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 15em;
+    height: 4em;
+    color: rgba(255, 255, 255, 0.5);
+    border-radius: 1em;
+    outline: 1px solid rgba(255, 255, 255, 0.5);
+    transition: 0.2s ease;
+}
+
+.connect:hover{
+    outline: 1px solid white;
+    color: white;
+}

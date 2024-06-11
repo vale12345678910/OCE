@@ -1,0 +1,77 @@
+html {
+    font-size: 1vw;
+}
+
+body{
+    background-color: black;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.containerMenu{
+    display: flex;
+    align-content: center;
+    justify-content: space-evenly;
+    width: 100%;
+    height: 98vh;
+}
+
+.menuItem{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(5, 5, 5);
+    outline: 1px solid rgba(255, 255, 255, 0.2);
+    height: 100%;
+    width: 23em;
+    flex-direction: column;
+    position: relative;
+    cursor: pointer;
+}
+
+
+
+.menuItem h1 {
+    font-weight: 100;
+    opacity: 0;
+    color: white;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 1.5em;
+    visibility: hidden;
+    width: fit-content;
+    
+}
+
+.menuItem h1.show {
+    transition: all 1s ease-in;
+    opacity: 1;
+     visibility: visible; /*modifie later */
+}
+
+.menuItem:hover h1 {
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.1s; /* Faster transition on hover */
+}
+
+.info {
+    font-size: 1.2em;
+    visibility: hidden;
+    opacity: 0;
+    color: rgba(255, 255, 255, 0.8);
+    height: fit-content;
+    position: absolute;
+    text-align: center;
+    width: 80%;
+    transition: all 0.6s ease-out;
+}
+
+.menuItem:hover .info{
+    opacity: 1;
+    visibility: visible;
+}
+
+.menuItem:hover{
+    outline: rgba(255, 255, 255, 0.5) 1px solid;
+
+}

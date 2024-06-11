@@ -1,0 +1,1000 @@
+html {
+    font-size: 1vw;
+}
+
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+  
+
+body {
+    background-color: rgba(0,1,1,255); 
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+}
+
+
+.menu{
+    margin-right: auto;
+    margin-left: auto;
+    width: 80em;
+    height: fit-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: 2em;
+}
+
+.menuWrapper{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100vw;
+    padding-left: 4em;
+    padding-right: 4em;
+}
+
+.line{
+    background-color: rgb(255, 255, 255, 0.5);
+    width: 100vw;
+    height: 1px;
+}
+
+
+.menutext:hover {
+    cursor: pointer;
+    transition: 0.4s color;
+    color: white;
+}
+
+.menutext{
+    width: calc(100vh / 3);
+    font-size: 1.1em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgb(255, 255, 255, 0.7);
+    font-family: 'Times New Roman', Times, serif;
+    border-radius: 1em;
+    padding: 0.5em;
+    z-index: 1;
+}
+
+
+
+
+
+
+
+.buttons{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.1s ease;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    width: 4em;
+    height: 40px;
+    font-size: 100%;
+    background-color: rgb(5, 5, 5);
+    color: white;
+}
+
+.buttons:hover{
+    background-color: grey;
+}
+
+
+
+
+#loadButton{
+    transition: all 0.1s linear;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    font-size: 100%;
+    background-color: rgb(5, 5, 5);
+    color: white;
+    margin-left: 0.2em;
+    margin-right: 0.2em;
+}
+
+#loadButton:hover{
+    background-color: grey;
+}
+
+#saveButton{
+    transition: all 0.1s linear;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 100%;
+    background-color: rgb(5, 5, 5);
+    color: white
+}
+
+#saveButton:hover{
+    background-color: grey;
+}
+
+
+.main_container {
+    margin-top: 3em;
+    width: fit-content;
+    height: fit-content;
+    padding-top: 1em;
+    padding-left: 4em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+.container_editor {
+    height: fit-content;
+    width: 40em;
+    display: flex;
+    flex-direction: column;
+    margin-right: 7em;
+    /* outline: 2px solid white; */
+}
+
+
+.container_exercises {
+    height: fit-content;
+    margin-bottom: auto;
+    width: 40em;
+    display: flex;
+    flex-direction: column;
+    /* outline: 2px solid white; */
+}
+
+
+.control-panel{
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    /* outline: 1px red solid; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: fit-content;
+    height: fit-content;
+}
+
+
+.languages{
+    cursor: pointer;
+    color: white;
+    font-size: 1em;
+    width: fit-content;
+    height: fit-content;
+    height: 40px;
+    background-color: rgb(5, 5, 5);
+    border: none;
+    outline: none;
+}
+
+
+
+#add-button{
+    padding: 0.5em;
+    color: rgb(255, 255, 255);
+    font-size: 1.3em;
+    font-weight: 500;
+    display: flex;
+    position: absolute;
+    bottom: 1.5em;
+    right: 1.5em;
+    background-color: transparent;
+    border:1px rgb(255, 255, 255) solid;
+    border-radius: 50%;
+    width: fit-content;
+    height: fit-content;
+    justify-content: center;
+    align-items: center;
+    outline: none;
+}
+
+
+#add-button:hover{
+    transition: all 0.1s ease;
+    background-color: rgb(255, 255, 255, 0.5);
+    border: none;
+    color: white;
+    cursor: pointer;
+    outline: none;
+}
+
+#run-button{
+    transition: all 0.1s linear;
+    border-radius: 5px;
+    background-color: rgb(5, 5, 5);
+    color: white;
+    font-size: 100%;
+    border: none;
+    cursor: pointer;
+}
+
+#run-button:hover{
+    background-color: grey;
+}
+
+.exercises_title{
+    display: flex;
+    align-items: center;
+    color: white;
+    font-size: 2em;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+}
+
+.exercises_header{
+    margin-bottom: 1em;
+    display: flex;
+    height: 40px;
+    width: 40em;
+}
+
+.editor_title{
+    display: flex;
+    align-items: center;
+    color: white;
+    font-size: 2em;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+}
+
+.editor_header{
+    width: 40em;
+    height: 40px;
+    display: flex;
+}
+
+
+.editor{
+    font-size: 0.9em;
+    font-family: "Roboto Mono";
+    width: 100%;
+    height: 25em;
+    z-index: 1;
+}
+
+.modal_title{
+    font-size: 1.5em;
+    font-weight: 500;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+}
+
+
+#modal{
+    width: fit-content;
+    height: fit-content;
+    background-color: rgb(5, 5, 5);
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    overflow: hidden;
+    /* outline: 1px solid white; */
+}
+
+
+#modal_edit_div{
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(5, 5, 5);
+    width: fit-content;
+    height: max-content;
+    border: none;
+    outline: none;
+    margin: 1em;
+}
+
+
+#modal_div{
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(5, 5, 5);
+    width: fit-content;
+    height: max-content;
+    border: none;
+    outline: none;
+    margin: 1em;
+}
+
+
+
+#modal::backdrop{
+    background-color: black;
+    opacity: 0.5;
+}
+
+#modal_editExercise::backdrop{
+    background-color: black;
+    opacity: 0.5;
+}
+
+.container_textarea{
+    width: 30em;
+    height: fit-content;
+    margin-top: 1.5em;
+
+}
+
+.container_textarea .input_title{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 2.5em;
+}
+
+.container_textarea .input_title input{
+    width: 100%;
+    margin-right: auto;
+    color: white;
+    font-size: 1em;
+    height: 2em;
+    padding: 0.3em;
+    border: 1px grey solid;
+    outline: none;
+    background-color: rgb(5, 5, 5);
+}
+
+#header_title{
+    margin-right: auto;
+    margin-bottom: 0.2em;
+    color: white;
+    font-size: 1em;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
+
+.input_desc{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: fit-content;
+    align-items: center;
+}
+
+#header_desc{
+    margin-right: auto;
+    color: white;
+    font-size: 1em;
+    font-family: Arial, Helvetica, sans-serif;
+    margin-bottom: 0.2em;
+}
+
+
+.container_textarea .input_desc textarea {
+    width: 100%;
+    color: white;
+    font-weight: lighter;
+    font-size: 0.8em;
+    font-family: Arial, Helvetica, sans-serif;
+    border: 1px grey solid;
+    resize: none;
+    height: 10em;
+    border-top-left-radius: 0.5em;
+    border-top-right-radius: 0.5em;
+    background-color: rgb(5, 5, 5);
+    outline: none;
+    padding-left: 0.3em;
+    padding-top: 0.5em;
+    margin-right: auto;
+}
+
+
+#closeButton-modal{
+    transition: all 0.1s linear;
+    border-radius: 5px;
+    background-color: rgb(5, 5, 5);
+    color: rgb(255, 255, 255);
+    font-size: 100%;
+    border: none;
+    cursor: pointer;
+    margin-right: 0.5em;
+}
+
+#closeButton-modal:hover{
+    transition: 0.1s all ease;
+    background-color: grey;
+}
+
+
+.editor_buttons_container{
+    display: flex;
+    /* outline: 2px solid yellow; */
+    margin-left: auto;
+    height: 40px;
+    width: fit-content;
+}
+
+#saveButton-modal{
+    border-radius: 5px;
+    background-color: rgb(5, 5, 5);
+    color: rgb(255, 255, 255);
+    font-size: 100%;
+    border: none;
+    cursor: pointer;
+    order: 1;
+}
+
+
+
+#saveButton-modal:hover{
+    transition: 0.1s ease all;
+    background-color: grey;
+}
+
+
+.newEx{
+    outline: 1px rgb(255, 255, 255, 0.5) solid;
+    border-radius: 1em;
+    transition: all 0.1s linear;
+    display: flex;
+    flex-direction: column;
+    min-height: 100px;  
+    width: 100%;
+    position: relative;
+    z-index: 2;
+    box-sizing: border-box;
+    cursor: grab;
+}
+
+
+.container_list{
+    scrollbar-width: none;
+    padding-left: 0.1em;
+    padding-right: 0.1em;
+    padding-top: 0.1em;
+    overflow-y: auto;
+    width: 40em;
+    height: 34em;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: column;
+    z-index: 1;
+    position: relative;
+    box-sizing: border-box;
+}
+
+.container_list > *{
+    margin-bottom: 0.5em;
+}
+
+
+
+.container_code{
+    display: flex;
+    flex-direction: column;
+    margin-top: 1em;
+}
+
+.modal_header{
+    display: flex;
+    height: 40px;
+    width: auto;
+}
+
+.modal_textarea{
+    display: flex;
+    width: 80em;
+    height: 400px;
+}
+
+.modal_buttons{
+    z-index: 1111;
+    display: flex;
+    justify-content: space-between;
+    height: fit-content;
+    margin-left: auto;
+}
+
+.exerciseTitleText{
+    padding-left: 10px;
+    padding-top: 10px;
+    font-size: 1.2em;
+    font-family: Arial, Helvetica, sans-serif;
+    color: white;
+}
+
+.exerciseDescText{
+    padding-left: 10px;
+    font-size: 0.8em;
+    color: rgba(255, 255, 255, 0.5);
+    font-family: Arial, Helvetica, sans-serif;
+
+}
+
+
+#modal_editExercise{
+    padding: 1em;
+    flex-direction: column;
+    background-color: rgb(5, 5, 5);
+    width: fit-content;
+    height: max-content;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+#container_modal_content{
+    display: flex;
+    width: fit-content;
+    margin-bottom: 2em;
+}
+
+#container_modal_content_edit{
+    display: flex;
+    width: fit-content;
+}
+
+
+
+
+
+
+
+
+
+#container_options{
+    margin-top: 0;
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+}
+
+#container_options_edit{
+    margin-top: 0;
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.checkboxes{
+    width: 1.5em;
+    height: 15px;
+    cursor: pointer;
+}
+
+
+#tooltip_code_edit{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor:pointer;
+    padding: 1em;
+    font-family: Arial, Helvetica, sans-serif;
+
+}
+
+#tooltip_code_text{
+    position: absolute;
+    left: 50%;
+    top: 0;
+    margin-top: 25px;
+    transform: translateX(-50%);
+    background-color: transparent;
+    border: 1px rgb(255, 255, 255, 0.5) solid;
+    color: rgb(255, 255, 255, 0.5);
+    white-space: nowrap;
+    padding: 5px 10px;
+    border-radius: 5px;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.1s ease;
+    pointer-events: none;
+    font-size: 14px;
+}
+
+
+#tooltip_code:hover #tooltip_code_text{
+    top: -130%;
+    visibility: visible;
+    opacity: 1;
+    
+}
+
+#tooltip_code_edit:hover #tooltip_code_text_edit{
+    top: -130%;
+    visibility: visible;
+    opacity: 1;
+    
+}
+
+#code_option_button{
+    font-family: Arial, Helvetica, sans-serif;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#code_option_button_edit{
+    font-family: Arial, Helvetica, sans-serif;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+
+
+#tooltip_code_editable{
+    position: absolute;
+    cursor:pointer;
+    padding: 10px;
+    margin-top: 50px;
+    font-family: Arial, Helvetica, sans-serif;
+
+}
+
+#tooltip_code_editable_text{
+    z-index: 1111;
+    position: absolute;
+    left: 50%;
+    top: 0;
+    margin-top: 25px;
+    transform: translateX(-50%);
+    background-color: rgb(5, 5, 5);
+    border: 1px rgb(255, 255, 255, 0.5) solid;
+    color: rgb(255, 255, 255, 0.5);
+    white-space: nowrap;
+    padding: 5px 10px;
+    border-radius: 5px;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.1s ease;
+    pointer-events: none;
+    font-size: 14px;
+}
+
+
+#tooltip_code_editable:hover #tooltip_code_editable_text{
+    z-index: 1111;
+    top: -130%;
+    visibility: visible;
+    opacity: 1;
+    
+}
+
+#code_editable_option_button{
+    color: white;
+}
+
+
+
+
+
+
+
+
+#tooltip_code_runnable{
+    position: absolute;
+    cursor:pointer;
+    padding: 10px;
+    margin-top: 100px;
+    font-family: Arial, Helvetica, sans-serif;
+
+}
+
+#tooltip_code_runnable_text{
+    z-index: 1111;
+    position: absolute;
+    left: 50%;
+    top: 0;
+    margin-top: 25px;
+    transform: translateX(-50%);
+    background-color: rgb(5, 5, 5);
+    border: 1px rgb(255, 255, 255, 0.5) solid;
+    color: rgb(255, 255, 255, 0.5);
+    white-space: nowrap;
+    padding: 5px 10px;
+    border-radius: 5px;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.1s ease;
+    pointer-events: none;
+    font-size: 14px;
+}
+
+
+#tooltip_code_runnable:hover #tooltip_code_runnable_text{
+    z-index: 1111;
+    top: -130%;
+    visibility: visible;
+    opacity: 1;
+    
+}
+
+#code_runnable_option_button{
+    color: white;
+}
+ 
+#createTestButton{
+    width: fit-content;
+    margin-left: auto;
+} 
+
+
+#createTestButton p{
+    padding: 0.5em;
+}
+
+.material-symbols-outlined {
+    color: rgb(255, 255, 255);
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 300,
+  'GRAD' 0,
+  'opsz' 20;
+  font-size: 2em !important;
+}
+
+.icons-animation:hover{
+    border-radius: 1em;
+    background-color: rgb(255, 255, 255, 0.25);
+    color: white;
+    cursor: pointer;
+}
+
+.alert{
+    visibility: hidden;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 0.5em;
+    box-sizing: border-box;
+    border-radius: 5px;
+    width: fit-content;
+    height: 2.5em;
+    background-color: red;
+    margin-top: 4.5em;
+}
+
+
+
+
+
+.alert-icon{
+    margin-right: 0.3em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-items: center;
+}
+
+.container_alerts{
+    position: absolute;
+    width: fit-content;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+
+.alert-text{
+    font-family: Arial, Helvetica, sans-serif;
+    font-style: italic;
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    color: white;
+    font-size: 1em;
+}
+
+
+#alert_cross{
+    font-size: 1.5em !important;
+    
+}
+
+
+#alert_info{
+    font-size: 1.5em !important;
+}
+
+.alert-cross{
+    margin-left: 0.3em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    
+}
+
+.ExCross{
+    font-size: 1.5em !important;
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 5px;
+}
+
+
+
+.ExPen{
+    font-size: 1.5em !important;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding: 5px;
+}
+
+
+.container_output{
+    margin-top: 4em;
+    height: fit-content;
+    width: 40em;
+    display: flex;
+    flex-direction: column;
+    /* outline: 2px solid white;  */
+}
+
+#output_area{
+    display: flex;
+    align-items: center;
+    background-color: rgba(0,1,1,255);
+    height: 5em;
+    width: 40em;
+}
+
+.grey_area{
+    background-color: rgba(26,26,26,255);
+    height: 5em;
+    width: 40px; /*Beacuse the editor doesnt adjust in size */
+}
+
+
+#output{
+    padding-left: 0.5em;
+    display: flex;
+    font-family: "Roboto Mono";
+    font-size: 1em;
+    color: white;
+}
+
+.output_header{
+    color: white;
+    font-size: 1.5em;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    margin-bottom: 0.3em;
+}
+
+.error_text{
+    color: rgba(229,105,99,255) !important;
+    font-style: italic;
+}
+
+
+#closeButton-editExercise{
+    margin-right: 0.5em;
+}
+
+.optionstatus{
+    visibility: hidden;
+    width: 0;
+    height: 0;
+}
+
+.ex_editor_content{
+    visibility: hidden;
+    width: 0;
+    height: 0;
+}
+
+#header_title_edit{
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1em;
+    margin-right: auto;
+}
+
+#header_desc_edit textarea{
+    height: 10em;
+}
+
+#header_desc_edit{
+    margin-right: auto;
+    color: white;
+    font-size: 1em;
+    font-family: Arial, Helvetica, sans-serif;
+    margin-bottom: 0.2em;
+}
+
+.buttons_Info{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.buttons_Info_checkbox{
+    margin-right: auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.tooltip_info{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    bottom: 2em;
+    outline: 0.5px grey solid;
+    color: white;
+    font-size: 0.8em;
+    padding: 0.5em;
+    font-family: Arial, Helvetica, sans-serif;
+    border-radius: 0.5em;
+    width: max-content;
+    pointer-events: none;
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.1s linear 0.2s;
+    background-color: rgb(5, 5, 5);
+    z-index: 1111;
+}
+
+.tooltip_info_checkbox{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1em;
+    border-radius: 0.5em;
+    color: white;
+    outline: 0.5px grey solid;
+    visibility: hidden;
+}
+
+.buttons_Info:hover p{
+    opacity: 1;
+    visibility: visible;
+}
+
+.buttons_Info_checkbox p{
+    margin-left: 1em;
+    font-size: 0.8em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5em;
+    border-radius: 0.5em;
+    color: white;
+    outline: 0.5px grey solid;
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.1s linear 0.2s;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.buttons_Info_checkbox:hover p{
+    opacity: 1;
+    visibility: visible;
+}
+
+.whiteLine {
+    width: 100%;
+    height: 2px;
+    background-color: white;
+  }
+  
+
