@@ -5,6 +5,11 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
+document.addEventListener("DOMContentLoaded", function() {
+    const title = document.getElementById('title');
+    title.className = "showclass"
+    });
+
 
 document.getElementById("solve").addEventListener("click", function(){
     window.location.href = 'solve/solve.html'
