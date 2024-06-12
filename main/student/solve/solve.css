@@ -11,7 +11,7 @@ html {
   
 
 body {
-    background-color: rgb(19, 21, 21); 
+    background-color: rgb(5, 5, 5); 
     overflow: hidden;
     display: flex;
     flex-direction: column;
@@ -30,7 +30,7 @@ body {
     width: 4em;
     height: 40px;
     font-size: 100%;
-    background-color: rgb(19, 21, 21);
+    background-color: rgb(5, 5, 5);
     color: white;
 }
 
@@ -47,7 +47,7 @@ body {
     border: none;
     border-radius: 5px;
     font-size: 100%;
-    background-color: rgb(19, 21, 21);
+    background-color: rgb(5, 5, 5);
     color: white;
     margin-left: 0.2em;
     margin-right: 0.2em;
@@ -63,7 +63,7 @@ body {
     cursor: pointer;
     border-radius: 5px;
     font-size: 100%;
-    background-color: rgb(19, 21, 21);
+    background-color: rgb(5, 5, 5);
     color: white
 }
 
@@ -121,7 +121,7 @@ body {
     width: fit-content;
     height: fit-content;
     height: 40px;
-    background-color: rgb(19, 21, 21);
+    background-color: rgb(5, 5, 5);
     border: none;
     outline: none;
 }
@@ -130,7 +130,7 @@ body {
 #run-button{
     transition: all 0.1s linear;
     border-radius: 5px;
-    background-color: rgb(19, 21, 21);
+    background-color: rgb(5, 5, 5);
     color: white;
     font-size: 100%;
     border: none;
@@ -193,7 +193,7 @@ body {
 #modal{
     width: fit-content;
     height: fit-content;
-    background-color: rgb(19, 21, 21);
+    background-color: rgb(5, 5, 5);
     border: none;
     outline: none;
     border-radius: 5px;
@@ -205,7 +205,7 @@ body {
 #modal_edit_div{
     display: flex;
     flex-direction: column;
-    background-color: rgb(19, 21, 21);
+    background-color: rgb(5, 5, 5);
     width: fit-content;
     height: max-content;
     border: none;
@@ -217,7 +217,7 @@ body {
 #modal_div{
     display: flex;
     flex-direction: column;
-    background-color: rgb(19, 21, 21);
+    background-color: rgb(5, 5, 5);
     width: fit-content;
     height: max-content;
     border: none;
@@ -261,7 +261,7 @@ body {
     padding: 0.3em;
     border: 1px grey solid;
     outline: none;
-    background-color: rgb(19, 21, 21);
+    background-color: rgb(5, 5, 5);
 }
 
 #header_title{
@@ -302,7 +302,7 @@ body {
     height: 10em;
     border-top-left-radius: 0.5em;
     border-top-right-radius: 0.5em;
-    background-color: rgb(19, 21, 21);
+    background-color: rgb(5, 5, 5);
     outline: none;
     padding-left: 0.3em;
     padding-top: 0.5em;
@@ -313,7 +313,7 @@ body {
 #closeButton-modal{
     transition: all 0.1s linear;
     border-radius: 5px;
-    background-color: rgb(19, 21, 21);
+    background-color: rgb(5, 5, 5);
     color: rgb(255, 255, 255);
     font-size: 100%;
     border: none;
@@ -337,7 +337,7 @@ body {
 
 #saveButton-modal{
     border-radius: 5px;
-    background-color: rgb(19, 21, 21);
+    background-color: rgb(5, 5, 5);
     color: rgb(255, 255, 255);
     font-size: 100%;
     border: none;
@@ -437,7 +437,7 @@ body {
 #modal_editExercise{
     padding: 1em;
     flex-direction: column;
-    background-color: rgb(19, 21, 21);
+    background-color: rgb(5, 5, 5);
     width: fit-content;
     height: max-content;
     border: none;
@@ -569,7 +569,7 @@ body {
     top: 0;
     margin-top: 25px;
     transform: translateX(-50%);
-    background-color: rgb(19, 21, 21);
+    background-color: rgb(5, 5, 5);
     border: 1px rgb(255, 255, 255, 0.5) solid;
     color: rgb(255, 255, 255, 0.5);
     white-space: nowrap;
@@ -618,7 +618,7 @@ body {
     top: 0;
     margin-top: 25px;
     transform: translateX(-50%);
-    background-color: rgb(19, 21, 21);
+    background-color: rgb(5, 5, 5);
     border: 1px rgb(255, 255, 255, 0.5) solid;
     color: rgb(255, 255, 255, 0.5);
     white-space: nowrap;
@@ -866,7 +866,7 @@ body {
     visibility: hidden;
     opacity: 0;
     transition: all 0.1s linear 0.2s;
-    background-color: rgb(19, 21, 21);
+    background-color: rgb(5, 5, 5);
     z-index: 1111;
 }
 
@@ -925,8 +925,10 @@ body {
     border-radius: 1em;
     font-family: Arial, Helvetica, sans-serif;
     width: fit-content;
-    background-color: rgb(19, 21, 21);
+    background-color: rgb(5, 5, 5);
     outline: 1px solid grey;
     margin: 0;
     cursor: not-allowed;
 }
+
+

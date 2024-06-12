@@ -1,0 +1,67 @@
+html {
+    font-size: 1vw;
+}
+
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+  
+
+body {
+    background-color: rgba(0,1,1,255); 
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+}
+
+
+.menu{
+    margin-right: auto;
+    margin-left: auto;
+    width: 80em;
+    height: fit-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: 2em;
+}
+
+.menuWrapper{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100vw;
+    padding-left: 4em;
+    padding-right: 4em;
+}
+
+.line{
+    background-color: rgb(255, 255, 255, 0.5);
+    width: 100vw;
+    height: 1px;
+}
+
+
+.menutext:hover {
+    cursor: pointer;
+    transition: 0.4s color;
+    color: white;
+}
+
+.menutext{
+    width: calc(100vh / 3);
+    font-size: 1.1em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgb(255, 255, 255, 0.7);
+    font-family: 'Times New Roman', Times, serif;
+    border-radius: 1em;
+    padding: 0.5em;
+    z-index: 1;
+}
+
+
