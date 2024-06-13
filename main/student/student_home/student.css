@@ -1,19 +1,22 @@
 html {
     font-size: 1vw;
+    
 }
 
 body{
     background-color: black;
     box-sizing: border-box;
     overflow: hidden;
+    transition: all 0.5s ease;
 }
 
 
 #title {
+    visibility: hidden;
     opacity: 0;
-    font-weight: 100;
+    font-weight: lighter;
     font-size: 2em;
-    color: white;
+    color: rgba(255, 255, 255, 0.8);
     margin-left: auto;
     margin-right: auto;
     display: flex;
@@ -22,14 +25,13 @@ body{
     margin-top: 1em;
     margin-bottom: 1em;
     width: fit-content;
-    
 }
 
-.showclass {
-    transition: all 2s ease;
+#title.showclass {
+    transition: opacity 1s ease-in;
     opacity: 1;
-    color: white;
-}
+    visibility: visible; 
+} 
 
 
 .containerMenu{
@@ -44,8 +46,8 @@ body{
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: rgb(5, 5, 5);
-    outline: 1px solid rgba(255, 255, 255, 0.2);
+    background-color: black;
+    outline: 1px solid rgba(255, 255, 255, 0.5);
     height: 100%;
     width: 23em;
     flex-direction: column;
@@ -69,7 +71,7 @@ body{
 .menuItem h1.show {
     transition: all 1s ease-in;
     opacity: 1;
-    visibility: visible; /*modifie later */
+    visibility: visible; 
 }
 
 .menuItem:hover h1 {
@@ -98,6 +100,55 @@ body{
 .menuItem:hover{
     outline: rgba(255, 255, 255, 0.5) 1px solid;
 
+}
+
+
+#checkboxInput {
+    display: none;
+  }
+  
+  .toggleSwitch {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    right: 1em;
+    top: 1em;
+    width: 50px;
+    height: 30px;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 20px;
+    cursor: pointer;
+    transition-duration: .2s;
+  }
+  
+  .toggleSwitch::after {
+    content: "";
+    position: absolute;
+    height: 10px;
+    width: 10px;
+    left: 5px;
+    background-color: transparent;
+    border-radius: 50%;
+    transition-duration: .2s;
+    box-shadow: 5px 2px 7px rgba(8, 8, 8, 0.26);
+    border: 5px solid white;
+  }
+  
+  #checkboxInput:checked+.toggleSwitch::after {
+    transform: translateX(100%);
+    transition-duration: .2s;
+    background-color: white;
+  }
+  /* Switch background change */
+  #checkboxInput:checked+.toggleSwitch {
+    background-color: rgba(255, 255, 255, 0.2);
+    transition-duration: .2s;
+  }
+  
+
+.invert-colors{
+    filter: invert(1) hue-rotate(180deg);
 }
 
 
