@@ -1,5 +1,5 @@
 document.getElementById("Solve").addEventListener("click", function(){
-    window.location.href = '../solve/solve.html'
+    window.location.href = '../solve_overview/solve_overview.html'
   })
   
   

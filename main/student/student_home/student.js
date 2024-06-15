@@ -9,8 +9,8 @@
 
 
 
-// document.getElementById("solve").addEventListener("click", function(){
-//     window.location.href = 'solve/solve.html'
+// document.getElementById("solve_overview").addEventListener("click", function(){
+//     window.location.href = 'solve_overview/solve_overview.html'
 // })
 
 // document.getElementById("corrections").addEventListener("click", function(){
@@ -58,8 +58,8 @@ document.addEventListener("DOMContentLoaded", function() {
         }, 50);
     });
 
-    document.getElementById("solve").addEventListener("click", function(){
-        window.location.href = 'solve/solve.html';
+    document.getElementById("solve_overview").addEventListener("click", function(){
+        window.location.href = 'solve_overview/solve_overview.html';
     });
 
     document.getElementById("corrections").addEventListener("click", function(){
