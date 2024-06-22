@@ -302,7 +302,7 @@ body {
     flex-direction: column;
     background-color: rgb(5, 5, 5);
     width: fit-content;
-    height: max-content;
+    height: fit-content;
     border: none;
     outline: none;
     margin: 1em;
@@ -332,7 +332,8 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-bottom: 2.5em;
+    width: 100%;
+    margin-right: 1em;
 }
 
 .container_textarea .input_title input{
@@ -340,7 +341,7 @@ body {
     margin-right: auto;
     color: white;
     font-size: 1em;
-    height: 2em;
+    height: 100%;
     padding: 0.3em;
     border: 1px grey solid;
     outline: none;
@@ -382,9 +383,7 @@ body {
     font-family: Arial, Helvetica, sans-serif;
     border: 1px grey solid;
     resize: none;
-    height: 10em;
-    border-top-left-radius: 0.5em;
-    border-top-right-radius: 0.5em;
+    height: 5em;
     background-color: rgb(5, 5, 5);
     outline: none;
     padding-left: 0.3em;
@@ -532,6 +531,7 @@ body {
 #container_modal_content{
     display: flex;
     width: fit-content;
+    height: fit-content;
     margin-bottom: 2em;
 }
 
@@ -764,7 +764,7 @@ body {
     border-radius: 5px;
     width: fit-content;
     height: 2.5em;
-    background-color: red;
+    background-color: rgb(255, 255, 255, 0.5);
     margin-top: 4.5em;
 }
 
@@ -900,6 +900,7 @@ body {
 }
 
 #header_title_edit{
+    margin-bottom: 0.2em;
     color: white;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 1em;
@@ -907,7 +908,7 @@ body {
 }
 
 #header_desc_edit textarea{
-    height: 10em;
+    height: 5em;
 }
 
 #header_desc_edit{
@@ -998,3 +999,81 @@ body {
   }
   
 
+.exPoints{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 6em;
+}
+
+.ExPointsTitle{
+    margin-bottom: 0.2em;
+    color: white;
+    font-size: 1em;
+    font-family: Arial, Helvetica, sans-serif;
+    margin-right: auto;
+}
+
+#ExPointsInputModal{
+    padding: 0.3em;
+    font-size: 1em;
+    height: 1.8em;
+    width: 100%;
+    overflow: hidden;
+    background-color: black;
+    color: white;
+    border: none;
+    outline: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+#ExPointsInputModalEdit{
+    padding-left: 0.2em;
+    font-size: 1em;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    background-color: black;
+    color: white;
+    border: none;
+    outline: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.TitlePointsContainerModal{
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 1em;
+}
+
+.testCase{
+    margin-top: 1em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: fit-content;
+    align-items: center;
+}
+
+.testCase textarea{
+    width: 100%;
+    color: white;
+    font-weight: lighter;
+    font-size: 0.8em;
+    font-family: Arial, Helvetica, sans-serif;
+    border: 1px grey solid;
+    resize: none;
+    height: 5em;
+    background-color: rgb(5, 5, 5);
+    outline: none;
+    padding-left: 0.3em;
+    padding-top: 0.5em;
+    margin-right: auto;
+}
+
+.headerTestCase{
+    margin-right: auto;
+    color: white;
+    font-size: 1em;
+    font-family: Arial, Helvetica, sans-serif;
+    margin-bottom: 0.2em;
+}

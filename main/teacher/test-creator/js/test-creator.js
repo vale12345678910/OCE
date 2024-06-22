@@ -164,7 +164,6 @@ const closeModal = document.getElementById("closeButton-modal")
 openModal.addEventListener("click", () =>{
   optionstatus = 0 //reset the variable
   checkbox_code.checked = false;
-  exerciseCount++;
   exerciseTitleTextInput.value ="";
   exerciseDescTextInput.value = "";
   modal.showModal()
@@ -172,7 +171,6 @@ openModal.addEventListener("click", () =>{
 });
 
 closeModal.addEventListener("click", () =>{
-  exerciseCount--;
   exerciseTitleTextInput.value ="";
   exerciseDescTextInput.value = "";
   modal.close()
@@ -194,6 +192,7 @@ exerciseDescTextInput.addEventListener("input", function(){
 
 
 function saveModal(){
+  exerciseCount++;
   const newDiv = createNewEx()
   createTextinNewEx(newDiv)
   placeCrossInEx(newDiv)
