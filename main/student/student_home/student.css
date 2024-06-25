@@ -108,10 +108,11 @@ body{
   }
   
   .toggleSwitch {
+    font-size: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
-    position: fixed;
+    position: absolute;
     right: 1em;
     top: 1em;
     width: 50px;
@@ -133,6 +134,8 @@ body{
     transition-duration: .2s;
     box-shadow: 5px 2px 7px rgba(8, 8, 8, 0.26);
     border: 5px solid white;
+    transform: translateX(0%);
+
   }
   
   #checkboxInput:checked+.toggleSwitch::after {
@@ -140,7 +143,7 @@ body{
     transition-duration: .2s;
     background-color: white;
   }
-  /* Switch background change */
+
   #checkboxInput:checked+.toggleSwitch {
     background-color: rgba(255, 255, 255, 0.2);
     transition-duration: .2s;

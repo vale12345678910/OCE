@@ -220,27 +220,41 @@ function createNewEx(){
 function createTextinNewEx(newDiv){
   let content_1 = exerciseTitleTextInput.value;
   let content_2 = exerciseDescTextInput.value;
+  //Points and Testcasevalue has to be translated
   const exerciseTitleText = document.createElement("div")
   const exerciseDescText = document.createElement("div")
   const optionstatus_div = document.createElement("div")
   const ex_editor_content = document.createElement("div")
+  const points = document.createElement("div")
+  const testCases = document.createElement("div")
+
   exerciseTitleText.id = "exerciseTitleText" + exerciseCount;
   exerciseDescText.id = "exerciseDescText" + exerciseCount;
   optionstatus_div.id = "optionstatus" + exerciseCount;
   ex_editor_content.id  = "ex_editor_content" + exerciseCount;
+  points.id = "points" + exerciseCount;
+  testCases.id = "testCases" + exerciseCount;
+
   optionstatus_div.className = "optionstatus";
-  exerciseTitleText.className= "exerciseTitleText";
-  exerciseDescText.className= "exerciseDescText";
+  exerciseTitleText.className = "exerciseTitleText";
+  exerciseDescText.className = "exerciseDescText";
   ex_editor_content.className = "ex_editor_content";
+  points.className = "points";
+  testCases.className = "testCases";
+
   exerciseTitleText.textContent = content_1
   exerciseDescText.textContent = content_2
+
   ex_editor_content.textContent = editor.getValue()
-  console.log("editor value:", ex_editor_content.textContent)
+
   checkOptionStatus(optionstatus_div)
+
   newDiv.appendChild(exerciseTitleText)
   newDiv.appendChild(exerciseDescText)
   newDiv.appendChild(optionstatus_div)
   newDiv.appendChild(ex_editor_content)
+  newDiv.appendChild(points)
+  newDiv.appendChild(testCases)
 }
 
 function placeCrossInEx(newDiv){
@@ -495,13 +509,15 @@ document.getElementById('createTestButton').addEventListener('click', function()
       const description = exercise.querySelector(`#exerciseDescText${index + 1}`).textContent;
       const optionstatus_div_test = exercise.querySelector(`#optionstatus${index + 1}`).textContent;
       const editor_content = exercise.querySelector(`#ex_editor_content${index + 1}`).textContent;
-
+      const points = exercise.querySelector(`#points${index + 1}`).textContent
+      
       // Push the values into an array
       testValues.push({ 
         title: title, 
         description: description, 
         optionstatus: optionstatus_div_test, 
-        editorContent: editor_content 
+        editorContent: editor_content, 
+        ponits: points
       });
     });
 
