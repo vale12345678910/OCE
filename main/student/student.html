@@ -14,6 +14,14 @@
 
 
 <body>
+
+    <dialog class="modal">
+        <div class="modalContainer">
+            <div class="userNameTitle">USER NAME</div>
+            <div class="signOutButton" onclick="signOut()">Sign Out</div>
+        </div>
+    </dialog>
+
     <h1 id="title" class="">H O M E</h1>
     <div class="containerMenu">
         <div class="menuItem" id="solve_overview">
@@ -34,10 +42,12 @@
         </div>
     </div>
 
-    <input type="checkbox" id="checkboxInput">
+    <div class="userContainer" id="userContainer"></div>
+
+    <!-- <input type="checkbox" id="checkboxInput">
     <label for="checkboxInput" class="toggleSwitch">
-    </label>
-    
+    </label> -->
+     
     <script src="student_home/student.js"></script>
 </body>
 </html>

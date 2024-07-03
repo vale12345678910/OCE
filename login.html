@@ -1,51 +1,23 @@
 
  <!DOCTYPE html>
- <html>
+ <html lang="en">
    <head>
      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-     <title>Hello!</title>
+     <title>Welcome</title>
      <meta name="description" content="description"/>
      <meta name="author" content="author" />
      <meta name="keywords" content="keywords" />
-     <style type="text/css">.body { width: auto; }</style>
+     <link rel="stylesheet" href="login.css">
    </head>
    <body>
-         <div class="user"></div>
- 
-         <script type="module">
-             import {tryToGetUser, login, logout} from "https://dev.gymburgdorf.ch/auth/Authhelpers-min.js"
-                         
-             const user = await tryToGetUser()
-             
-             if(user) {
-                 console.log(`Hello ${user.email}`, user);
-                 document.querySelector(".user").innerHTML = `<img src="${user.pic}">  ${user.email} <button>Sign out</button>`
-                 document.querySelector(".user button").addEventListener("click", ()=>logout(location.href))
-             }
-             else {
-                 document.querySelector(".user").innerHTML = `<button>Sign in</button>`
-                 document.querySelector(".user button").addEventListener("click", ()=>login(location.href))
-             }
-         </script>
+         <div class="mainContainer">
+            <p id="title">welcome.</p>
+            <p id="subtitle">please connect your google account.</p>
+            <div class="connect">Connect Google Account</div>
+        </div>
+
+         
+        <script type="module" src="login.js"></script>
    </body>
  </html>
 
- <!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome</title>
-    <link rel="stylesheet" href="login.css">    
-</head>
-<body>
-    <div class="mainContainer">
-        <p id="title">welcome.</p>
-        <p id="subtitle">please connect your google account.</p>
-        <div class="connect">Connect Google Account</div>
-    </div>
-
-    <script src="login.js"></script>
-</body>
-</html>
- -->
