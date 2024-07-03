@@ -497,12 +497,16 @@ checkbox_code_edit.addEventListener("change", function(){
 
 
 //HANDLE MENU
-document.getElementById('createTestButton').addEventListener('click', function() {
+document.getElementById('createTestButton').addEventListener('click', async function() {
   if (exerciseCount == 0) {
     alert_div.style.visibility = "visible";
   } else {
     const exercises = document.querySelectorAll('.newEx');
-    const testValues = [];
+    const testValues = {
+      user: "dummyLP",
+      testname: "Probe DB 25d",
+      exercices: []
+    };
 
     exercises.forEach((exercise, index) => {
       const title = exercise.querySelector(`#exerciseTitleText${index + 1}`).textContent;
@@ -512,7 +516,7 @@ document.getElementById('createTestButton').addEventListener('click', function()
       const points = exercise.querySelector(`#points${index + 1}`).textContent
       
       // Push the values into an array
-      testValues.push({ 
+      testValues.exercices.push({
         title: title, 
         description: description, 
         optionstatus: optionstatus_div_test, 
@@ -524,10 +528,28 @@ document.getElementById('createTestButton').addEventListener('click', function()
     // Convert the array to JSON and store it in Local Storage
     localStorage.setItem('testValues', JSON.stringify(testValues));
 
+    // Make the fetch request
+    let check = await fetchPost("/api/save", testValues).then(r=>r.text())
+
+    // Make the fetch request
+    let check2 = await fetchPost("/api/load", {user: "dummyLP"}).then(r=>r.json())
     // Display a message or indication that the test is created
-    alert('Test created successfully!');
+    
+    console.log(check, 'Test created successfully!', check2);
   }
 });
+
+function fetchPost(url, data){
+  const options = {
+    method: 'POST', // Specify the method as POST
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify(data) // Convert the data to JSON string
+  };
+
+  // Make the fetch request
+  return fetch(url, options)
+}
+
 
 //end
 
