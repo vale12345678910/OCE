@@ -1,4 +1,36 @@
-<!DOCTYPE html>
+
+ <!DOCTYPE html>
+ <html>
+   <head>
+     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+     <title>Hello!</title>
+     <meta name="description" content="description"/>
+     <meta name="author" content="author" />
+     <meta name="keywords" content="keywords" />
+     <style type="text/css">.body { width: auto; }</style>
+   </head>
+   <body>
+         <div class="user"></div>
+ 
+         <script type="module">
+             import {tryToGetUser, login, logout} from "https://dev.gymburgdorf.ch/auth/Authhelpers-min.js"
+                         
+             const user = await tryToGetUser()
+             
+             if(user) {
+                 console.log(`Hello ${user.email}`, user);
+                 document.querySelector(".user").innerHTML = `<img src="${user.pic}">  ${user.email} <button>Sign out</button>`
+                 document.querySelector(".user button").addEventListener("click", ()=>logout(location.href))
+             }
+             else {
+                 document.querySelector(".user").innerHTML = `<button>Sign in</button>`
+                 document.querySelector(".user button").addEventListener("click", ()=>login(location.href))
+             }
+         </script>
+   </body>
+ </html>
+
+ <!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -16,3 +48,4 @@
     <script src="login.js"></script>
 </body>
 </html>
+ -->

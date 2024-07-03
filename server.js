@@ -2,6 +2,8 @@
 import express from 'express';
 import { fileURLToPath } from 'url';
 import path from 'path';
+import fs from "fs/promises"
+import { writeFile } from 'fs';
 
 // Convert file URL to file path
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -11,6 +13,8 @@ const app = express();
 
 // Serve static files from the root folder
 app.use(express.static(__dirname));
+
+app.use(express.json());
 
 // Serve login.html file at the root URL
 app.get('/', (req, res) => {
@@ -50,8 +54,8 @@ const protectStudentRoutes = (req, res, next) => {
 };
 
 // Protected teacher route
-app.get('/main/teacher/teacher-home/teacher.html', protectTeacherRoutes, (req, res) => {
-  res.sendFile(path.join(__dirname, 'main', 'teacher', 'teacher-home', 'teacher.html'));
+app.get('/main/teacher/teacher.html', protectTeacherRoutes, (req, res) => {
+  res.sendFile(path.join(__dirname, 'main', 'teacher', 'teacher.html'));
 });
 
 // Protected student route
@@ -60,16 +64,26 @@ app.get('/main/student/student-home/student.html', protectStudentRoutes, (req, r
 });
 
 // Dummy save request
-app.post('/api/save', (req, res) => {
+app.post('/api/save', async (req, res) => {
   // Dummy logic for saving data
+  let data = req.body
+  console.log(data)
+
+  let user = data.user
+  let dirPath = path.join(__dirname, "dbv1", user)
+  await fs.mkdir(dirPath, { recursive: true })
+  await fs.writeFile(dirPath + "/demotest.json", JSON.stringify(req.body), "utf8")
   res.send('Data saved successfully!');
 });
 
 // Dummy load request
-app.get('/api/save', (req, res) => {
+app.post('/api/load', (req, res) => {
+  let data = req.body
+  let user = data.user || "dummyLP"
+  let testid = data.testid || "demotest"
+  let dirPath = path.join(__dirname, "dbv1", user)
   // Dummy logic for loading data
-  const data = { name: 'John', age: 30 }; // Dummy data
-  res.json(data);
+  res.sendFile(dirPath + `/${testid}.json`);
 });
 
 // Start the server
