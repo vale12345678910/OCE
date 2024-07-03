@@ -5,6 +5,19 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
+const title = document.getElementById('title');
+const menuItems = document.querySelectorAll('.menuItem h1');
+
+setTimeout(() => {
+    title.classList.add('showclass');
+}, 50);
+
+menuItems.forEach(function(item) {
+    setTimeout(() => {
+        item.classList.add('show');
+    }, 50);
+});
+
 
 document.getElementById("TestCreator").addEventListener("click", function(){
     window.location.href = 'test-creator/test-creator.html'
