@@ -8,6 +8,76 @@ body{
     overflow: hidden;
 }
 
+#userImg{
+    border-radius: 50%;
+    width: 2.5em;
+    cursor: pointer;
+}
+
+#userName{
+    display: none;
+}
+
+#signOut{
+    display: none;
+}
+
+.userNameTitle{
+    color: white;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.modal{
+    position: absolute;
+    justify-content: center;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+    height: max-content;
+    width: max-content;
+    border-radius: 1em;
+    padding: 0;
+    outline: 1px solid white;
+    border: none;
+}
+
+.signOutButton{
+    color: white;
+    outline: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 1em;
+    padding-left: 2em;
+    padding-right: 2em;
+    padding-top: 1em;
+    padding-bottom: 1em;
+    cursor: pointer;
+}
+
+
+.modalContainer{
+    background-color: rgb(5, 5, 5);
+    flex-direction: column;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 20em;
+    height: 200px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.userContainer{
+    color: white;
+    position: absolute;
+    top: 2vh;
+    right: 1.2em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
 .containerMenu{
     display: flex;
     align-content: center;

@@ -388,55 +388,11 @@ function checkOptionStatusEdit(){
 
 
 
-//createTest Function
-// document.getElementById('createTestButton').addEventListener('click', function() {
-//   if (exerciseCount == 0) {
-//     alert_div.style.visibility = "visible";
-//   } else {
-//     const exercises = document.querySelectorAll('.newEx');
-//     const zip = new JSZip();
-//     const testFolder = zip.folder('test');
-
-//     exercises.forEach((exercise, index) => {
-//       console.log(index);
-//       const title = exercise.querySelector(`#exerciseTitleText${index + 1}`).textContent;
-//       const description = exercise.querySelector(`#exerciseDescText${index + 1}`).textContent;
-//       const optionstatus_div_test = exercise.querySelector(`#optionstatus${index + 1}`).textContent;
-//       const editor_content = exercise.querySelector(`#ex_editor_content${index + 1}`).textContent;
-
-
-
-//       const exerciseFolder = testFolder.folder(`exercise${index + 1}`);
-
-//       exerciseFolder.file(`title.txt`, title);
-//       exerciseFolder.file(`description.txt`, description);
-//       exerciseFolder.file('optionstatus.txt', optionstatus_div_test);
-//       exerciseFolder.file("code.txt", editor_content)
-//     });
-
-//     zip.generateAsync({ type: 'blob' }).then(function(content) {
-//       const a = document.createElement('a');
-//       a.href = URL.createObjectURL(content);
-//       a.download = 'test.zip';
-//       document.body.appendChild(a);
-//       a.click();
-//       document.body.removeChild(a);
-//     });
-//   }
-// });
-
-
-
-
-
 alert_cross.addEventListener("click", function(){
   alert_div.style.visibility = "hidden"
 })
 
 
-
-
-//Opens explorer of client and tries to load code of script into editor.Content.
 
 loadButton.addEventListener("click", function() {
   fileInput.click(); // Open file explorer
@@ -496,7 +452,7 @@ checkbox_code_edit.addEventListener("change", function(){
 
 
 
-//HANDLE MENU
+
 document.getElementById('createTestButton').addEventListener('click', async function() {
   if (exerciseCount == 0) {
     alert_div.style.visibility = "visible";
@@ -527,13 +483,17 @@ document.getElementById('createTestButton').addEventListener('click', async func
 
     // Convert the array to JSON and store it in Local Storage
     localStorage.setItem('testValues', JSON.stringify(testValues));
+    
+
+    let response1 = await fetchPost("/api/save", testValues);
+    let check = await response1.text();
 
     // Make the fetch request
-    let check = await fetchPost("/api/save", testValues).then(r=>r.text())
+    let response2 = await fetchPost("/api/load", { user: "dummyLP" });
+    let check2 = await response2.json();
 
-    // Make the fetch request
-    let check2 = await fetchPost("/api/load", {user: "dummyLP"}).then(r=>r.json())
-    // Display a message or indication that the test is created
+
+
     
     console.log(check, 'Test created successfully!', check2);
   }
@@ -553,6 +513,7 @@ function fetchPost(url, data){
 
 //end
 
+//HANDLE MENU
 document.getElementById("testsOverview").addEventListener("click", function(){
   window.location.href = '../test-overview/test-overview.html'
 })

@@ -100,11 +100,13 @@ function runCode() {
       new Function(code); 
       // If there are no syntax errors, execute the code
       eval(code); 
+      output_place.textContent = ""
       output_place.textContent = captured_output; // Display the captured output
       console.log = original_console_log; // Restore original console.log
     } catch (e) {
       outputDiv.className = "error_text"
-      outputDiv.innerHTML += ("Error running the code:", e)
+      outputDiv.innerHTML = ""
+      outputDiv.innerHTML = ("Error running the code:", e)
       console.error("Error running the code:", e);
       console.log = original_console_log; // Restore original console.log in case of error
     }
