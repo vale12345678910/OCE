@@ -59,48 +59,99 @@ app.post('/api/createDirectory', async (req, res) => {
   }
 });
 
+
+
+//TRYOUT (DELETABLE)
+app.post('/api/save', async (req, res) => {
+    // Extract userName and testValues from the body
+    const { userName, testname, exercices } = req.body;
+
+    // Log the extracted values
+    console.log('userName:', userName);
+    console.log('testname:', testname);
+    console.log('exercices:', exercices);
+
+    if (!userName) {
+        return res.status(400).send('User name is missing!');
+    }
+
+    let dirPath = path.join(__dirname, "dbv1", userName);
+    let baseFileName = 'demotest';
+    let fileExtension = '.json';
+    let filePath = path.join(dirPath, baseFileName + fileExtension);
+    
+    // Check if file already exists and increment the file number if necessary
+    let fileIndex = 1;
+    while (await fileExists(filePath)) {
+        filePath = path.join(dirPath, `${baseFileName}${fileIndex}${fileExtension}`);
+        fileIndex++;
+    }
+
+    try {
+        await fs.mkdir(dirPath, { recursive: true });
+        await fs.writeFile(filePath, JSON.stringify(req.body), "utf8");
+        res.send(`Data saved successfully as ${path.basename(filePath)}!`);
+    } catch (error) {
+        console.error('Error saving data:', error);
+        res.status(500).send('Error saving data.');
+    }
+});
+
+// Helper function to check if a file exists
+async function fileExists(filePath) {
+    try {
+        await fs.access(filePath);
+        return true;
+    } catch {
+        return false;
+    }
+}
+
+
+  // Dummy load request
+  // Endpoint to list all test files for a specific user
+  app.get('/api/loadTest', async (req, res) => {
+    const { userName, fileName } = req.query;
+
+    if (!userName || !fileName) {
+        return res.status(400).send('User name or file name is missing!');
+    }
+
+    const filePath = path.join(__dirname, 'dbv1', userName, fileName);
+
+    try {
+        const fileContent = await fs.readFile(filePath, 'utf8');
+        const testData = JSON.parse(fileContent);
+        res.json(testData);
+    } catch (error) {
+        console.error('Error loading test file:', error);
+        res.status(500).send('Error loading test file.');
+    }
+});
+
+app.get('/api/listTests', async (req, res) => {
+  const { userName } = req.query; // Retrieve userName from query parameters
+
+  if (!userName) {
+      return res.status(400).send('User name is missing!');
+  }
+
+  const dirPath = path.join(__dirname, 'dbv1', userName);
+  try {
+      const files = await fs.readdir(dirPath);
+      const testFiles = files.filter(file => file.startsWith('demotest') && file.endsWith('.json'));
+      res.json(testFiles);
+  } catch (error) {
+      console.error('Error listing files:', error);
+      res.status(500).send('Error listing files.');
+  }
+});
+
+
+
+
 // Start the server
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
   console.log(`Server is listening on port ${port}`);
 });
-
-
-
-//TRYOUT (DELETABLE)
-app.post('/api/save', async (req, res) => {
-    // Dummy logic for saving data
-    let data = req.body
-    console.log(data)
-  
-    let user = user.data
-    console.log("user:", user)
-    let dirPath = path.join(__dirname, "dbv1", user)
-    await fs.mkdir(dirPath, { recursive: true })
-    await fs.writeFile(dirPath + "/demotest.json", JSON.stringify(req.body), "utf8")
-    res.send('Data saved successfully!');
-  });
-  
-  // Dummy load request
-  app.post('/api/load', async (req, res) => {
-    const { user } = req.body;
-    const dirPath = path.join(__dirname, "dbv1", user);
-    const userInfoPath = path.join(dirPath, "userinfo.json");
-
-    try {
-        // Read userINFO.json
-        const userInfoData = await fs.readFile(userInfoPath, 'utf8');
-        const userInfo = JSON.parse(userInfoData);
-        const userName = userInfo.userName;
-
-        // Now, load the requested test data
-        const testid = req.body.testid || "demotest";
-        const testFilePath = path.join(dirPath, `${testid}.json`);
-
-        res.sendFile(testFilePath);
-    } catch (error) {
-        console.error('Error loading data:', error);
-        res.status(500).send('Failed to load data');
-    }
-});
-

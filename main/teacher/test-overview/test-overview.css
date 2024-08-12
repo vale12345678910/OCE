@@ -66,14 +66,15 @@ body {
 
 .listContainer{
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: left;
+    align-items: top;
     width: 40vw;
     height: 36em;
     outline: 1px solid rgb(255, 255, 255, 0.5);
     margin-left: auto;
     margin-right: auto;
     border-radius: 1em;
+    overflow: auto;
 }
 
 .alertWrapper{
@@ -130,3 +131,40 @@ body {
 .exercise{
     color: white;
 }
+
+#testValuesContainer{
+    color: white;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 1.5em;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+#testDetailsContainer{
+    color: white;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 0.8em;
+    width: 100%;
+}
+
+.testDataWrapper{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+#testValuesContainer ul li{
+    border: 1px solid grey;
+    border-radius: 10px;
+    height: fit-content;
+    padding: 0.5em;
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+#testValuesContainer ul{
+    list-style-type: none; /* Removes bullets */
+    padding: 0; /* Removes default padding */
+    margin: 0; /* Removes default margin */
+}
+

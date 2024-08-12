@@ -1,6 +1,8 @@
 
 let exerciseCount = 0;
-let lastNumber = null; 
+let lastNumber = null;
+
+
 
 const newEx = document.querySelector(".sortable-list")
 // const newEx = document.getElementById("newEx")
@@ -454,17 +456,18 @@ checkbox_code_edit.addEventListener("change", function(){
 
 
 document.getElementById('createTestButton').addEventListener('click', async function() {
+  const userName = localStorage.getItem('userName')// latest added var
   if (exerciseCount == 0) {
     alert_div.style.visibility = "visible";
   } else {
-    const exercises = document.querySelectorAll('.newEx');
+    const exercices = document.querySelectorAll('.newEx');
     const testValues = {
-      user: "dummyLP",
-      testname: "Probe DB 25d",
+      userName: userName,
+      testname: "is it the same (test)",
       exercices: []
     };
 
-    exercises.forEach((exercise, index) => {
+    exercices.forEach((exercise, index) => {
       const title = exercise.querySelector(`#exerciseTitleText${index + 1}`).textContent;
       const description = exercise.querySelector(`#exerciseDescText${index + 1}`).textContent;
       const optionstatus_div_test = exercise.querySelector(`#optionstatus${index + 1}`).textContent;
@@ -483,19 +486,19 @@ document.getElementById('createTestButton').addEventListener('click', async func
 
     // Convert the array to JSON and store it in Local Storage
     localStorage.setItem('testValues', JSON.stringify(testValues));
+   
+    await fetchPost("/api/save", testValues);
+    // let response1 = 
+    // let check = await response1.text();
+
+    // // Make the fetch request
+    // let response2 = await fetchPost("/api/load", { userName });
+    // let check2 = await response2.json();
+
+
+
     
-
-    let response1 = await fetchPost("/api/save", testValues);
-    let check = await response1.text();
-
-    // Make the fetch request
-    let response2 = await fetchPost("/api/load", { user: "dummyLP" });
-    let check2 = await response2.json();
-
-
-
-    
-    console.log(check, 'Test created successfully!', check2);
+    // console.log(check, 'Test created successfully!', check2);
   }
 });
 
