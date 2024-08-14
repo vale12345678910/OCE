@@ -150,8 +150,55 @@ app.get('/api/listTests', async (req, res) => {
 
 
 
+
+
 // Start the server
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
   console.log(`Server is listening on port ${port}`);
+});
+
+
+
+
+
+//TRY FOR COMMITING TESTS
+
+app.post('/api/commitTest', async (req, res) => {
+  const { userName, fileName, targetUrl } = req.body;
+
+  if (!userName || !fileName || !targetUrl) {
+    return res.status(400).send('User name, file name, or target URL is missing!');
+  }
+
+  try {
+    const filePath = path.join(__dirname, 'dbv1', userName, fileName);
+    const fileContent = await fs.readFile(filePath, 'utf8');
+
+    const response = await fetch(targetUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: fileContent
+    });
+
+    const responseData = await response.text();
+    res.status(response.status).send(responseData);
+  } catch (error) {
+    console.error('Error forwarding data:', error);
+    res.status(500).send('Error forwarding data.');
+  }
+});
+
+
+app.get('/api/getTestData', async (req, res) => {
+  try {
+    const filePath = path.join(__dirname, 'dbv1', 'receivedTest.json'); // Adjust path if necessary
+    const fileContent = await fs.readFile(filePath, 'utf8');
+    res.json(JSON.parse(fileContent));
+  } catch (error) {
+    console.error('Error reading test data:', error);
+    res.status(500).send('Error reading test data.');
+  }
 });

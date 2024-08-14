@@ -488,17 +488,6 @@ document.getElementById('createTestButton').addEventListener('click', async func
     localStorage.setItem('testValues', JSON.stringify(testValues));
    
     await fetchPost("/api/save", testValues);
-    // let response1 = 
-    // let check = await response1.text();
-
-    // // Make the fetch request
-    // let response2 = await fetchPost("/api/load", { userName });
-    // let check2 = await response2.json();
-
-
-
-    
-    // console.log(check, 'Test created successfully!', check2);
   }
 });
 

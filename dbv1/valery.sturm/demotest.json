@@ -1,1 +1,1 @@
-{"userName":"valery.sturm","testname":"is it the same (test)","exercices":[{"title":"asdfasdf","description":"","optionstatus":"0","editorContent":"function welcome(){\r\n\tconsole.log(\"hello world\");\r\n\t}\r\nwelcome();","ponits":""}]}
+{"userName":"valery.sturm","testname":"is it the same (test)","exercices":[{"title":"test","description":"","optionstatus":"0","editorContent":"function welcome(){\r\n\tconsole.log(\"hello world\");\r\n\t}\r\nwelcome();","ponits":""}]}
