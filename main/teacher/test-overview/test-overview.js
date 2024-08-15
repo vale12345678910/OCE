@@ -136,33 +136,34 @@ function displayTestDetails(testData, detailsContainer) {
 }
 
 
-
 function commitTest() {
     const userName = localStorage.getItem('userName');
-    const fileName = 'demotest.json'; // Replace with the actual file name
-  
-    // Send request to the server to commit the existing file
+    const fileName = 'demotest.json'; // Example file
+
     fetch('/api/commitTest', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        userName: userName,
-        fileName: fileName,
-        targetUrl: 'http://127.0.0.1:3000/main/student/solve_overview/solve_overview.html' // Target URL where the file should be sent
-      })
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            userName: userName,
+            fileName: fileName,
+            targetUrl: 'http://127.0.0.1:3000/api/solve_overview' // Updated to the new endpoint
+        })
     })
     .then(response => {
-      if (!response.ok) {
-        throw new Error('Failed to commit file to server');
-      }
-      return response.text();
+        if (!response.ok) {
+            throw new Error(`Failed to commit file to server: ${response.status} ${response.statusText}`);
+        }
+        return response.text();
     })
     .then(result => console.log('File committed successfully:', result))
-    .catch(error => console.error('Error:', error));
-  }
-  
+    .catch(error => {
+        console.error('Error:', error.message);
+        console.error('Details:', error);
+    });
+}
+
   
 
 
