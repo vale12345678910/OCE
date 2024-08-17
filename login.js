@@ -70,8 +70,6 @@ function fetchPost(url, data) {
 }
 
 
-//try
-
 // Function to trigger login based on user type
 function login() {
   // Construct the URL with the query parameter
