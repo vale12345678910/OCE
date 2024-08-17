@@ -1,3 +1,5 @@
+//Animation
+
 document.addEventListener("DOMContentLoaded", function() {
     var menuItems = document.querySelectorAll('.menuItem h1');
     menuItems.forEach(function(item) {
@@ -18,20 +20,20 @@ menuItems.forEach(function(item) {
     }, 50);
 });
 
-// Extract user data from URL parameters
-const userPic = localStorage.getItem('userPic');
-const userEmail = localStorage.getItem('userEmail');
 
-localStorage.removeItem("userPic")
-localStorage.removeItem("userEmail")
+//Script
+
+
+const userPic = sessionStorage.getItem('userPic');
+const userName = sessionStorage.getItem('userName');
 
 const userNameTitle = document.querySelector(".userNameTitle");
 
 // Display user data if available
 const userContainer = document.getElementById('userContainer');
-if (userPic && userEmail) {
-    userContainer.innerHTML = `<img id="userImg" src="${userPic}"> <p id="userName">${userEmail}</p> <div id="signOut">Sign Out</div>`;
-    userNameTitle.textContent = userEmail; // Set user email in userNameTitle
+if (userPic && userName) {
+    userContainer.innerHTML = `<img id="userImg" src="${userPic}"> <p id="userName">${userName}</p> <div id="signOut">Sign Out</div>`;
+    userNameTitle.textContent = userName; // Set user email in userNameTitle
     console.log("logged in")
 } else {
     userContainer.innerHTML = '<div>No user data available</div>';
@@ -64,7 +66,10 @@ document.getElementById("Correct").addEventListener("click", function(){
 
 function signOut(){
     console.log("signed out")
-    sessionStorage.setItem('user', "null")
+    sessionStorage.removeItem('userName')
+    sessionStorage.removeItem('userPic')
     window.location.href = `../../login.html`
-    
 }
+
+//copy
+

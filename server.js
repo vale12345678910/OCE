@@ -23,9 +23,9 @@ app.get('/', (req, res) => {
 app.get('/login', (req, res) => {
   const userType = req.query.type; // Assume a query parameter to identify user type
   if (userType === 'teacher') {
-    res.redirect('/main/teacher/teacher-home/teacher.html');
+    res.redirect('/main/teacher/teacher.html');
   } else if (userType === 'student') {
-    res.redirect('/main/student/student-home/student.html');
+    res.redirect('/main/student/student.html');
   } else {
     res.send('Invalid user type!');
     console.log("invalid user type")

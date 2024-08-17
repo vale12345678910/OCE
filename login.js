@@ -1,132 +1,109 @@
 
-    
-// import { tryToGetUser, login, logout } from "https://dev.gymburgdorf.ch/auth/Authhelpers-min.js";
-
-
-// document.addEventListener("DOMContentLoaded", async function() {
-//   const mainContainer = document.querySelector('.mainContainer');
-//   mainContainer.classList.add("show");
-
-//   let user = sessionStorage.getItem('user') || await tryToGetUser();
-//   const userContainer = document.querySelector(".connect");
-
-//   if (user && user !== "null") {
-//     localStorage.setItem('userPic', user.pic);
-//     localStorage.setItem('userEmail', user.email);
-//     console.log("User signed in.");
-//   } else {
-//     console.log(user, "else");
-//     userContainer.innerHTML = `<div class="connect">Connect Google Account</div>`;
-//     userContainer.addEventListener("click", () => login(location.href));
-//     console.log("signed out");
-//     sessionStorage.removeItem('user');
-//     user = null;
-//   }
-
-//   // Event listener for the connect button
-//   document.querySelector('.connect').addEventListener('click', async function() {
-//     if (!user || user === "null") {
-//       console.log("User not signed in.");
-//       return;
-//     }
-
-//     const userName = user.email;
-//     const userData = { userName };
-//     localStorage.setItem('userName', user.email)
-
-//     try {
-//       let response = await fetchPost("/api/checkDirectory", userData);
-//       let check = await response.json();
-
-//       if (check.directoryExists) {
-//         console.log("User directory exists. Redirecting...");
-//         window.location.href = 'main/teacher/teacher.html'; // Redirect to teacher page
-//       } else {
-//         console.log("User directory does not exist. Creating...");
-//         await fetchPost("/api/createDirectory", userData);
-//         console.log("User directory created. Redirecting...");
-//         window.location.href = 'main/teacher/teacher.html'; // Redirect to teacher page
-//       }
-//     } catch (error) {
-//       console.error('Error:', error);
-//     }
-//   });
-// });
-
-// function fetchPost(url, data) {
-//   const options = {
-//     method: 'POST',
-//     headers: { 'Content-Type': 'application/json' },
-//     body: JSON.stringify(data)
-//   };
-
-//   return fetch(url, options);
-// }
-
-
-//TRY
-
-import { tryToGetUser, login, logout } from "https://dev.gymburgdorf.ch/auth/Authhelpers-min.js";
+import { tryToGetUser } from "https://dev.gymburgdorf.ch/auth/Authhelpers-min.js";
 
 document.addEventListener("DOMContentLoaded", async function() {
+
   const mainContainer = document.querySelector('.mainContainer');
   mainContainer.classList.add("show");
 
-  // Try to get the user from session storage or fetch from an external service
-  let user = sessionStorage.getItem('user') || await tryToGetUser();
   const userContainer = document.querySelector(".connect");
-
-  if (user && user !== "null") {
-    localStorage.setItem('userPic', user.pic);
-    localStorage.setItem('userEmail', user.email);
-    localStorage.setItem('userName', user.email);  // Ensure this is set for later use
-    console.log("User signed in.");
-
-    // Add event listener only if user is signed in
-    document.querySelector('.connect').addEventListener('click', handleUserDirectory);
-  } else {
-    console.log(user, "else");
-    userContainer.innerHTML = `<div class="connect">Connect Google Account</div>`;
-    userContainer.addEventListener("click", () => login(location.href));
-    console.log("signed out");
-    sessionStorage.removeItem('user');
-  }
+  userContainer.addEventListener('click', connect)
+  
+  
 });
 
+
+let userData = await tryToGetUser()
+const userType = userData.type
+const userName = sessionStorage.getItem('userName') || userData.email
+const userPic = 'https://dev.gymburgdorf.ch/auth/getpic'
+
+sessionStorage.setItem('userName', userName)
+sessionStorage.setItem('userPic', userPic)
+
+console.log("userType", userType) 
+console.log("userName", userName) 
+console.log("userPic", userPic) 
+
+async function connect(){
+  
+  if (!userData){
+    throw new Error("failed to fetch userdata", error)
+      } else{
+          await handleUserDirectory()
+          login()
+        }
+}
+
 async function handleUserDirectory() {
-  let userEmail = localStorage.getItem('userEmail');  // Fetch it again from localStorage
-
-  if (!userEmail) {
-    console.log("User not signed in.");
-    return;
-  }
-
-  const userData = { userName: userEmail };  // Use the correct key
-
+  
+  if(!userName){
+    throw new Error('No userName in sessionStorage');
+  } 
+   
   try {
-    let response = await fetchPost("/api/checkDirectory", userData);
+    let response = await fetchPost("/api/checkDirectory", { userName });
     let check = await response.json();
 
     if (check.directoryExists) {
-      console.log("User directory exists. Redirecting...");
-      window.location.href = 'main/teacher/teacher.html'; // Redirect to teacher page
+     console.log("User directory exists.");
+     return
     } else {
-      console.log("User directory does not exist. Creating...");
-      await fetchPost("/api/createDirectory", userData);
-      console.log("User directory created. Redirecting...");
-      window.location.href = 'main/teacher/teacher.html'; // Redirect to teacher page
-    }
-  } catch (error) {
-    console.error('Error:', error);
+        console.log("userName", userName)
+        await fetchPost("/api/createDirectory", { userName });
+        console.log("dir created")
+      }
+    } catch (error) {
+      console.error(error)
   }
 }
 
+
 function fetchPost(url, data) {
-  const options = {
+     const options = {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data)
   };
-
+  
   return fetch(url, options);
 }
+
+
+//try
+
+// Function to trigger login based on user type
+function login() {
+  // Construct the URL with the query parameter
+  const url = `/login?type=${encodeURIComponent(userType)}`;
+
+  console.log("userType:", userType)
+
+  // Create a new XMLHttpRequest object
+  const xhr = new XMLHttpRequest();
+
+  // Configure it: GET-request for the URL
+  xhr.open('GET', url, true);
+
+  // Set up the callback function to handle the response
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState === XMLHttpRequest.DONE) {
+      if (xhr.status === 200) {
+        // Success: Check response and handle redirection
+        if (xhr.responseText === 'Invalid user type!') {
+          console.log('Invalid user type');
+        } else {
+          // Redirect based on the response
+          window.location.href = xhr.responseURL;
+        }
+      } else {
+        // Handle errors
+        console.error('Error during the request:', xhr.status, xhr.statusText);
+      }
+    }
+  };
+
+  // Send the request
+  xhr.send();
+}
+
