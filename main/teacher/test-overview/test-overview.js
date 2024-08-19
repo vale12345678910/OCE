@@ -35,7 +35,7 @@ function removeDefaultText() {
 
 // Function to load and display the list of tests
 async function loadTestList() {
-    const userName = localStorage.getItem('userName');
+    const userName = "adrian.lüthi";
     console.log("userName", userName);
 
     try {
@@ -137,7 +137,7 @@ function displayTestDetails(testData, detailsContainer) {
 
 
 function commitTest() {
-    const userName = localStorage.getItem('userName');
+    const userName = "adrian.lüthi";
     const fileName = 'demotest.json'; // Example file
 
     fetch('/api/commitTest', {

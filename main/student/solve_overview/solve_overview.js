@@ -21,6 +21,7 @@
 
   document.addEventListener('DOMContentLoaded', () => {
     const testName = 'demotest'; // You can dynamically set this based on the test you want to load
+  
 
     fetch(`/api/getStudentData?testName=${encodeURIComponent(testName)}`)
         .then(response => {
@@ -31,6 +32,8 @@
         })
         .then(data => {
           // Display the received data on the student page
+          const teacherName = data.userName
+          console.log("teacherName", teacherName)
           const container = document.getElementById('testValuesContainer');
           container.innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`; // Removed extraneous $
       
@@ -43,7 +46,7 @@
           i++;
           container.appendChild(sebLink);
 
-          const chooseCofigurationFile = decument.createElement('div')
+          const chooseCofigurationFile = document.createElement('div')
         })
         .catch(error => {
             console.error('Error fetching student data:', error.message);

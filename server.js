@@ -167,6 +167,7 @@ app.listen(port, () => {
 
 app.post('/api/commitTest', async (req, res) => {
   const { userName, fileName, targetUrl } = req.body;
+  console.log("req.body at server commitTest:", req.body)
 
   if (!userName || !fileName || !targetUrl) {
     return res.status(400).send('User name, file name, or target URL is missing!');
@@ -199,22 +200,23 @@ app.post('/api/commitTest', async (req, res) => {
   }
 });
 
-app.get('/api/getTestData', async (req, res) => {
-  try {
-    const filePath = path.join(__dirname, 'dbv1', 'valery.sturm', 'demotest.json'); // Adjust path if necessary
-    const fileContent = await fs.readFile(filePath, 'utf8');
-    const testData = JSON.parse(fileContent);
+// app.get('/api/getTestData', async (req, res) => {
+//   console.log("req.data", req.data, req.body, req.query)
+//   try {
+//     const filePath = path.join(__dirname, 'dbv1', `${userName}`, 'demotest.json'); // Adjust path if necessary
+//     const fileContent = await fs.readFile(filePath, 'utf8');
+//     const testData = JSON.parse(fileContent);
 
-    // Extract the testName from the testData
-    const testName = testData.testName; // Adjust this if your test data structure is different
+//     // Extract the testName from the testData
+//     const testName = testData.testName; // Adjust this if your test data structure is different
 
-    // Send only the testName
-    res.json({ testName });
-  } catch (error) {
-    console.error('Error reading test data:', error);
-    res.status(500).send('Error reading test data.');
-  }
-});
+//     // Send only the testName
+//     res.json({ testName });
+//   } catch (error) {
+//     console.error('Error reading test data:', error);
+//     res.status(500).send('Error reading test data.');
+//   }
+// });
 
 
 
@@ -223,8 +225,10 @@ app.post('/api/solve_overview', (req, res) => {
   const data = req.body;
   console.log('Received data:', data);
 
-  // Process or store the data as necessary
-  // Respond to the client
+  const fileContent = JSON.parse(data.fileContent);
+
+  const userName = fileContent.userName
+  console.log("req.body.userName at server api solve overview", userName)
   res.status(200).send('Data received and processed');
 });
 
@@ -233,6 +237,10 @@ app.post('/api/solve_overview', (req, res) => {
 
 app.get('/api/getStudentData', async (req, res) => {
   const testName = req.query.testName;  // Get testName from query parameters
+  console.log("req.query.parameters", req.query)
+  const { userName } = req.query; // Retrieve userName from query parameters
+
+  console.log("userName at srrver,", userName)
 
   if (!testName) {
       return res.status(400).send('Test name is missing!');
@@ -240,7 +248,7 @@ app.get('/api/getStudentData', async (req, res) => {
 
   try {
       // Assuming that test files are named based on the testName, you would construct the file path like this:
-      const filePath = path.join(__dirname, 'dbv1', 'valery.sturm', `${testName}.json`); // Replace 'valery.sturm' with the correct user folder
+      const filePath = path.join(__dirname, 'dbv1', `${userName}`, `${testName}.json`); // Replace 'valery.sturm' with the correct user folder
       console.log("File path:", filePath);
 
       const fileContent = await fs.readFile(filePath, 'utf8');

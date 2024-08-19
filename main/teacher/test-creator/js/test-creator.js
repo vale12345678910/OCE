@@ -462,7 +462,7 @@ document.getElementById('createTestButton').addEventListener('click', async func
   } else {
     const exercices = document.querySelectorAll('.newEx');
     const testValues = {
-      userName: userName,
+      userName: 'adrian.lüthi',
       testname: "is it the same (test)",
       exercices: []
     };
