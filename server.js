@@ -61,8 +61,6 @@ app.post('/api/createDirectory', async (req, res) => {
 });
 
 
-
-//TRYOUT (DELETABLE)
 app.post('/api/save', async (req, res) => {
     // Extract userName and testValues from the body
     const { userName, testname, exercices } = req.body;
@@ -108,9 +106,7 @@ async function fileExists(filePath) {
     }
 }
 
-
-  // Dummy load request
-  // Endpoint to list all test files for a specific user
+  
   app.get('/api/loadTest', async (req, res) => {
     const { userName, fileName } = req.query;
 
@@ -132,6 +128,7 @@ async function fileExists(filePath) {
 
 app.get('/api/listTests', async (req, res) => {
   const { userName } = req.query; // Retrieve userName from query parameters
+  console.log("userName at server listTests", userName )
 
   if (!userName) {
       return res.status(400).send('User name is missing!');
@@ -150,7 +147,50 @@ app.get('/api/listTests', async (req, res) => {
 
 
 
+app.post('/api/saveTest', async (req, res) => {
+  const { testname, exercices } = req.body;
 
+  if (!testname || !exercices) {
+      return res.status(400).send('Test name or exercises are missing!');
+  }
+
+  // Generate a unique test ID (can use UUID or a simple counter)
+  const testId = Date.now().toString(); // Simple example using timestamp
+
+  const dirPath = path.join(__dirname, 'tests');
+  const filePath = path.join(dirPath, `${testId}.json`);
+
+  try {
+      await fs.mkdir(dirPath, { recursive: true });
+      await fs.writeFile(filePath, JSON.stringify(req.body), 'utf8');
+      res.json({ testId });
+  } catch (error) {
+      console.error('Error saving test:', error);
+      res.status(500).send('Error saving test.');
+  }
+});
+
+
+
+
+app.get('/api/getTestById', async (req, res) => {
+  const { testId } = req.query;
+
+  if (!testId) {
+      return res.status(400).send('Test ID is missing!');
+  }
+
+  const filePath = path.join(__dirname, 'tests', `${testId}.json`);
+
+  try {
+      const fileContent = await fs.readFile(filePath, 'utf8');
+      const testData = JSON.parse(fileContent);
+      res.json(testData);
+  } catch (error) {
+      console.error('Error loading test file:', error);
+      res.status(500).send('Error loading test file.');
+  }
+});
 
 
 // Start the server
@@ -158,106 +198,3 @@ const port = process.env.PORT || 3000;
 app.listen(port, () => {
   console.log(`Server is listening on port ${port}`);
 });
-
-
-
-
-
-//TRY FOR COMMITING TESTS
-
-app.post('/api/commitTest', async (req, res) => {
-  const { userName, fileName, targetUrl } = req.body;
-  console.log("req.body at server commitTest:", req.body)
-
-  if (!userName || !fileName || !targetUrl) {
-    return res.status(400).send('User name, file name, or target URL is missing!');
-  }
-
-  try {
-    const filePath = path.join(__dirname, 'dbv1', userName, fileName);
-    console.log('File path:', filePath);
-    const fileContent = await fs.readFile(filePath, 'utf8');
-
-    console.log('Forwarding data to:', targetUrl);
-    console.log('File content being sent:', fileContent);
-
-    const response = await fetch(targetUrl, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ fileContent }) // Adjust according to what targetUrl expects
-    });
-
-    const responseData = await response.text();
-    console.log('Response status:', response.status);
-    console.log('Response data:', responseData);
-
-    res.status(response.status).send(responseData);
-  } catch (error) {
-    console.error('Error forwarding data:', error);
-    res.status(500).send('Error forwarding data.');
-  }
-});
-
-// app.get('/api/getTestData', async (req, res) => {
-//   console.log("req.data", req.data, req.body, req.query)
-//   try {
-//     const filePath = path.join(__dirname, 'dbv1', `${userName}`, 'demotest.json'); // Adjust path if necessary
-//     const fileContent = await fs.readFile(filePath, 'utf8');
-//     const testData = JSON.parse(fileContent);
-
-//     // Extract the testName from the testData
-//     const testName = testData.testName; // Adjust this if your test data structure is different
-
-//     // Send only the testName
-//     res.json({ testName });
-//   } catch (error) {
-//     console.error('Error reading test data:', error);
-//     res.status(500).send('Error reading test data.');
-//   }
-// });
-
-
-
-
-app.post('/api/solve_overview', (req, res) => {
-  const data = req.body;
-  console.log('Received data:', data);
-
-  const fileContent = JSON.parse(data.fileContent);
-
-  const userName = fileContent.userName
-  console.log("req.body.userName at server api solve overview", userName)
-  res.status(200).send('Data received and processed');
-});
-
-
-
-
-app.get('/api/getStudentData', async (req, res) => {
-  const testName = req.query.testName;  // Get testName from query parameters
-  console.log("req.query.parameters", req.query)
-  const { userName } = req.query; // Retrieve userName from query parameters
-
-  console.log("userName at srrver,", userName)
-
-  if (!testName) {
-      return res.status(400).send('Test name is missing!');
-  }
-
-  try {
-      // Assuming that test files are named based on the testName, you would construct the file path like this:
-      const filePath = path.join(__dirname, 'dbv1', `${userName}`, `${testName}.json`); // Replace 'valery.sturm' with the correct user folder
-      console.log("File path:", filePath);
-
-      const fileContent = await fs.readFile(filePath, 'utf8');
-      res.json(JSON.parse(fileContent));
-  } catch (error) {
-      console.error('Error reading student data:', error);
-      res.status(500).send('Error reading student data.');
-  }
-});
-
-
-

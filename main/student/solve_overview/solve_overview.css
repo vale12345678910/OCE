@@ -134,3 +134,9 @@ body {
     padding: 1em;
     cursor: pointer;
 }
+
+#testDetailsContainer{
+    color: white;
+    font-size: 2em;
+    margin-top: 10px;
+}

@@ -456,14 +456,13 @@ checkbox_code_edit.addEventListener("change", function(){
 
 
 document.getElementById('createTestButton').addEventListener('click', async function() {
-  const userName = localStorage.getItem('userName')// latest added var
   if (exerciseCount == 0) {
     alert_div.style.visibility = "visible";
   } else {
     const exercices = document.querySelectorAll('.newEx');
     const testValues = {
       userName: 'adrian.lüthi',
-      testname: "is it the same (test)",
+      testname: "userNameProblem",
       exercices: []
     };
 

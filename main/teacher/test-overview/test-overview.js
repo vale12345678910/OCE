@@ -36,7 +36,7 @@ function removeDefaultText() {
 // Function to load and display the list of tests
 async function loadTestList() {
     const userName = "adrian.lüthi";
-    console.log("userName", userName);
+    console.log("userName at loadTestList", userName);
 
     try {
         const response = await fetch(`/api/listTests?userName=${encodeURIComponent(userName)}`);
@@ -51,7 +51,7 @@ async function loadTestList() {
     }
 }
 
-// Function to display the list of tests
+
 function displayTestList(testFiles) {
     const container = document.getElementById('testValuesContainer');
     container.innerHTML = '';
@@ -67,29 +67,30 @@ function displayTestList(testFiles) {
         listItem.textContent = fileName.replace('.json', '');
 
         let sendButton = document.createElement('div');
-        sendButton.setAttribute('onclick', 'commitTest()')
-        sendButton.textContent = 'Send'
-        sendButton.className = 'commit'
+        sendButton.textContent = 'Send';
+        sendButton.className = 'commit';
 
-        listItem.appendChild(sendButton)
-        // Create a container for the test details
+        listItem.appendChild(sendButton);
+
         let detailsContainer = document.createElement('div');
         detailsContainer.className = 'test-details';
-        detailsContainer.style.display = 'none'; // Initially hidden
+        detailsContainer.style.display = 'none';
 
-        
         listItem.appendChild(detailsContainer);
 
-        // Add click event to unroll and load test details
-        listItem.addEventListener('click', (event) => {
-          // Check if the clicked target is not the Send button
-          if (event.target !== sendButton) {
-              if (detailsContainer.style.display === 'none') {
-                  loadTestDetails(fileName, detailsContainer);
-              }
-              detailsContainer.style.display = detailsContainer.style.display === 'none' ? 'block' : 'none';
-          }
-      });
+        listItem.addEventListener('click', async (event) => {
+            if (event.target !== sendButton) {
+                if (detailsContainer.style.display === 'none') {
+                    await loadTestDetails(fileName, detailsContainer);
+                }
+                detailsContainer.style.display = detailsContainer.style.display === 'none' ? 'block' : 'none';
+            }
+        });
+
+        sendButton.addEventListener('click', async () => {
+            const testData = await fetchTestData(fileName); // Retrieve the test data
+            saveTest(testData); // Pass the test data to commitTest
+        });
 
         list.appendChild(listItem);
     });
@@ -97,9 +98,29 @@ function displayTestList(testFiles) {
     container.appendChild(list);
 }
 
-// Function to load test details when a test is clicked
+async function fetchTestData(fileName) {
+    const userName = 'adrian.lüthi';
+    try {
+        const response = await fetch(`/api/loadTest?userName=${encodeURIComponent(userName)}&fileName=${encodeURIComponent(fileName)}`);
+        if (!response.ok) {
+            throw new Error(`Error: ${response.statusText}`);
+        }
+        return await response.json();
+    } catch (error) {
+        console.error('Error loading test data:', error);
+        return null;
+    }
+}
+
+//END
+
+
+
 async function loadTestDetails(fileName, detailsContainer) {
-    const userName = localStorage.getItem('userName');
+    
+    // const userName = sessionStorage.getItem('userName')
+    userName = 'adrian.lüthi'
+    console.log("userName at loadTestDetails", userName)
 
     try {
         const response = await fetch(`/api/loadTest?userName=${encodeURIComponent(userName)}&fileName=${encodeURIComponent(fileName)}`);
@@ -136,35 +157,32 @@ function displayTestDetails(testData, detailsContainer) {
 }
 
 
-function commitTest() {
-    const userName = "adrian.lüthi";
-    const fileName = 'demotest.json'; // Example file
+async function saveTest() {
+    const testValues = {
+        testname: "demotest",
+        exercices: [/* your exercises data */]
+    };
 
-    fetch('/api/commitTest', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            userName: userName,
-            fileName: fileName,
-            targetUrl: 'http://127.0.0.1:3000/api/solve_overview' // Updated to the new endpoint
-        })
-    })
-    .then(response => {
+    try {
+        const response = await fetch('/api/saveTest', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(testValues)
+        });
+
         if (!response.ok) {
-            throw new Error(`Failed to commit file to server: ${response.status} ${response.statusText}`);
+            throw new Error(`Error: ${response.statusText}`);
         }
-        return response.text();
-    })
-    .then(result => console.log('File committed successfully:', result))
-    .catch(error => {
-        console.error('Error:', error.message);
-        console.error('Details:', error);
-    });
-}
 
-  
+        const data = await response.json();
+        const testId = data.testId;
+
+        // Share this testId with the student
+        console.log(`Test saved successfully. Share this ID with the student: ${testId}`);
+    } catch (error) {
+        console.error('Error saving test:', error);
+    }
+}
 
 
 // Main script execution
@@ -172,8 +190,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initial load of test list
     loadTestList();
 });
-
-
 
 
 
