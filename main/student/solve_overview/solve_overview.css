@@ -140,3 +140,11 @@ body {
     font-size: 2em;
     margin-top: 10px;
 }
+
+.sebButton{
+    color: white;
+    outline: 1px solid white;
+    width: fit-content;
+    height: 1em;
+    cursor: pointer;
+}

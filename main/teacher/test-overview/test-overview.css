@@ -216,3 +216,11 @@ body {
     justify-content: center;
     align-items: center;
 }
+
+.chooseButton{
+    color: white;
+    outline: 1px solid white;
+    width: fit-content;
+    height: 1em;
+    cursor: pointer;
+}

@@ -48,6 +48,13 @@ function displayTestDetails(testData) {
     }
 
     detailsContainer.innerHTML = `${testData.testname}`
+    console.log("creating element")
+    sebButton = document.createElement('div')
+    sebButton.id = `sebButton${1}`
+    sebButton.className = 'sebButton'
+    sebButton.textContent = 'Solve in SEB'
+    sebButton.setAttribute('onclick', 'openSeb()')
+    detailsContainer.appendChild(sebButton)
 }
 
 function removeDefaultText(){
@@ -56,6 +63,10 @@ function removeDefaultText(){
   alertWrapper.style.display = 'none'
   listContainer.style.alignItems = 'flex-start'
 
+}
+
+function openSeb() {
+  console.log("opening SEB")
 }
 
 

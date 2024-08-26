@@ -52,7 +52,8 @@ async function loadTestList() {
 }
 
 
-function displayTestList(testFiles) {
+//FUNCTION COMES HERE
+async function displayTestList(testFiles) {
     const container = document.getElementById('testValuesContainer');
     container.innerHTML = '';
 
@@ -66,37 +67,87 @@ function displayTestList(testFiles) {
         const listItem = document.createElement('li');
         listItem.textContent = fileName.replace('.json', '');
 
+        // Create and append the "Send" button
         let sendButton = document.createElement('div');
         sendButton.textContent = 'Send';
         sendButton.className = 'commit';
-
         listItem.appendChild(sendButton);
 
+        // Create the "Choose Config. File" button
+        let chooseFile = document.createElement('div');
+        chooseFile.textContent = 'Choose Config. File';
+        chooseFile.className = 'chooseButton';
+
+        // Create the hidden file input
+        let fileInput = document.createElement('input');
+        fileInput.type = 'file';
+        fileInput.style.display = 'none'; // Hide the file input
+
+        // Create the container for displaying the selected file
+        let fileList = document.createElement('div');
+        fileList.className = 'fileList';
+
+        // Event listener for the chooseFile button
+        chooseFile.addEventListener('click', function() {
+            fileInput.click(); // Trigger the file input click
+        });
+
+        // Event listener for when a file is selected
+        fileInput.addEventListener('change', function() {
+            const file = fileInput.files[0]; // Only get the first file
+            
+            // Clear previous content
+            fileList.innerHTML = '';
+
+            if (file) {
+                // Append the selected file name to the fileList div
+                const fileItem = document.createElement('div');
+                fileItem.textContent = `Selected File: ${file.name}`;
+                fileList.appendChild(fileItem);
+            }
+        });
+
+        // Create the container for test details (initially hidden)
         let detailsContainer = document.createElement('div');
         detailsContainer.className = 'test-details';
         detailsContainer.style.display = 'none';
-
         listItem.appendChild(detailsContainer);
 
+        // Event listener for list item click (except the send button)
         listItem.addEventListener('click', async (event) => {
             if (event.target !== sendButton) {
                 if (detailsContainer.style.display === 'none') {
-                    await loadTestDetails(fileName, detailsContainer);
+                    await loadTestDetails(fileName, detailsContainer); // Assuming this function loads details
                 }
                 detailsContainer.style.display = detailsContainer.style.display === 'none' ? 'block' : 'none';
             }
         });
 
+        // Event listener for the send button click
         sendButton.addEventListener('click', async () => {
             const testData = await fetchTestData(fileName); // Retrieve the test data
-            saveTest(testData); // Pass the test data to commitTest
+            saveTest(testData); // Pass the test data to saveTest (or commitTest, depending on your function)
         });
 
+        // Append everything to the list item
+        listItem.appendChild(chooseFile);
+        listItem.appendChild(fileInput);
+        listItem.appendChild(fileList);
+
+        // Append the list item to the list
         list.appendChild(listItem);
     });
 
+    // Append the list to the container
     container.appendChild(list);
 }
+
+
+
+
+
+
+
 
 async function fetchTestData(fileName) {
     const userName = 'adrian.lüthi';
@@ -185,6 +236,22 @@ async function saveTest() {
 }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // Main script execution
 document.addEventListener('DOMContentLoaded', () => {
     // Initial load of test list
@@ -194,3 +261,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
+
+
+
+//test
