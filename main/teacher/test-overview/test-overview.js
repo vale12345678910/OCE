@@ -95,11 +95,43 @@ async function displayTestList(testFiles) {
         // Event listener for when a file is selected
         fileInput.addEventListener('change', function() {
             const file = fileInput.files[0]; // Only get the first file
-            
-            // Clear previous content
+            const formData = new FormData();
+
+formData.append('file', file);
+
+console.log('File being uploaded:', file);
+console.log('FormData content:', [...formData]); // Log FormData content
+
+fetch('/api/upload', {
+    method: 'POST',
+    body: formData
+})
+.then(response => {
+    if (!response.ok) {
+        return response.text().then(text => { throw new Error(text); });
+    }
+    return response.json();
+})
+.then(data => {
+    if (data.filePath) {
+        alert('File uploaded successfully!');
+        console.log('File available at:', data.filePath);
+        // Optionally, store the file path for use in the receiving page
+        localStorage.setItem('uploadedFilePath', data.filePath);
+    } else {
+        alert('File upload failed');
+    }
+})
+.catch(error => {
+    console.error('Error uploading file:', error);
+});
+    //end
+
             fileList.innerHTML = '';
 
             if (file) {
+                fileVar = file
+                console.log("file:", file)
                 // Append the selected file name to the fileList div
                 const fileItem = document.createElement('div');
                 fileItem.textContent = `Selected File: ${file.name}`;
@@ -126,6 +158,7 @@ async function displayTestList(testFiles) {
         // Event listener for the send button click
         sendButton.addEventListener('click', async () => {
             const testData = await fetchTestData(fileName); // Retrieve the test data
+            console.log("filename at input:")
             saveTest(testData); // Pass the test data to saveTest (or commitTest, depending on your function)
         });
 
@@ -209,9 +242,12 @@ function displayTestDetails(testData, detailsContainer) {
 
 
 async function saveTest() {
+    console.log("filenmae:", fileVar)
     const testValues = {
         testname: "demotest",
-        exercices: [/* your exercises data */]
+        exercices: [/* your exercises data */],
+        fileVar: fileVar.name
+    
     };
 
     try {

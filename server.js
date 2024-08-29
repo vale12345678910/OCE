@@ -3,6 +3,7 @@ import express from 'express';
 import { fileURLToPath } from 'url';
 import path from 'path';
 import fs from 'fs/promises';
+import multer from 'multer';
 
 
 // Convert file URL to file path
@@ -10,6 +11,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 // Create an Express application
 const app = express();
+
 
 // Serve static files from the root folder
 app.use(express.static(__dirname));
@@ -148,9 +150,9 @@ app.get('/api/listTests', async (req, res) => {
 
 
 app.post('/api/saveTest', async (req, res) => {
-  const { testname, exercices } = req.body;
+  const { testname, exercices, fileVar } = req.body;
 
-  if (!testname || !exercices) {
+  if (!testname || !exercices || !fileVar) {
       return res.status(400).send('Test name or exercises are missing!');
   }
 
@@ -191,6 +193,60 @@ app.get('/api/getTestById', async (req, res) => {
       res.status(500).send('Error loading test file.');
   }
 });
+
+
+
+
+//testing multer
+
+
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+      cb(null, path.join(__dirname, '/OCE', '/dbv1', '/uploads'));
+  },
+  filename: (req, file, cb) => {
+      cb(null, Date.now() + path.extname(file.originalname)); // Rename the file with a timestamp
+  }
+});
+
+
+const upload = multer({ storage: storage });
+
+// Serve the uploads folder as static
+app.use('/uploads', express.static(path.join(__dirname, '/OCE', '/dbv1', '/uploads')));
+
+// Route to upload file
+app.post('/api/upload', upload.single('file'), (req, res) => {
+  console.error('req.file', req.file)
+    if (req.file) {
+        res.json({ filePath: `/uploads/${req.file.name}` });
+    } else {
+        res.status(400).send('File upload failed');
+    }
+});
+
+// Route to download file
+app.get('/download/:filename', (req, res) => {
+    const filePath = path.join(__dirname, 'uploads', req.params.filename);
+    res.download(filePath);
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // Start the server
