@@ -14,9 +14,12 @@
 
   document.addEventListener('DOMContentLoaded', () => {
     const testId = prompt("Enter the test ID provided by your teacher:");
+    
+  
 
     if (testId) {
         loadTestById(testId);
+        loadFileByTimestampAndName();
     } else {
         alert("Test ID is required!");
     }
@@ -71,6 +74,32 @@ function openSeb() {
 
 
 
+
+
+async function loadFileByTimestampAndName(timestamp, fileName) {
+  try {
+      // Construct the URL with query parameters
+      const url = `/api/getFile?timestamp=${encodeURIComponent(timestamp)}&fileName=${encodeURIComponent(fileName)}`;
+
+      // Send a GET request to the server
+      const response = await fetch(url);
+
+      // Check if the response is OK
+      if (!response.ok) {
+          throw new Error(`Error: ${response.statusText}`);
+      }
+
+      // Parse the response as JSON
+      const fileData = await response.json();
+
+      // Process or display the file data
+      console.log('File Data:', fileData);
+      // You can also call a function to display or use the file data
+      displayFileDetails(fileData);
+  } catch (error) {
+      console.error('Error loading file data:', error);
+  }
+}
 
 
 

@@ -35,7 +35,7 @@ function removeDefaultText() {
 
 // Function to load and display the list of tests
 async function loadTestList() {
-    const userName = "adrian.lüthi";
+    const userName = "dummyLP";
     console.log("userName at loadTestList", userName);
 
     try {
@@ -95,36 +95,6 @@ async function displayTestList(testFiles) {
         // Event listener for when a file is selected
         fileInput.addEventListener('change', function() {
             const file = fileInput.files[0]; // Only get the first file
-            const formData = new FormData();
-
-formData.append('file', file);
-
-console.log('File being uploaded:', file);
-console.log('FormData content:', [...formData]); // Log FormData content
-
-fetch('/api/upload', {
-    method: 'POST',
-    body: formData
-})
-.then(response => {
-    if (!response.ok) {
-        return response.text().then(text => { throw new Error(text); });
-    }
-    return response.json();
-})
-.then(data => {
-    if (data.filePath) {
-        alert('File uploaded successfully!');
-        console.log('File available at:', data.filePath);
-        // Optionally, store the file path for use in the receiving page
-        localStorage.setItem('uploadedFilePath', data.filePath);
-    } else {
-        alert('File upload failed');
-    }
-})
-.catch(error => {
-    console.error('Error uploading file:', error);
-});
     //end
 
             fileList.innerHTML = '';
@@ -183,7 +153,7 @@ fetch('/api/upload', {
 
 
 async function fetchTestData(fileName) {
-    const userName = 'adrian.lüthi';
+    const userName = 'dummyLP';
     try {
         const response = await fetch(`/api/loadTest?userName=${encodeURIComponent(userName)}&fileName=${encodeURIComponent(fileName)}`);
         if (!response.ok) {
@@ -203,7 +173,7 @@ async function fetchTestData(fileName) {
 async function loadTestDetails(fileName, detailsContainer) {
     
     // const userName = sessionStorage.getItem('userName')
-    userName = 'adrian.lüthi'
+    userName = 'dummyLP'
     console.log("userName at loadTestDetails", userName)
 
     try {
@@ -242,13 +212,11 @@ function displayTestDetails(testData, detailsContainer) {
 
 
 async function saveTest() {
-    console.log("filenmae:", fileVar)
+    await saveFile()
     const testValues = {
         testname: "demotest",
         exercices: [/* your exercises data */],
-        fileVar: fileVar.name
-    
-    };
+    }
 
     try {
         const response = await fetch('/api/saveTest', {
@@ -273,21 +241,6 @@ async function saveTest() {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Main script execution
 document.addEventListener('DOMContentLoaded', () => {
     // Initial load of test list
@@ -300,4 +253,35 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
+
+
+
 //test
+
+
+
+
+
+async function saveFile() {
+    try {
+        const formData = new FormData();
+        formData.append('file', fileVar);  // Ensure 'file' is the field name used on the server
+
+        const response = await fetch('http://127.0.0.1:3000/upload', {
+            method: 'POST',
+            body: formData
+        });
+
+        if (!response.ok) {
+            const errorText = await response.text();
+            throw new Error(`Error: ${response.statusText}. Server Response: ${errorText}`);
+        }
+
+        const data = await response.json();
+        console.log('File uploaded:', data.filePath);
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+
+
