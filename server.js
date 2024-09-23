@@ -149,6 +149,14 @@ app.get('/api/listTests', async (req, res) => {
 
 
 
+
+// ! WORKING ON UNDER THIS
+// ! WORKING ON UNDER THIS
+// ! WORKING ON UNDER THIS
+
+
+
+
 app.post('/api/saveTest', async (req, res) => {
   const { testname, exercices} = req.body;
 
@@ -197,64 +205,6 @@ app.get('/api/getTestById', async (req, res) => {
 
 
 
-//testing multer
-
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-      // Ensure the 'uploads/' directory exists or handle its creation
-      cb(null, path.join(__dirname, 'dbv1','/uploads')); // Set the path where files should be saved
-  },
-  filename: function (req, file, cb) {
-      // Set the filename with a timestamp to avoid conflicts
-      cb(null, Date.now() + '-' + file.originalname);
-  }
-});
-
-const upload = multer({ storage: storage });
-
-
-//UPLOAD FILE TO SERVER
-app.post('/upload', upload.single('file'), (req, res) => {
-  try {
-      if (!req.file) {
-          return res.status(400).send('No file uploaded.');
-      }
-      console.log('File uploaded:', req.file);
-      res.json({ filePath: `/uploads/${req.file.filename}` });
-  } catch (error) {
-      console.error('Error handling file upload:', error);
-      res.status(500).send('Internal Server Error');
-  }
-});
-
-
-
-
-
-
-
-app.get('/api/getFile', async (req, res) => {
-  const { timestamp, fileName } = req.query;
-
-  if (!timestamp || !fileName) {
-      return res.status(400).send('Timestamp or file name is missing!');
-  }
-
-  const filePath = path.join(__dirname, 'uploads', `${timestamp}-${fileName}`);
-
-  try {
-      await fs.access(filePath); // Check if file exists
-      res.sendFile(filePath); // Send file to client
-  } catch (error) {
-      if (error.code === 'ENOENT') {
-          return res.status(404).send('File not found.');
-      }
-      console.error('Error loading file:', error);
-      res.status(500).send('Error loading file.');
-  }
-});
-
-
 
 
 
@@ -279,3 +229,153 @@ const port = process.env.PORT || 3000;
 app.listen(port, () => {
   console.log(`Server is listening on port ${port}`);
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ! STORAGE
+// ! STORAGE
+// ! STORAGE
+
+
+// app.post('/api/saveTest', async (req, res) => {
+//   const { testname, exercices} = req.body;
+
+//   if (!testname || !exercices) {
+//       return res.status(400).send('Test name or exercises are missing!');
+//   }
+
+//   Generate a unique test ID (can use UUID or a simple counter)
+//   const testId = Date.now().toString(); // Simple example using timestamp
+
+//   const dirPath = path.join(__dirname, 'tests');
+//   const filePath = path.join(dirPath, `${testId}.json`);
+
+//   try {
+//       await fs.mkdir(dirPath, { recursive: true });
+//       await fs.writeFile(filePath, JSON.stringify(req.body), 'utf8');
+//       res.json({ testId });
+//   } catch (error) {
+//       console.error('Error saving test:', error);
+//       res.status(500).send('Error saving test.');
+//   }
+// });
+
+
+
+
+// app.get('/api/getTestById', async (req, res) => {
+//   const { testId } = req.query;
+
+//   if (!testId) {
+//       return res.status(400).send('Test ID is missing!');
+//   }
+
+//   const filePath = path.join(__dirname, 'tests', `${testId}.json`);
+
+//   try {
+//       const fileContent = await fs.readFile(filePath, 'utf8');
+//       const testData = JSON.parse(fileContent);
+//       res.json(testData);
+//   } catch (error) {
+//       console.error('Error loading test file:', error);
+//       res.status(500).send('Error loading test file.');
+//   }
+// });
+
+
+
+
+// //testing multer
+
+// const storage = multer.diskStorage({
+//   destination: function (req, file, cb) {
+//       // Ensure the 'uploads/' directory exists or handle its creation
+//       cb(null, path.join(__dirname, 'dbv1','/uploads')); // Set the path where files should be saved
+//   },
+//   filename: function (req, file, cb) {
+//       // Set the filename with a timestamp to avoid conflicts
+//       cb(null, Date.now() + '-' + file.originalname);
+//   }
+// });
+
+// const upload = multer({ storage: storage });
+
+
+// //UPLOAD FILE TO SERVER
+// app.post('/upload', upload.single('file'), (req, res) => {
+//   try {
+//       if (!req.file) {
+//           return res.status(400).send('No file uploaded.');
+//       }
+//       console.log('File uploaded:', req.file);
+//       res.json({ filePath: `/uploads/${req.file.filename}` });
+//   } catch (error) {
+//       console.error('Error handling file upload:', error);
+//       res.status(500).send('Internal Server Error');
+//   }
+// });
+
+
+
+
+
+
+
+// app.get('/api/getFile', async (req, res) => {
+//   const { timestamp } = req.query;
+
+//   console.log("req.query at api/getFile:", req.query)
+
+//   if (!timestamp) {
+//       return res.status(400).send('Timestamp is missing!');
+//   }
+
+//   const filePath = path.join(__dirname, 'uploads', `${timestamp}`);
+
+//   try {
+//       await fs.access(filePath); // Check if file exists
+//       res.sendFile(filePath); // Send file to client
+//   } catch (error) {
+//       if (error.code === 'ENOENT') {
+//           return res.status(404).send('File not found.');
+//       }
+//       console.error('Error loading file:', error);
+//       res.status(500).send('Error loading file.');
+//   }
+// });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

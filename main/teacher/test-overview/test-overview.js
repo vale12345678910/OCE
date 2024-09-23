@@ -3,6 +3,7 @@ let exCount = 0;
 let testCount = 1;
 let test = document.createElement("div");
 let i = 1;
+let configKey = undefined
 
 test.className = "test";
 test.id = "test" + testCount;
@@ -73,41 +74,16 @@ async function displayTestList(testFiles) {
         sendButton.className = 'commit';
         listItem.appendChild(sendButton);
 
-        // Create the "Choose Config. File" button
-        let chooseFile = document.createElement('div');
-        chooseFile.textContent = 'Choose Config. File';
-        chooseFile.className = 'chooseButton';
+        let configKeyInput = document.createElement('input');
+        configKeyInput.placeholder = 'Cofiguration Key (optional/no password)'
+        configKeyInput.className = 'configKeyClass'
+        listItem.appendChild(configKeyInput)
 
-        // Create the hidden file input
-        let fileInput = document.createElement('input');
-        fileInput.type = 'file';
-        fileInput.style.display = 'none'; // Hide the file input
-
-        // Create the container for displaying the selected file
-        let fileList = document.createElement('div');
-        fileList.className = 'fileList';
-
-        // Event listener for the chooseFile button
-        chooseFile.addEventListener('click', function() {
-            fileInput.click(); // Trigger the file input click
-        });
-
-        // Event listener for when a file is selected
-        fileInput.addEventListener('change', function() {
-            const file = fileInput.files[0]; // Only get the first file
-    //end
-
-            fileList.innerHTML = '';
-
-            if (file) {
-                fileVar = file
-                console.log("file:", file)
-                // Append the selected file name to the fileList div
-                const fileItem = document.createElement('div');
-                fileItem.textContent = `Selected File: ${file.name}`;
-                fileList.appendChild(fileItem);
-            }
-        });
+        configKeyInput.addEventListener('input', (event) => {
+            configKey = event.target.value
+            console.log(configKey)
+        }) 
+        
 
         // Create the container for test details (initially hidden)
         let detailsContainer = document.createElement('div');
@@ -126,16 +102,15 @@ async function displayTestList(testFiles) {
         });
 
         // Event listener for the send button click
-        sendButton.addEventListener('click', async () => {
+        sendButton.addEventListener('click', async (event) => {
+            event.stopPropagation(); // Prevent the list item click event
             const testData = await fetchTestData(fileName); // Retrieve the test data
-            console.log("filename at input:")
+            console.log("filename at input:");
             saveTest(testData); // Pass the test data to saveTest (or commitTest, depending on your function)
         });
 
         // Append everything to the list item
-        listItem.appendChild(chooseFile);
-        listItem.appendChild(fileInput);
-        listItem.appendChild(fileList);
+        listItem.appendChild(detailsContainer); // Append details container, if needed
 
         // Append the list item to the list
         list.appendChild(listItem);
@@ -147,6 +122,7 @@ async function displayTestList(testFiles) {
 
 
 
+//ConfigurationKeyInputHandling
 
 
 
@@ -166,7 +142,6 @@ async function fetchTestData(fileName) {
     }
 }
 
-//END
 
 
 
@@ -189,6 +164,7 @@ async function loadTestDetails(fileName, detailsContainer) {
 }
 
 // Function to display test details within the specific test's div
+
 function displayTestDetails(testData, detailsContainer) {
     if (!testData) {
         detailsContainer.innerHTML = '<p>No details available.</p>';
@@ -212,10 +188,10 @@ function displayTestDetails(testData, detailsContainer) {
 
 
 async function saveTest() {
-    await saveFile()
     const testValues = {
         testname: "demotest",
         exercices: [/* your exercises data */],
+        configKey: configKey
     }
 
     try {
@@ -250,38 +226,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
+// ? TRYING NEW ONE:
 
 
 
-
-
-
-//test
-
-
-
-
-
-async function saveFile() {
-    try {
-        const formData = new FormData();
-        formData.append('file', fileVar);  // Ensure 'file' is the field name used on the server
-
-        const response = await fetch('http://127.0.0.1:3000/upload', {
-            method: 'POST',
-            body: formData
-        });
-
-        if (!response.ok) {
-            const errorText = await response.text();
-            throw new Error(`Error: ${response.statusText}. Server Response: ${errorText}`);
-        }
-
-        const data = await response.json();
-        console.log('File uploaded:', data.filePath);
-    } catch (error) {
-        console.error('Error:', error);
-    }
-}
-
+// ! ORIGINAL (working)
 
