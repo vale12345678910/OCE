@@ -130,7 +130,6 @@ async function fileExists(filePath) {
 
 app.get('/api/listTests', async (req, res) => {
   const { userName } = req.query; // Retrieve userName from query parameters
-  console.log("userName at server listTests", userName )
 
   if (!userName) {
       return res.status(400).send('User name is missing!');

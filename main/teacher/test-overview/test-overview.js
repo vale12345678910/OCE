@@ -5,6 +5,7 @@ let test = document.createElement("div");
 let i = 1;
 let configKey = undefined
 
+
 test.className = "test";
 test.id = "test" + testCount;
 
@@ -44,30 +45,28 @@ async function loadTestList() {
         if (!response.ok) {
             throw new Error(`Error: ${response.statusText}`);
         }
-        const testFiles = await response.json();
+        testData = await response.json();
         removeDefaultText();
-        displayTestList(testFiles);
+        displayTestList(testData);
     } catch (error) {
         console.error('Error loading test list:', error);
     }
 }
 
 
-//FUNCTION COMES HERE
-async function displayTestList(testFiles) {
+async function displayTestList(testData) {
     const container = document.getElementById('testValuesContainer');
     container.innerHTML = '';
 
-    if (testFiles.length === 0) {
+    if (testData.length === 0) {
         container.innerHTML = '<p>No tests available.</p>';
         return;
     }
 
     const list = document.createElement('ul');
-    testFiles.forEach(fileName => {
+    testData.forEach(fileName => {
         const listItem = document.createElement('li');
         listItem.textContent = fileName.replace('.json', '');
-
         // Create and append the "Send" button
         let sendButton = document.createElement('div');
         sendButton.textContent = 'Send';
@@ -86,14 +85,14 @@ async function displayTestList(testFiles) {
         
 
         // Create the container for test details (initially hidden)
-        let detailsContainer = document.createElement('div');
+        detailsContainer = document.createElement('div');
         detailsContainer.className = 'test-details';
         detailsContainer.style.display = 'none';
         listItem.appendChild(detailsContainer);
 
         // Event listener for list item click (except the send button)
         listItem.addEventListener('click', async (event) => {
-            if (event.target !== sendButton) {
+            if (event.target !== sendButton && event.target !== configKeyInput) {
                 if (detailsContainer.style.display === 'none') {
                     await loadTestDetails(fileName, detailsContainer); // Assuming this function loads details
                 }
@@ -101,11 +100,8 @@ async function displayTestList(testFiles) {
             }
         });
 
-        // Event listener for the send button click
         sendButton.addEventListener('click', async (event) => {
             event.stopPropagation(); // Prevent the list item click event
-            const testData = await fetchTestData(fileName); // Retrieve the test data
-            console.log("filename at input:");
             saveTest(testData); // Pass the test data to saveTest (or commitTest, depending on your function)
         });
 
@@ -122,29 +118,6 @@ async function displayTestList(testFiles) {
 
 
 
-//ConfigurationKeyInputHandling
-
-
-
-
-
-async function fetchTestData(fileName) {
-    const userName = 'dummyLP';
-    try {
-        const response = await fetch(`/api/loadTest?userName=${encodeURIComponent(userName)}&fileName=${encodeURIComponent(fileName)}`);
-        if (!response.ok) {
-            throw new Error(`Error: ${response.statusText}`);
-        }
-        return await response.json();
-    } catch (error) {
-        console.error('Error loading test data:', error);
-        return null;
-    }
-}
-
-
-
-
 async function loadTestDetails(fileName, detailsContainer) {
     
     // const userName = sessionStorage.getItem('userName')
@@ -155,8 +128,9 @@ async function loadTestDetails(fileName, detailsContainer) {
         if (!response.ok) {
             throw new Error(`Error: ${response.statusText}`);
         }
-        const testData = await response.json();
+        testData = await response.json();
         displayTestDetails(testData, detailsContainer);
+        console.log('testData at load testDetails', testData)
     } catch (error) {
         console.error('Error loading test details:', error);
     }
@@ -189,7 +163,7 @@ function displayTestDetails(testData, detailsContainer) {
 async function saveTest() {
     const testValues = {
         testname: "demotest",
-        exercices: [/* your exercises data */],
+        exercices: [],
         configKey: configKey
     }
 
@@ -216,18 +190,13 @@ async function saveTest() {
 
 
 
-// Main script execution
+
+
+
 document.addEventListener('DOMContentLoaded', () => {
-    // Initial load of test list
     loadTestList();
 });
 
 
 
-
-// ? TRYING NEW ONE:
-
-
-
-// ! ORIGINAL (working)
 
