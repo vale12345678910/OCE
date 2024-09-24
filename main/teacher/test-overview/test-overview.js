@@ -149,7 +149,6 @@ async function loadTestDetails(fileName, detailsContainer) {
     
     // const userName = sessionStorage.getItem('userName')
     userName = 'dummyLP'
-    console.log("userName at loadTestDetails", userName)
 
     try {
         const response = await fetch(`/api/loadTest?userName=${encodeURIComponent(userName)}&fileName=${encodeURIComponent(fileName)}`);
