@@ -67,7 +67,9 @@ async function displayTestList(testData) {
     testData.forEach(fileName => {
         const listItem = document.createElement('li');
         listItem.textContent = fileName.replace('.json', '');
-        // Create and append the "Send" button
+        
+        fileNameVar = fileName
+
         let sendButton = document.createElement('div');
         sendButton.textContent = 'Send';
         sendButton.className = 'commit';
@@ -85,7 +87,7 @@ async function displayTestList(testData) {
         
 
         // Create the container for test details (initially hidden)
-        detailsContainer = document.createElement('div');
+        const detailsContainer = document.createElement('div');
         detailsContainer.className = 'test-details';
         detailsContainer.style.display = 'none';
         listItem.appendChild(detailsContainer);
@@ -161,9 +163,12 @@ function displayTestDetails(testData, detailsContainer) {
 
 
 async function saveTest() {
+    detailsContainer = document.createElement('div')
+    await loadTestDetails(fileNameVar, detailsContainer)
+    console.log("testData:", testData, testData.exercices)
     const testValues = {
         testname: "demotest",
-        exercices: [],
+        exercices: testData.exercices,
         configKey: configKey
     }
 
@@ -183,6 +188,7 @@ async function saveTest() {
 
         // Share this testId with the student
         console.log(`Test saved successfully. Share this ID with the student: ${testId}`);
+        sessionStorage.setItem('testId', testId)
     } catch (error) {
         console.error('Error saving test:', error);
     }

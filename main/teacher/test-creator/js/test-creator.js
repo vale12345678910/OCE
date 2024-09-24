@@ -40,7 +40,7 @@ window.onload = function() {
     editor.session.setMode("ace/mode/javascript")
     editor.setOptions({
       enableBasicAutocompletion: true,
-      enableLiveAutocompletion: false
+      enableLiveAutocompletion: true
     });
 
     // Function to load default.js content into the editor
