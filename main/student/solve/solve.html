@@ -23,50 +23,58 @@
 
 
   <div class="main_container">
-    <div class="container_editor">
-      <div class="editor_header">
-        <div class="editor_title">Editor</div>
-        
-      <div class="editor_buttons_container">
-        <div class="control-panel">
-          &nbsp; &nbsp;
-          <select id="languages" class="languages" onchange="changeLanguage()">
-              <option value="node"> js </option>
-              <option value="python"> py </option>
-              
-          </select>
+    <div class="display_editor_merge_container">
+      <div class="container_exercises_display">
+        <p id="title"></p>
+        <p id="desc"></p>
       </div>
-          <button class="buttons buttons_Info" type="submit" id="saveCode">
-            <p class ="tooltip_info">save file</p>
+      <div class="container_editor">
+        <div class="editor_header">
+          <div class="editor_title">Editor</div>
+          
+        <div class="editor_buttons_container">
+          <div class="control-panel">
+            &nbsp; &nbsp;
+            <select id="languages" class="languages" onchange="changeLanguage()">
+                <option value="node"> js </option>
+                <option value="python"> py </option>
+                
+            </select>
+        </div>
+            <button class="buttons buttons_Info" type="submit" id="saveCode">
+              <p class ="tooltip_info">save file</p>
+              <span class="material-symbols-outlined">
+                save
+                </span>
+            </button>
+          <button class="buttons buttons_Info" id="loadButton">
+            <p class="tooltip_info">open file</p>
             <span class="material-symbols-outlined">
-              save
+              folder_open
               </span>
           </button>
-        <button class="buttons buttons_Info" id="loadButton">
-          <p class="tooltip_info">open file</p>
-          <span class="material-symbols-outlined">
-            folder_open
-            </span>
-        </button>
-        <button class="buttons buttons_Info" id="runButton" onclick="runCode()">
-          <p class="tooltip_info">run</p>
-          <span class="material-symbols-outlined">
-            play_arrow
-            </span></button>
-    </div>
-
+          <button class="buttons buttons_Info" id="runButton" onclick="runCode()">
+            <p class="tooltip_info">run</p>
+            <span class="material-symbols-outlined">
+              play_arrow
+              </span></button>
       </div>
-      <div class="container_code">
-        <input type="file" id="fileInput" style="display: none;" accept=".js, .py">
-        <div class="editor" id="editor"></div>
-        <div class="container_output">
-          <div class="output_header">Output</div>
-          <div id="output_area">
-            <div class="grey_area"></div>
-            <div id="output">Code</div>
+  
         </div>
+        <div class="container_code">
+          <input type="file" id="fileInput" style="display: none;" accept=".js, .py">
+          <div class="editor" id="editor"></div>
+          <div class="container_output">
+            <div class="output_header">Output</div>
+            <div id="output_area">
+              <div class="grey_area"></div>
+              <div id="output">Code</div>
           </div>
-      </div>
+            </div>
+        </div>
+        
+</div>
+  
       
     </div>
 

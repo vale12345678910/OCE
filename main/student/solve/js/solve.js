@@ -2,7 +2,6 @@
 
 const loadButton = document.getElementById("loadButton")
 const fileInput = document.getElementById('fileInput');
-
 const saveCode = document.getElementById("saveCode")
 
 
@@ -212,14 +211,58 @@ async function loadTestById(testId) {
 
 
 
-function displayTestData(testData){
 
-const container_list = document.querySelector('.container_list');
+function displayTestData(testData) {
+  let i = 1;
 
-testData.exercices.forEach(exercise => {
-  const exerciseDiv = document.createElement('div');
-  exerciseDiv.className = 'exerciseDiv'
-  exerciseDiv.innerHTML = `<h3>${exercise.title}</h3><p>${exercise.description}</p>`;
-  container_list.appendChild(exerciseDiv);
+  const container_list = document.querySelector('.container_list');
+
+  testData.exercices.forEach(exercise => {
+    const exerciseDiv = document.createElement('div');
+    exerciseDiv.className = 'exerciseDiv';
+    exerciseDiv.id = `exerciseDiv${i}`;
+    exerciseDiv.dataset.code = exercise.editorContent; // Store the editor code value in a data attribute
+    exerciseDiv.optionstatus = exercise.optionstatus;
+    exerciseDiv.title = exercise.title
+    exerciseDiv.description = exercise.description
+    exerciseDiv.onclick = ExerciseClicked;
+    i++;
+    exerciseDiv.innerHTML = `<p class="title_ex">${exercise.title}</p><p class="desc_ex">${exercise.description}</p>`;
+    container_list.appendChild(exerciseDiv);
   });
+}
+
+function ExerciseClicked(event) {
+  const clickedDiv = event.currentTarget;
+  const divId = clickedDiv.id;
+  const divNumber = divId.replace('exerciseDiv', '');
+  console.log("Clicked div number:", divNumber);
+
+  // Pass the editor code value to loadExerciseContent
+  const editorCodeValue = clickedDiv.dataset.code; 
+  const optionstatus = clickedDiv.optionstatus
+  const title = clickedDiv.title
+  const desc = clickedDiv.description
+  console.log("optionstatus:", optionstatus)
+  loadExerciseContent(editorCodeValue, optionstatus, title, desc);
+}
+
+function loadExerciseContent(code, optionstatus, title, desc) {
+  
+  if(optionstatus == 1){
+    editor.setValue(code, 1)    
+  } else{
+    editor.setValue('', 1)
+  }
+
+  changeTitleAndDesc(title, desc);
+}
+
+
+function changeTitleAndDesc(title, desc) {
+  const titleDiv = document.getElementById('title')
+  const descDiv = document.getElementById('desc')
+
+  titleDiv.textContent = title
+  descDiv.textContent = desc
 }

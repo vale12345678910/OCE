@@ -152,7 +152,7 @@ function displayTestDetails(testData, detailsContainer) {
                 <p id='title'>${ex.title}</p>
             </div>
             <p>${ex.description}</p>
-            <p id='content'>${ex.editorContent}</p>
+            <pre><code>${ex.editorContent}</code></pre>
             <p id='points'>Points: ${ex.ponits}</p>
             <div id='line'></div>
         `).join('')}

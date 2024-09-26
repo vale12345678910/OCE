@@ -224,3 +224,8 @@ body {
     height: 1em;
     cursor: pointer;
 }
+
+code{
+    color: white;
+    font-family: 'Times New Roman', Times, serif;
+}
