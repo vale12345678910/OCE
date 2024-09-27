@@ -206,10 +206,18 @@ app.listen(port, () => {
 
 
 
-//! Loading Test to Solve-Page
-//! Loading Test to Solve-Page
-//! Loading Test to Solve-Page
+//! Saving Test Post Req
 
+app.post('/submitTest', (req, res) => {
+  // Extract the savedExercises JSON from the request body
+  const savedExercises = req.body.savedExercisesToSubmit;
+
+  // Here, you can handle the received data, e.g., saving it to a database or processing it
+  console.log("Received saved exercises:", savedExercises);
+
+  // Respond back to the client
+  res.status(200).json({ message: 'Test submitted successfully!', data: savedExercises });
+});
 
 
 

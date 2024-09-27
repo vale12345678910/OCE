@@ -16,9 +16,7 @@
 
 
   document.addEventListener('DOMContentLoaded', () => {
-    const testId = prompt("Enter the test ID provided by your teacher:");
-    
-  
+    testId = prompt("Enter the test ID provided by your teacher:");
 
     if (testId) {
         loadTestById(testId);
@@ -79,10 +77,10 @@ function openSeb() {
 
   if(!configKey){
     console.log("no config key -> (changing)")
-    configKey = 'b006c79091967e5000c1896ba2184ae884d34f534c93ba5b0473407de306339b'
+    configKey = '80547f33d9b5e04ec37d0e8eb7a908ab9c1b330c7307ccf0610c0f3a71acb9b6'
     }
     console.log(configKey)
-    window.location.href = `seb://config=${configKey}`
+    window.location.href = `seb://config=${configKey}?testId=${testId}`
   }
   
 

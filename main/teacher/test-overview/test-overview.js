@@ -37,7 +37,7 @@ function removeDefaultText() {
 
 // Function to load and display the list of tests
 async function loadTestList() {
-    const userName = "dummyLP";
+    userName = sessionStorage.getItem('userName')
     console.log("userName at loadTestList", userName);
 
     try {
@@ -123,7 +123,6 @@ async function displayTestList(testData) {
 async function loadTestDetails(fileName, detailsContainer) {
     
     // const userName = sessionStorage.getItem('userName')
-    userName = 'dummyLP'
 
     try {
         const response = await fetch(`/api/loadTest?userName=${encodeURIComponent(userName)}&fileName=${encodeURIComponent(fileName)}`);
@@ -187,8 +186,8 @@ async function saveTest() {
         const testId = data.testId;
 
         // Share this testId with the student
-        console.log(`Test saved successfully. Share this ID with the student: ${testId}`);
-        sessionStorage.setItem('testId', testId)
+        alert(`Test saved successfully. Share this ID with the students: ${testId}`);
+        // sessionStorage.setItem('testId', testId)
     } catch (error) {
         console.error('Error saving test:', error);
     }

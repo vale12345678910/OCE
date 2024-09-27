@@ -42,17 +42,11 @@
             </select>
         </div>
             <button class="buttons buttons_Info" type="submit" id="saveCode">
-              <p class ="tooltip_info">save file</p>
+              <p class ="tooltip_info">save exercise</p>
               <span class="material-symbols-outlined">
                 save
                 </span>
             </button>
-          <button class="buttons buttons_Info" id="loadButton">
-            <p class="tooltip_info">open file</p>
-            <span class="material-symbols-outlined">
-              folder_open
-              </span>
-          </button>
           <button class="buttons buttons_Info" id="runButton" onclick="runCode()">
             <p class="tooltip_info">run</p>
             <span class="material-symbols-outlined">
@@ -86,9 +80,10 @@
       <div class="container_list">
         <!-- LIST CONTENT -->
       </div>
-      <div class="submitTest">
-        <p>Submit Test</p>
-      </div>
+      <div class="submitTest disabled">
+        <p id="submitTestText">Submit Test</p>
+    </div>
+    
     </div>
   </div>
 

@@ -2,7 +2,7 @@
 let exerciseCount = 0;
 let lastNumber = null;
 
-
+const userName = sessionStorage.getItem('userName')
 
 const newEx = document.querySelector(".sortable-list")
 // const newEx = document.getElementById("newEx")
@@ -461,7 +461,7 @@ document.getElementById('createTestButton').addEventListener('click', async func
   } else {
     const exercices = document.querySelectorAll('.newEx');
     const testValues = {
-      userName: 'dummyLP',
+      userName: userName,
       testname: "userNameProblem",
       exercices: []
     };
