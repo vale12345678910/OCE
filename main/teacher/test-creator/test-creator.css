@@ -164,6 +164,7 @@ body {
     align-items: center;
     width: fit-content;
     height: fit-content;
+    margin-left: auto;
 }
 
 
@@ -210,27 +211,17 @@ body {
     outline: none;
 }
 
-#run-button{
-    transition: all 0.1s linear;
-    border-radius: 5px;
-    background-color: rgb(5, 5, 5);
-    color: white;
-    font-size: 100%;
-    border: none;
-    cursor: pointer;
-}
-
-#run-button:hover{
-    background-color: grey;
+#runButton{
+    background-color: green;
 }
 
 .exercises_title{
     display: flex;
     align-items: center;
     color: white;
-    font-size: 2em;
-    font-family: Arial, Helvetica, sans-serif;
-    font-weight: bold;
+    font-size: 1.5em;
+    font-family: "Roboto Mono";
+    font-weight: bolder;
 }
 
 .exercises_header{
@@ -244,9 +235,9 @@ body {
     display: flex;
     align-items: center;
     color: white;
-    font-size: 2em;
-    font-family: Arial, Helvetica, sans-serif;
-    font-weight: bold;
+    font-size: 1.5em;
+    font-family: "Roboto Mono";
+    font-weight: lighter;
 }
 
 .editor_header{
@@ -412,7 +403,7 @@ body {
 .editor_buttons_container{
     display: flex;
     /* outline: 2px solid yellow; */
-    margin-left: auto;
+    /* margin-left: auto; */
     height: 40px;
     width: fit-content;
 }
@@ -427,6 +418,9 @@ body {
     order: 1;
 }
 
+.ace_scroller{
+    background-color: rgba(21,20,21,255);
+}
 
 
 #saveButton-modal:hover{
@@ -476,7 +470,7 @@ body {
 .container_code{
     display: flex;
     flex-direction: column;
-    margin-top: 1em;
+    margin-top: 0.2em;
 }
 
 .modal_header{
@@ -849,7 +843,7 @@ body {
 #output_area{
     display: flex;
     align-items: center;
-    background-color: rgba(0,1,1,255);
+    background-color: rgba(21,20,21,255);
     height: 5em;
     width: 40em;
 }
@@ -871,9 +865,9 @@ body {
 
 .output_header{
     color: white;
-    font-size: 1.5em;
-    font-family: Arial, Helvetica, sans-serif;
-    font-weight: bold;
+    font-size: 1.2em;
+    font-family: "Roboto Mono";
+    font-weight: lighter;
     margin-bottom: 0.3em;
 }
 

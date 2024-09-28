@@ -459,10 +459,17 @@ document.getElementById('createTestButton').addEventListener('click', async func
   if (exerciseCount == 0) {
     alert_div.style.visibility = "visible";
   } else {
+    testname = prompt("Testname:")
+    if(!testname){
+      alert('Testname required!')
+      return;
+    } else{
+
+    
     const exercices = document.querySelectorAll('.newEx');
     const testValues = {
       userName: userName,
-      testname: "userNameProblem",
+      testname: testname,
       exercices: []
     };
 
@@ -487,6 +494,7 @@ document.getElementById('createTestButton').addEventListener('click', async func
     localStorage.setItem('testValues', JSON.stringify(testValues));
    
     await fetchPost("/api/save", testValues);
+    }
   }
 });
 

@@ -138,13 +138,28 @@ body {
 #testDetailsContainer{
     color: white;
     font-size: 2em;
-    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
 .sebButton{
-    color: white;
-    outline: 1px solid white;
-    width: fit-content;
-    height: 1em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 15em;
+    height: 5em;
+    font-size: 0.7em;
+    color: rgba(255, 255, 255, 0.5);
+    border-radius: 1em;
+    outline: 1px solid rgba(255, 255, 255, 0.5);
+    transition: 0.2s ease;
     cursor: pointer;
+    margin-top: 1em;
 }
+
+.sebButton:hover{
+    outline: 1px solid white;
+    color: white;
+} 

@@ -77,7 +77,7 @@ app.post('/api/save', async (req, res) => {
     }
 
     let dirPath = path.join(__dirname, "dbv1", userName);
-    let baseFileName = 'demotest';
+    let baseFileName = testname;
     let fileExtension = '.json';
     let filePath = path.join(dirPath, baseFileName + fileExtension);
     
@@ -113,7 +113,7 @@ async function fileExists(filePath) {
     const { userName, fileName } = req.query;
 
     if (!userName || !fileName) {
-        return res.status(400).send('User name or file name is missing!');
+        return res.status(400).send('User name, testname or file name is missing!');
     }
 
     const filePath = path.join(__dirname, 'dbv1', userName, fileName);
@@ -138,7 +138,7 @@ app.get('/api/listTests', async (req, res) => {
   const dirPath = path.join(__dirname, 'dbv1', userName);
   try {
       const files = await fs.readdir(dirPath);
-      const testFiles = files.filter(file => file.startsWith('demotest') && file.endsWith('.json'));
+      const testFiles = files.filter(file => file.endsWith('.json'));
       res.json(testFiles);
   } catch (error) {
       console.error('Error listing files:', error);
@@ -150,7 +150,7 @@ app.get('/api/listTests', async (req, res) => {
 
 
 app.post('/api/saveTest', async (req, res) => {
-  const { testname, exercices} = req.body;
+  const { testname, exercices } = req.body;
 
   if (!testname || !exercices) {
       return res.status(400).send('Test name or exercises are missing!');

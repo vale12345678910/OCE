@@ -4,6 +4,7 @@ let testCount = 1;
 let test = document.createElement("div");
 let i = 1;
 let configKey = undefined
+const teachersName = sessionStorage.getItem('userName')
 
 
 test.className = "test";
@@ -42,6 +43,7 @@ async function loadTestList() {
 
     try {
         const response = await fetch(`/api/listTests?userName=${encodeURIComponent(userName)}`);
+
         if (!response.ok) {
             throw new Error(`Error: ${response.statusText}`);
         }
@@ -76,7 +78,7 @@ async function displayTestList(testData) {
         listItem.appendChild(sendButton);
 
         let configKeyInput = document.createElement('input');
-        configKeyInput.placeholder = 'Cofiguration Key (optional/no password)'
+        configKeyInput.placeholder = 'Cofiguration Key (Find the Key in SEB Configuration Tool -> Exam)'
         configKeyInput.className = 'configKeyClass'
         listItem.appendChild(configKeyInput)
 
@@ -121,8 +123,6 @@ async function displayTestList(testData) {
 
 
 async function loadTestDetails(fileName, detailsContainer) {
-    
-    // const userName = sessionStorage.getItem('userName')
 
     try {
         const response = await fetch(`/api/loadTest?userName=${encodeURIComponent(userName)}&fileName=${encodeURIComponent(fileName)}`);
@@ -147,13 +147,14 @@ function displayTestDetails(testData, detailsContainer) {
 
     detailsContainer.innerHTML = `
         ${testData.exercices.map(ex => `
-            <div class="exercise-header">
-                <p id='title'>${ex.title}</p>
+            <div class="exerciseDiv">
+                <p id='title' class='titleEx'>${ex.title}</p>
+                <p class='descEx'>${ex.description}</p>
+                <p id='points'>Points: ${ex.ponits}</p>
+                <pre><code>Code:<br>${ex.editorContent}</code></pre>
+                
+                <div id='line'></div>
             </div>
-            <p>${ex.description}</p>
-            <pre><code>${ex.editorContent}</code></pre>
-            <p id='points'>Points: ${ex.ponits}</p>
-            <div id='line'></div>
         `).join('')}
 
         
@@ -165,8 +166,10 @@ async function saveTest() {
     detailsContainer = document.createElement('div')
     await loadTestDetails(fileNameVar, detailsContainer)
     console.log("testData:", testData, testData.exercices)
+    console.log("testname:", testData.testname)
     const testValues = {
-        testname: "demotest",
+        teachersName: teachersName,
+        testname: testData.testname,
         exercices: testData.exercices,
         configKey: configKey
     }
