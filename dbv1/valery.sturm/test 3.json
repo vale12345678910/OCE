@@ -1,0 +1,1 @@
+{"userName":"valery.sturm","testname":"test 3","exercices":[{"title":"ex1","description":"","optionstatus":"0","editorContent":"function welcome(){\r\n\tconsole.log(\"hello world\");\r\n\t}\r\nwelcome();","ponits":""}]}

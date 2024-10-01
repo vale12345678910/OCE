@@ -3,7 +3,7 @@ import express from 'express';
 import { fileURLToPath } from 'url';
 import path from 'path';
 import fs from 'fs/promises';
-import multer from 'multer';
+import multer from 'multer'
 
 
 // Convert file URL to file path
@@ -16,6 +16,51 @@ const app = express();
 // Serve static files from the root folder
 app.use(express.static(__dirname));
 app.use(express.json());
+
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+      const uploadPath = path.join(__dirname, 'public');
+      cb(null, uploadPath);
+  },
+  filename: function (req, file, cb) {
+      cb(null, file.originalname); // Save the file with its original name
+  }
+});
+
+const upload = multer({
+  storage: storage,
+  fileFilter: function (req, file, cb) {
+      const ext = path.extname(file.originalname);
+      if (ext !== '.seb') {
+          return cb(new Error('Only .seb files are allowed'));
+      }
+      cb(null, true);
+  }
+});
+
+
+// Handle file upload via POST request
+app.post('/upload-seb', upload.single('sebFile'), async (req, res) => {
+  try {
+      if (!req.file) {
+          return res.status(400).json({ success: false, message: 'No file uploaded or invalid file type' });
+      }
+      
+      const { testId } = req.body; // Get testId from the request body
+      const newFileName = `${testId}.seb`; // Set new file name
+      
+      // Rename the uploaded file
+      await fs.rename(req.file.path, path.join(req.file.destination, newFileName));
+      
+      res.json({ success: true, message: 'File uploaded successfully', fileName: newFileName });
+  } catch (error) {
+      console.error("Upload error:", error);
+      res.status(500).json({ success: false, message: 'Error uploading file' });
+  }
+});
+
+
 
 // Serve login.html file at the root URL
 app.get('/', (req, res) => {

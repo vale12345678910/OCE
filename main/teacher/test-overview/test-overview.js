@@ -3,8 +3,9 @@ let exCount = 0;
 let testCount = 1;
 let test = document.createElement("div");
 let i = 1;
-let configKey = undefined
+let configFileInput = undefined
 const teachersName = sessionStorage.getItem('userName')
+
 
 
 test.className = "test";
@@ -77,14 +78,16 @@ async function displayTestList(testData) {
         sendButton.className = 'commit';
         listItem.appendChild(sendButton);
 
-        let configKeyInput = document.createElement('input');
-        configKeyInput.placeholder = 'Cofiguration Key (Find the Key in SEB Configuration Tool -> Exam)'
-        configKeyInput.className = 'configKeyClass'
-        listItem.appendChild(configKeyInput)
+        let configFileInput = document.createElement('input');
+        configFileInput.type = 'file'
+        configFileInput.accept = '.seb'
+        configFileInput.placeholder = 'Upload Configuration file (.seb)'
+        configFileInput.id = 'configFileInput'
+        listItem.appendChild(configFileInput)
 
-        configKeyInput.addEventListener('input', (event) => {
-            configKey = event.target.value
-            console.log(configKey)
+        configFileInput.addEventListener('input', (event) => {
+            configFileInput = event.target.value
+            console.log(configFileInput)
         }) 
         
 
@@ -96,7 +99,7 @@ async function displayTestList(testData) {
 
         // Event listener for list item click (except the send button)
         listItem.addEventListener('click', async (event) => {
-            if (event.target !== sendButton && event.target !== configKeyInput) {
+            if (event.target !== sendButton && event.target !== configFileInput) {
                 if (detailsContainer.style.display === 'none') {
                     await loadTestDetails(fileName, detailsContainer); // Assuming this function loads details
                 }
@@ -106,7 +109,10 @@ async function displayTestList(testData) {
 
         sendButton.addEventListener('click', async (event) => {
             event.stopPropagation(); // Prevent the list item click event
-            saveTest(testData); // Pass the test data to saveTest (or commitTest, depending on your function)
+
+            await saveTest(testData); // Pass the test data to saveTest (or commitTest, depending on your function)
+            
+            await uploadFile()
         });
 
         // Append everything to the list item
@@ -171,7 +177,7 @@ async function saveTest() {
         teachersName: teachersName,
         testname: testData.testname,
         exercices: testData.exercices,
-        configKey: configKey
+        configFileInput: configFileInput
     }
 
     try {
@@ -186,7 +192,7 @@ async function saveTest() {
         }
 
         const data = await response.json();
-        const testId = data.testId;
+        testId = data.testId;
 
         // Share this testId with the student
         alert(`Test saved successfully. Share this ID with the students: ${testId}`);
@@ -196,6 +202,45 @@ async function saveTest() {
     }
 }
 
+
+async function uploadFile() {
+
+    const fileInput = document.getElementById('configFileInput');
+
+    if (fileInput.files.length === 0) {
+        alert('no file selected!')
+        return;
+    }
+
+    const file = fileInput.files[0];
+
+    // Ensure it's a .seb file
+    if (file.name.split('.').pop() !== 'seb') {
+        alert('invalid file type!')
+        return;
+    }
+
+    const formData = new FormData();
+    formData.append('sebFile', file);
+    formData.append('testId', testId)
+
+    try {
+        const response = await fetch('/upload-seb', {
+            method: 'POST',
+            body: formData
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+            console.log('uploadStatus: succsessfull')
+        } else {
+            console.location('uploadStatus: failed')
+        }
+    } catch (error) {
+        console.error("Error:", error);
+    }
+}
 
 
 

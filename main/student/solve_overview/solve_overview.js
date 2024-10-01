@@ -79,7 +79,7 @@ function openSeb() {
     configKey = '80547f33d9b5e04ec37d0e8eb7a908ab9c1b330c7307ccf0610c0f3a71acb9b6'
     }
     console.log(configKey)
-    window.location.href = `seb://config=${configKey}?testId=${testId}`
+    window.location.href = `seb://public/${testId}.seb`
   }
   
 
