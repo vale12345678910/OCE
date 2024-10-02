@@ -1,4 +1,4 @@
-  let configKey = undefined
+ let configFile;
   
 
   document.getElementById("corrections").addEventListener("click", function(){
@@ -33,11 +33,10 @@ async function loadTestById(testId) {
         }
         const testData = await response.json();
 
-        teachersName = testData.teachersName
+        teacherName = testData.teachersName
+        configFile = testData.configFileInput
         displayTestDetails(testData);
-        if(testData.configKey){
-          configKey = testData.configKey
-        }
+        
     } catch (error) {
         console.error('Error loading test data:', error);
     }
@@ -71,16 +70,48 @@ function removeDefaultText(){
 
 }
 
-function openSeb() {
-  console.log("opening SEB")
 
-  if(!configKey){
-    console.log("no config key -> (changing)")
-    configKey = '80547f33d9b5e04ec37d0e8eb7a908ab9c1b330c7307ccf0610c0f3a71acb9b6'
-    }
-    console.log(configKey)
-    window.location.href = `seb://public/${testId}.seb`
+async function openSeb() {
+  console.log("opening SEB");
+
+  // Get parameters from your HTML elements
+
+  // const studentName = sessionStorage.getItem('userName')
+  const studentName = 'student'
+
+  // Construct the request body
+  const requestBody = {
+      configFile: configFile,
+      teacherName: teacherName,
+      studentName: studentName,
+      testId: testId
+  };
+
+  try {
+      // Send POST request to modify the SEB file
+      const response = await fetch('/solve-test', {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(requestBody)
+      });
+
+      if (response.ok) {
+          // If the request is successful, construct the SEB file URL
+          const sebFileUrl = `seb://${testId}.seb?testId=${testId}&teacherName=${encodeURIComponent(teacherName)}&studentName=${encodeURIComponent(studentName)}`;
+
+          // Open the SEB file
+          console.log(`Navigating to: ${sebFileUrl}`);
+          window.location.href = sebFileUrl;
+      } else {
+          console.error("Failed to modify SEB file:", response.statusText);
+      }
+  } catch (error) {
+      console.error("Error during fetch:", error);
   }
+}
+
   
 
 

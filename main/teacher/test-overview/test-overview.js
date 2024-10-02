@@ -12,13 +12,11 @@ test.className = "test";
 test.id = "test" + testCount;
 
 // Event listeners for navigation buttons
-document.getElementById("testsCreator").addEventListener("click", function() {
-    window.location.href = '../test-creator/test-creator.html';
-});
-
-document.getElementById("createTest").addEventListener("click", function() {
-    window.location.href = '../test-creator/test-creator.html';
-});
+document.querySelectorAll('.createTestPage').forEach((button) => {
+    button.addEventListener('click', () => {
+        window.location.href = '../test-creator/test-creator.html'
+    })
+})
 
 document.getElementById("Recieve").addEventListener("click", function() {
     window.location.href = '../recieve/recieve.html';
@@ -31,8 +29,14 @@ document.getElementById("Correct").addEventListener("click", function() {
 // Function to remove default text
 function removeDefaultText() {
     const alertWrapper = document.querySelector(".alertWrapper");
+    const testDataWrapper = document.querySelector('.testDataWrapper')
+    const listContainer = document.querySelector('.listContainer')
     if (alertWrapper) {
         alertWrapper.style.display = "none";
+        testDataWrapper.style.display = 'flex'
+        listContainer.style.justifyContent = 'left'
+        listContainer.style.alignItems = 'top'
+        
         console.log("Wrapper Removed");
     }
 }
@@ -49,8 +53,13 @@ async function loadTestList() {
             throw new Error(`Error: ${response.statusText}`);
         }
         testData = await response.json();
-        removeDefaultText();
-        displayTestList(testData);
+
+        if(testData.length === 0){
+            return
+        } else{
+            removeDefaultText();
+            displayTestList(testData);
+        }
     } catch (error) {
         console.error('Error loading test list:', error);
     }
@@ -61,17 +70,10 @@ async function displayTestList(testData) {
     const container = document.getElementById('testValuesContainer');
     container.innerHTML = '';
 
-    if (testData.length === 0) {
-        container.innerHTML = '<p>No tests available.</p>';
-        return;
-    }
-
     const list = document.createElement('ul');
     testData.forEach(fileName => {
         const listItem = document.createElement('li');
         listItem.textContent = fileName.replace('.json', '');
-        
-        fileNameVar = fileName
 
         let sendButton = document.createElement('div');
         sendButton.textContent = 'Send';
@@ -79,17 +81,10 @@ async function displayTestList(testData) {
         listItem.appendChild(sendButton);
 
         let configFileInput = document.createElement('input');
-        configFileInput.type = 'file'
-        configFileInput.accept = '.seb'
-        configFileInput.placeholder = 'Upload Configuration file (.seb)'
-        configFileInput.id = 'configFileInput'
-        listItem.appendChild(configFileInput)
-
-        configFileInput.addEventListener('input', (event) => {
-            configFileInput = event.target.value
-            console.log(configFileInput)
-        }) 
-        
+        configFileInput.type = 'file';
+        configFileInput.accept = '.seb';
+        configFileInput.placeholder = 'Upload Configuration file (.seb)';
+        listItem.appendChild(configFileInput);
 
         // Create the container for test details (initially hidden)
         const detailsContainer = document.createElement('div');
@@ -101,7 +96,7 @@ async function displayTestList(testData) {
         listItem.addEventListener('click', async (event) => {
             if (event.target !== sendButton && event.target !== configFileInput) {
                 if (detailsContainer.style.display === 'none') {
-                    await loadTestDetails(fileName, detailsContainer); // Assuming this function loads details
+                    await loadTestDetails(fileName, detailsContainer); // Load details for the clicked test
                 }
                 detailsContainer.style.display = detailsContainer.style.display === 'none' ? 'block' : 'none';
             }
@@ -110,13 +105,9 @@ async function displayTestList(testData) {
         sendButton.addEventListener('click', async (event) => {
             event.stopPropagation(); // Prevent the list item click event
 
-            await saveTest(testData); // Pass the test data to saveTest (or commitTest, depending on your function)
-            
-            await uploadFile()
+            // Send the current test data and the selected config file
+            await saveTest(fileName, configFileInput.files[0]); 
         });
-
-        // Append everything to the list item
-        listItem.appendChild(detailsContainer); // Append details container, if needed
 
         // Append the list item to the list
         list.appendChild(listItem);
@@ -168,17 +159,17 @@ function displayTestDetails(testData, detailsContainer) {
 }
 
 
-async function saveTest() {
-    detailsContainer = document.createElement('div')
-    await loadTestDetails(fileNameVar, detailsContainer)
-    console.log("testData:", testData, testData.exercices)
-    console.log("testname:", testData.testname)
+async function saveTest(fileName, configFile) {
+    // Load test details based on the specific clicked test
+    const detailsContainer = document.createElement('div');
+    await loadTestDetails(fileName, detailsContainer);
+
     const testValues = {
         teachersName: teachersName,
         testname: testData.testname,
         exercices: testData.exercices,
-        configFileInput: configFileInput
-    }
+        configFileInput: configFile ? configFile.name : null // Handle the selected file
+    };
 
     try {
         const response = await fetch('/api/saveTest', {
@@ -191,12 +182,12 @@ async function saveTest() {
             throw new Error(`Error: ${response.statusText}`);
         }
 
+        console.log('testdata', testValues)
         const data = await response.json();
         testId = data.testId;
 
         // Share this testId with the student
         alert(`Test saved successfully. Share this ID with the students: ${testId}`);
-        // sessionStorage.setItem('testId', testId)
     } catch (error) {
         console.error('Error saving test:', error);
     }

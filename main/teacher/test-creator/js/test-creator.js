@@ -62,6 +62,9 @@ window.onload = function() {
     })
 }
 
+window.print = function(){
+  alert('You are not using the correct language!')
+}
 
 
 const output_place = document.getElementById("output")

@@ -211,10 +211,6 @@ function changeTitleAndDesc(title, desc) {
 
 
 
-//! TESTING THE SAVING EXERCISE (TAKING CODE)
-//! TESTING THE SAVING EXERCISE (TAKING CODE)
-//! TESTING THE SAVING EXERCISE (TAKING CODE)
-
 
 let savedExercises = {}; // Stores the saved exercises and their details
 let savedExerciseIds = new Set();  // To track exercises that have been saved at least once
@@ -300,12 +296,6 @@ function ExerciseClicked(event) {
 
 
 
-//!TEST END (STORAGE)
-
-//!TEST END (STORAGE)
-
-//!TEST END (STORAGE)
-
 
 // Event listener for the submit test button
 submitTestButton.addEventListener('click', function() {
@@ -362,3 +352,10 @@ function submitTest() {
       console.error('There was a problem with the fetch operation:', error);
   });
 }
+
+
+//!TEST END (STORAGE)
+
+//!TEST END (STORAGE)
+
+//!TEST END (STORAGE)
