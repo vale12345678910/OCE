@@ -322,7 +322,7 @@ li{
     transition: opacity 0.3s ease;
     left: 100%; /* This will move the tooltip to the right of the parent container */
     margin-left: 1.1em; /* Add extra spacing */
-    margin-bottom: 8em;
+    margin-bottom: 9em;
     font-size: 0.6em;
     font-family: 'Times New Roman';
     width: fit-content;

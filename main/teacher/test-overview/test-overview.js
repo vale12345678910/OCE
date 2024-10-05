@@ -84,7 +84,7 @@ async function displayTestList(testData) {
 
         const tooltip_info = document.createElement('p')
         tooltip_info.className = 'tooltip'
-        tooltip_info.textContent = 'To get the configuration key, open or create a file in the SEB Configuration Tool. Under "Exam", check the box for "Use Browser Exam Key and Configuration Key". Then, copy the configuration key into this field.'
+        tooltip_info.textContent = "To get the configuration key, open or create a file in the SEB Configuration Tool. Under 'Exam,' check the box for 'Use Browser Exam Key and Configuration Key.' When left empty, the password for existing SEB won't be set."
 
         const info = document.createElement('span')
         info.textContent = 'info'
@@ -136,7 +136,7 @@ async function displayTestList(testData) {
             event.stopPropagation(); // Prevent the list item click event
 
             // Get the current configuration key for this test
-            const configKey = configKeyInput.value;
+            configKey = configKeyInput.value || undefined;
             console.log(`Config key for test ${fileName}:`, configKey);
 
             // Send the current test data and the entered configuration details
@@ -236,6 +236,7 @@ async function saveTest(fileName, configFile) {
 
 
 document.addEventListener('DOMContentLoaded', () => {
+    alert('VERY IMPORTNAT!: When creating a SEB Configuration File make sure to set the starting URL the following: http://127.0.0.1:3000/main/student/solve/solve.html')
     loadTestList();
 });
 
