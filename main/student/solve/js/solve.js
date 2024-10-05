@@ -135,11 +135,8 @@ const container_list = document.querySelector(".container_list") //where the sav
 //! LOAD TEST
 
 document.addEventListener('DOMContentLoaded', () =>{
-  const url = new URL(window.location.href)
-  const params = new URLSearchParams(url.search)
-  const testId = params.get('testId')
 
-  console.log('testId:', testId, 'params:', params, 'url:', url)
+  testId = prompt('enter the testId provided by your teacher')
 
   if(testId){
     loadTestById(testId)
@@ -151,6 +148,7 @@ document.addEventListener('DOMContentLoaded', () =>{
 
 
 async function loadTestById(testId) {
+  
   try {
       const response = await fetch(`/api/getTestById?testId=${encodeURIComponent(testId)}`);
       if (!response.ok) {

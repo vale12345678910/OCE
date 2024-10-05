@@ -4,8 +4,9 @@ import { fileURLToPath } from 'url';
 import path from 'path';
 import fs from 'fs/promises';
 import multer from 'multer';
-import { exec } from 'child_process';
-import { config } from 'process';
+import crypto from 'crypto'
+import xml2js from 'xml2js'
+
 
 // Convert file URL to file path
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -339,33 +340,82 @@ app.get('/recieveTest', async (req, res) => {
 
 
 
-app.post('/solve-test', async (req, res) => {
-  const { configFile, teacherName, studentName, testId} = req.body; // Get parameters from the request body
 
-  
-  // Path to the uploaded SEB file (you might want to store this more dynamically)
-  const sebFilePath = path.join(__dirname, 'public', `${configFile}`);
-  
+// Dynamic endpoint to append data to the JSON file based on testId
+app.post('/api/append-student-name', async (req, res) => {
+  const { testId, studentName } = req.body;
+
+  // Create the file path using the testId
+  const filePath = path.join(__dirname, 'tests', `${testId}.json`);
+
   try {
-      // Read the file content
-      let sebFileContent = await fs.readFile(sebFilePath, 'utf8');
-      
-      // Modify the startURL and allowQueryParameters in the content
-      sebFileContent = sebFileContent.replace(
-        /(<key>startURL<\/key>\s*<string>)(.*?)(<\/string>)/,
-        (match, p1, p2, p3) => `${p1}http://127.0.0.1:3000/main/student/solve/solve.html?testId=${testId}&teacherName=${teacherName}&studentName=${studentName}${p3}`
-      );
-      
-      sebFileContent = sebFileContent.replace(/(<key>allowQueryParameters<\/key>\s*<false \/>)/, '<key>allowQueryParameters</key>\n    <true />');
+      // Read the existing content of the JSON file
+      const data = await fs.readFile(filePath, 'utf-8');
+      const jsonData = JSON.parse(data);
 
-      // Write the modified content back to a new file or overwrite it
-      const modifiedSebFilePath = path.join(__dirname, `modified_${configFile}.seb`);
-      await fs.writeFile(modifiedSebFilePath, sebFileContent);
+      // Append the student name
+      jsonData.studentName = jsonData.studentName || []; // Ensure the studentNames array exists
+      jsonData.studentName.push(studentName);
 
-      // Send the modified file to the student
-      res.download(modifiedSebFilePath, `test_${configFile}`);
+      // Write the updated content back to the JSON file
+      await fs.writeFile(filePath, JSON.stringify(jsonData, null, 2)); // Pretty print for readability
+      res.status(200).json({ message: 'Student name appended successfully' });
   } catch (error) {
-      console.error("Error modifying the SEB file:", error);
-      res.status(500).json({ success: false, message: 'Error preparing the test file' });
+      console.error('Error appending student name:', error);
+      res.status(500).json({ error: 'Failed to append student name' });
   }
 });
+
+
+
+
+//! JUST SOME IDEA TO MAYBE HANDLE THE STUDNET INTERFACE BETTER
+
+//! JUST SOME IDEA TO MAYBE HANDLE THE STUDNET INTERFACE BETTER
+
+//! JUST SOME IDEA TO MAYBE HANDLE THE STUDNET INTERFACE BETTER
+
+// app.post('/solve-test', async (req, res) => {
+//   const { configFile, teacherName, studentName, testId } = req.body; // Get parameters from the request body
+
+//   Path to the uploaded SEB file
+//   const sebFilePath = path.join(__dirname, 'public', configFile);
+
+//   try {
+//       Read the SEB file content
+//       let sebFileContent = await fs.readFile(sebFilePath, 'utf8');
+
+//       Construct the URL based on the provided parameters
+//       const startUrl = `http://127.0.0.1:3000/main/student/solve/solve.html?testId=${testId}&teacherName=${teacherName}&studentName=${studentName}`;
+
+//       Modify the SEB file content with the new startURL
+//       sebFileContent = sebFileContent.replace(
+//           /(<key>startURL<\/key>\s*<string>)(.*?)(<\/string>)/,
+//           (match, p1, p2, p3) => `${p1}${startUrl}${p3}`
+//       );
+
+//       Log the constructed URL before generating the configKey
+//       console.log('Start URL:', startUrl); // Print the constructed URL
+
+//       Log the modified SEB file content
+//       console.log('Modified SEB File Content:', sebFileContent); // Print the content of the modified SEB file
+
+//       Generate the SHA256 hash (configuration key) of the modified content
+//       const hash = crypto.createHash('sha256');
+//       hash.update(sebFileContent); // Use the modified SEB file content
+//       const configKey = hash.digest('hex');
+
+//       Log the configuration key
+//       console.log('Configuration Key:', configKey);
+
+//       Send only the configuration key as response
+//       res.json({ success: true, configKey: configKey });
+
+//   } catch (error) {
+//       console.error("Error modifying the SEB file:", error);
+//       res.status(500).json({ success: false, message: 'Error preparing the test file' });
+//   }
+// });
+
+
+

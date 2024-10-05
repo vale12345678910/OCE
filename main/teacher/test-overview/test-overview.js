@@ -3,9 +3,8 @@ let exCount = 0;
 let testCount = 1;
 let test = document.createElement("div");
 let i = 1;
-let configFileInput = undefined
+let configKeyInput = undefined
 const teachersName = sessionStorage.getItem('userName')
-
 
 
 test.className = "test";
@@ -75,16 +74,47 @@ async function displayTestList(testData) {
         const listItem = document.createElement('li');
         listItem.textContent = fileName.replace('.json', '');
 
+        // Create a button for sending test data
         let sendButton = document.createElement('div');
         sendButton.textContent = 'Send';
         sendButton.className = 'commit';
         listItem.appendChild(sendButton);
 
-        let configFileInput = document.createElement('input');
-        configFileInput.type = 'file';
-        configFileInput.accept = '.seb';
-        configFileInput.placeholder = 'Upload Configuration file (.seb)';
-        listItem.appendChild(configFileInput);
+        // Create a text input for configuration details
+
+        const tooltip_info = document.createElement('p')
+        tooltip_info.className = 'tooltip'
+        tooltip_info.textContent = 'To get the configuration key, open or create a file in the SEB Configuration Tool. Under "Exam", check the box for "Use Browser Exam Key and Configuration Key". Then, copy the configuration key into this field.'
+
+        const info = document.createElement('span')
+        info.textContent = 'info'
+        info.className = 'material-symbols-outlined'
+        info.id = 'info'
+
+        const tooltipContainer = document.createElement('div')
+        tooltipContainer.className = 'tooltipContainer'
+
+        tooltipContainer.appendChild(tooltip_info)
+        tooltipContainer.appendChild(info)
+
+        const configKeyInput = document.createElement('input');
+        configKeyInput.type = 'text';
+        configKeyInput.placeholder = 'Configuration Key';
+        configKeyInput.className = 'configKeyClass'
+
+        const infoContainer = document.createElement('div')
+        infoContainer.className = 'infoContainer'
+        infoContainer.appendChild(tooltipContainer)
+        infoContainer.appendChild(configKeyInput)
+
+        listItem.appendChild(infoContainer);
+
+        
+        configKeyInput.addEventListener('input', function(){
+            configKey = configKeyInput.value
+            console.log("configKey:", configKey)
+        })
+
 
         // Create the container for test details (initially hidden)
         const detailsContainer = document.createElement('div');
@@ -94,7 +124,7 @@ async function displayTestList(testData) {
 
         // Event listener for list item click (except the send button)
         listItem.addEventListener('click', async (event) => {
-            if (event.target !== sendButton && event.target !== configFileInput) {
+            if (event.target !== sendButton && event.target !== configKeyInput) {
                 if (detailsContainer.style.display === 'none') {
                     await loadTestDetails(fileName, detailsContainer); // Load details for the clicked test
                 }
@@ -105,9 +135,14 @@ async function displayTestList(testData) {
         sendButton.addEventListener('click', async (event) => {
             event.stopPropagation(); // Prevent the list item click event
 
-            // Send the current test data and the selected config file
-            await saveTest(fileName, configFileInput.files[0]); 
+            // Get the current configuration key for this test
+            const configKey = configKeyInput.value;
+            console.log(`Config key for test ${fileName}:`, configKey);
+
+            // Send the current test data and the entered configuration details
+            await saveTest(fileName, configKey); 
         });
+
 
         // Append the list item to the list
         list.appendChild(listItem);
@@ -115,7 +150,9 @@ async function displayTestList(testData) {
 
     // Append the list to the container
     container.appendChild(list);
+
 }
+
 
 
 
@@ -147,8 +184,9 @@ function displayTestDetails(testData, detailsContainer) {
             <div class="exerciseDiv">
                 <p id='title' class='titleEx'>${ex.title}</p>
                 <p class='descEx'>${ex.description}</p>
-                <p id='points'>Points: ${ex.ponits}</p>
+                <p id='points'>Points: ${ex.points}</p>
                 <pre><code>Code:<br>${ex.editorContent}</code></pre>
+                <p id='testcase'>Testcase: ${ex.testcase}</p>
                 
                 <div id='line'></div>
             </div>
@@ -163,12 +201,13 @@ async function saveTest(fileName, configFile) {
     // Load test details based on the specific clicked test
     const detailsContainer = document.createElement('div');
     await loadTestDetails(fileName, detailsContainer);
+    console.log('cf:,', configFile)
 
     const testValues = {
         teachersName: teachersName,
         testname: testData.testname,
         exercices: testData.exercices,
-        configFileInput: configFile ? configFile.name : null // Handle the selected file
+        configKey: configKey
     };
 
     try {
@@ -192,47 +231,6 @@ async function saveTest(fileName, configFile) {
         console.error('Error saving test:', error);
     }
 }
-
-
-async function uploadFile() {
-
-    const fileInput = document.getElementById('configFileInput');
-
-    if (fileInput.files.length === 0) {
-        alert('no file selected!')
-        return;
-    }
-
-    const file = fileInput.files[0];
-
-    // Ensure it's a .seb file
-    if (file.name.split('.').pop() !== 'seb') {
-        alert('invalid file type!')
-        return;
-    }
-
-    const formData = new FormData();
-    formData.append('sebFile', file);
-    formData.append('testId', testId)
-
-    try {
-        const response = await fetch('/upload-seb', {
-            method: 'POST',
-            body: formData
-        });
-
-        const result = await response.json();
-
-        if (result.success) {
-            console.log('uploadStatus: succsessfull')
-        } else {
-            console.location('uploadStatus: failed')
-        }
-    } catch (error) {
-        console.error("Error:", error);
-    }
-}
-
 
 
 

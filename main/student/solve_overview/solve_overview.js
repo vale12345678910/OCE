@@ -1,5 +1,4 @@
- let configFile;
-  
+
 
   document.getElementById("corrections").addEventListener("click", function(){
     window.location.href = '../corrections/corrections.html'
@@ -34,7 +33,7 @@ async function loadTestById(testId) {
         const testData = await response.json();
 
         teacherName = testData.teachersName
-        configFile = testData.configFileInput
+        configKey = testData.configKey
         displayTestDetails(testData);
         
     } catch (error) {
@@ -71,59 +70,65 @@ function removeDefaultText(){
 }
 
 
+
+
+
+// async function openSeb() {
+
+//     console.log("configKey before checking for configkey:", configKey)
+//     if(!configKey){
+//         configKey = '5b1a30fac20047d3af42b3cdbddb86be836fe0988411a28618f1e6b6b6be8914'
+//     }
+//     console.log("configKey opening with:", configKey)
+//     window.location.href = `seb://config=${configKey}`
+// }
+
+
 async function openSeb() {
-  console.log("opening SEB");
+    console.log("configKey before checking for configKey:", configKey);
+    if (!configKey) {
+        configKey = '5b1a30fac20047d3af42b3cdbddb86be836fe0988411a28618f1e6b6b6be8914';
+    }
+    console.log("configKey opening with:", configKey);
+    
+    // Fetch the student name from session storage
+    const studentName = sessionStorage.getItem('userName');
 
-  // Get parameters from your HTML elements
+    // Prepare the data to send
+    const data = {
+        testId: testId,
+        studentName: studentName
+    };
 
-  // const studentName = sessionStorage.getItem('userName')
-  const studentName = 'student'
-
-  // Construct the request body
-  const requestBody = {
-      configFile: configFile,
-      teacherName: teacherName,
-      studentName: studentName,
-      testId: testId
-  };
-
-  try {
-      // Send POST request to modify the SEB file
-      const response = await fetch('/solve-test', {
-          method: 'POST',
-          headers: {
-              'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(requestBody)
-      });
-
-      if (response.ok) {
-          // If the request is successful, construct the SEB file URL
-          const sebFileUrl = `seb://${testId}.seb?testId=${testId}&teacherName=${encodeURIComponent(teacherName)}&studentName=${encodeURIComponent(studentName)}`;
-
-          // Open the SEB file
-          console.log(`Navigating to: ${sebFileUrl}`);
-          window.location.href = sebFileUrl;
-      } else {
-          console.error("Failed to modify SEB file:", response.statusText);
-      }
-  } catch (error) {
-      console.error("Error during fetch:", error);
-  }
+    // Send the data to the server
+    await appendStudentNameToJson(data);
+    
+    // Open SEB with the config key
+    window.location.href = `seb://config=${configKey}`;
 }
 
-  
+async function appendStudentNameToJson(data) {
+    try {
+        const response = await fetch('/api/append-student-name', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
 
-
-
-
-
-
+        if (!response.ok) {
+            throw new Error('Failed to append student name');
+        }
+        
+        console.log('Student name appended successfully');
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
 
 
 
 //! STORAGE
 //! STORAGE
 //! STORAGE
-
-

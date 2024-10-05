@@ -135,7 +135,6 @@ body {
 
 #testValuesContainer{
     color: white;
-    font-size: 1.4em;
     width: 100%;
     box-sizing: border-box;
 }
@@ -178,18 +177,20 @@ body {
     padding: 0;
     margin: 0;
     margin-top: 0.5em;
-    font-size: 0.8em;
-    font-weight: bolder;
+    font-size: 0.7em;
+    font-weight: bold;
     font-family: 'Roboto Mono';
 }
 
-
+#testcase{
+    font-size: 0.6em;
+}
 
 #details p{
     font-family: 'Roboto Mono';
 }
 
-#details #points{
+#points{
     font-size: 0.6em;
     font-weight: 100;
 }
@@ -252,13 +253,14 @@ code{
 }
 
 .configKeyClass{
-    margin-top: 1em;
     font-size: 0.7em;
     border: none;
     background-color: rgb(5,5,5);
     color: white;
     outline: 1px solid rgb(255, 255, 255, 0.5);
     padding: 0.2em;
+    margin-left: 1em;
+    width: 100%;
 }
 
 ::placeholder{
@@ -266,4 +268,81 @@ code{
     font-family: Arial, Helvetica, sans-serif;
     font-weight: lighter;
     
+}
+
+.TestTitle{
+    font-size: 1em;
+}
+
+li{
+    font-size: 1.5em;
+}
+
+
+
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 300,
+  'GRAD' 0,
+  'opsz' 24
+}
+
+#info{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    font-size: 1em;
+}
+
+.infoContainer{
+    margin-top: 1em;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    height: fit-content;
+}
+
+.tooltip {
+    display: none;
+    position: absolute;
+    background-color: rgb(5,5,5);
+    border: rgb(255, 255, 255, 0.5) solid 1px;
+    border-radius: 1em;
+    color: #fff;
+    padding: 5px;
+    border-radius: 4px;
+    z-index: 1000;
+    font-size: 0.8em;
+    white-space: nowrap;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    left: 100%; /* This will move the tooltip to the right of the parent container */
+    margin-left: 1.1em; /* Add extra spacing */
+    margin-bottom: 8em;
+    font-size: 0.6em;
+    font-family: 'Times New Roman';
+    width: fit-content;
+    white-space: normal;
+    max-width: 33em;
+    min-width: 33em;
+    max-height: 7em;
+}
+
+.tooltipContainer:hover .tooltip{
+    display: flex;
+    visibility: visible;
+    opacity: 1; /* Fade in effect */
+    transition: all 1s;
+}
+
+.tooltipContainer{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }

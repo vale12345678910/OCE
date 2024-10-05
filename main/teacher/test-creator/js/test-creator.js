@@ -13,6 +13,8 @@ const modal_editExercise = document.getElementById("modal_editExercise")
 const modal_closeEditExercise = document.getElementById("closeButton-editExercise")
 const exerciseTitleTextInputedit = document.getElementById("exerciseTitleTextInputedit")
 const exerciseDescTextInputedit = document.getElementById("exerciseDescTextInputedit")
+const exercisePointsValueInputedit = document.getElementById('ExPointsInputModalEdit')
+const exerciseTestcaseTextInputedit = document.getElementById('testCaseTextEdit')
 
 
 const saveEditedExerciseButton = document.getElementById("saveButton-editExercise")
@@ -149,8 +151,8 @@ function runPython() {
 
 const exerciseTitleTextInput = document.getElementById('exerciseTitleTextInput');
 const exerciseDescTextInput = document.getElementById('exerciseDescTextInput');
-
-
+const exercisePointsValueInput = document.getElementById('ExPointsInputModal')
+const exerciseTestcaseTextInput = document.getElementById('testCaseText')
 
 const container_list = document.querySelector(".container_list") //where the saved ex. should go.
 
@@ -171,6 +173,8 @@ openModal.addEventListener("click", () =>{
   checkbox_code.checked = false;
   exerciseTitleTextInput.value ="";
   exerciseDescTextInput.value = "";
+  exercisePointsValueInput.value ='';
+  exerciseTestcaseTextInput.value = '';
   modal.showModal()
   console.log("MODAL OPEN")
 });
@@ -178,9 +182,15 @@ openModal.addEventListener("click", () =>{
 closeModal.addEventListener("click", () =>{
   exerciseTitleTextInput.value ="";
   exerciseDescTextInput.value = "";
+  exercisePointsValueInput.value ='';
+  exerciseTestcaseTextInput.value = '';
   modal.close()
   console.log("MODAL CLOSED")
 });
+
+
+
+
 
 
 // exerciseTitleTextInput.updated() is getting updated.
@@ -189,11 +199,22 @@ exerciseTitleTextInput.addEventListener("input", function(){
   return exerciseTitleTextInput.value;
 })
 
-// exerciseTitleTextInput.updated() is getting updated.
 exerciseDescTextInput.addEventListener("input", function(){
   console.log("Value Updated")
   return exerciseDescTextInput.value;
 })
+
+exercisePointsValueInput.addEventListener("input", function(){
+  console.log("Value Updated")
+  return exercisePointsValueInput.value;
+})
+
+
+exerciseTestcaseTextInput.addEventListener("input", function(){
+  console.log("Value Updated")
+  return exerciseTestcaseTextInput.value;
+})
+
 
 
 function saveModal(){
@@ -210,7 +231,7 @@ function saveModal(){
 
 
 saveButton.addEventListener("click", function(){
-  saveModal(exerciseTitleTextInput.value, exerciseDescTextInput.value)
+  saveModal()
 })
 
 function createNewEx(){
@@ -222,21 +243,23 @@ function createNewEx(){
   return newDiv;
 }
 
-function createTextinNewEx(newDiv){
+function createTextinNewEx(newDiv) {
   let content_1 = exerciseTitleTextInput.value;
   let content_2 = exerciseDescTextInput.value;
-  //Points and Testcasevalue has to be translated
-  const exerciseTitleText = document.createElement("div")
-  const exerciseDescText = document.createElement("div")
-  const optionstatus_div = document.createElement("div")
-  const ex_editor_content = document.createElement("div")
-  const points = document.createElement("div")
-  const testCases = document.createElement("div")
+  let points_content = exercisePointsValueInput.value; // Assuming pointsInput is your input field for points
+  let testCases_content = exerciseTestcaseTextInput.value; // Assuming testCasesInput is your input field for test cases
+
+  const exerciseTitleText = document.createElement("div");
+  const exerciseDescText = document.createElement("div");
+  const optionstatus_div = document.createElement("div");
+  const ex_editor_content = document.createElement("div");
+  const points = document.createElement("div");
+  const testCases = document.createElement("div");
 
   exerciseTitleText.id = "exerciseTitleText" + exerciseCount;
   exerciseDescText.id = "exerciseDescText" + exerciseCount;
   optionstatus_div.id = "optionstatus" + exerciseCount;
-  ex_editor_content.id  = "ex_editor_content" + exerciseCount;
+  ex_editor_content.id = "ex_editor_content" + exerciseCount;
   points.id = "points" + exerciseCount;
   testCases.id = "testCases" + exerciseCount;
 
@@ -247,27 +270,29 @@ function createTextinNewEx(newDiv){
   points.className = "points";
   testCases.className = "testCases";
 
-  exerciseTitleText.textContent = content_1
-  exerciseDescText.textContent = content_2
+  exerciseTitleText.textContent = content_1;
+  exerciseDescText.textContent = content_2;
+  ex_editor_content.textContent = editor.getValue();
+  points.textContent = points_content; // Set points content
+  testCases.textContent = testCases_content; // Set test cases content
 
-  ex_editor_content.textContent = editor.getValue()
+  checkOptionStatus(optionstatus_div);
 
-  checkOptionStatus(optionstatus_div)
-
-  newDiv.appendChild(exerciseTitleText)
-  newDiv.appendChild(exerciseDescText)
-  newDiv.appendChild(optionstatus_div)
-  newDiv.appendChild(ex_editor_content)
-  newDiv.appendChild(points)
-  newDiv.appendChild(testCases)
+  newDiv.appendChild(exerciseTitleText);
+  newDiv.appendChild(exerciseDescText);
+  newDiv.appendChild(optionstatus_div);
+  newDiv.appendChild(ex_editor_content);
+  newDiv.appendChild(points);
+  newDiv.appendChild(testCases);
 }
+
 
 function placeCrossInEx(newDiv){
   const ExCross = document.createElement("span")
   ExCross.className = "material-symbols-outlined ExCross icons-animation"
   ExCross.id ="ExCross" + exerciseCount;
   ExCross.textContent = "close"
-  ExCross.setAttribute("onclick", `handleExCrossClick(event, ${exerciseCount})`);
+  ExCross.setAttribute("onclick", `handleExPenClick(event, ${exerciseCount})`);
   newDiv.appendChild(ExCross)
 
 }
@@ -335,6 +360,8 @@ function saveEditedExercise(){
 
   document.getElementById("exerciseTitleText" + lastNumber).textContent = exerciseTitleTextInputedit.value || "Title undefined";
   document.getElementById("exerciseDescText" + lastNumber).textContent = exerciseDescTextInputedit.value;
+  document.getElementById("points" + lastNumber).textContent = exercisePointsValueInputedit.value;
+  document.getElementById("testCases" + lastNumber).textContent = exerciseTestcaseTextInputedit.value;
   checkOptionStatusEdit()
   modal_editExercise.close();
   console.log("MODAL EDIT SAVED");
@@ -357,6 +384,8 @@ let optionstatus_edit = 0
   optionstatus_edit = 0 
   exerciseTitleTextInputedit.value = document.getElementById("exerciseTitleText" + lastNumber ).textContent;
   exerciseDescTextInputedit.value = document.getElementById("exerciseDescText" + lastNumber).textContent;
+  exercisePointsValueInputedit.value = document.getElementById("points" + lastNumber ).textContent;
+  exerciseTestcaseTextInputedit.value = document.getElementById("testCases" + lastNumber ).textContent;
   checkbox_value = document.getElementById("optionstatus" + lastNumber).textContent;
   if(checkbox_value == "1"){
     optionstatus_edit = 1
@@ -482,6 +511,7 @@ document.getElementById('createTestButton').addEventListener('click', async func
       const optionstatus_div_test = exercise.querySelector(`#optionstatus${index + 1}`).textContent;
       const editor_content = exercise.querySelector(`#ex_editor_content${index + 1}`).textContent;
       const points = exercise.querySelector(`#points${index + 1}`).textContent
+      const testcase = exercise.querySelector(`#testCases${index + 1}`).textContent
       
       // Push the values into an array
       testValues.exercices.push({
@@ -489,7 +519,8 @@ document.getElementById('createTestButton').addEventListener('click', async func
         description: description, 
         optionstatus: optionstatus_div_test, 
         editorContent: editor_content, 
-        ponits: points
+        points: points,
+        testcase: testcase
       });
     });
 
