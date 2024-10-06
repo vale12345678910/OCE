@@ -1,5 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const userName = 'dummyLP'; // Use your session storage or user context as needed
+    
+    const userName = sessionStorage.getItem('userName')
+
     fetch(`/recieveTest?userName=${encodeURIComponent(userName)}`)
         .then(response => {
             if (!response.ok) {
@@ -32,13 +34,14 @@ function displayTests(receivedTests) {
 
     // Loop through each received test
     receivedTests.forEach(test => {
+        console.log("testdata:", test)
         // Create a div for each test
         const testDiv = document.createElement('div');
         testDiv.className = 'test';
         
         // Format test details
         testDiv.innerHTML = `
-            <h3 id='testTitle'>Test: ${test.testId}</h3>
+            <h3 id='testTitle'>Test: ${test.testname}</h3>
             <p><strong>Student Name:</strong> ${test.studentName} (handed in)</p>
             <hr style="margin-right: 1em;">
 

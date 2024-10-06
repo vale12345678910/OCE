@@ -1,0 +1,15 @@
+{
+  "teachersName": "valery.sturm",
+  "testname": "testing the cycle",
+  "exercices": [
+    {
+      "title": "testinag cycle",
+      "description": "",
+      "optionstatus": "1",
+      "editorContent": "function welcome(){\r\n\tconsole.log(\"hello world\");\r\n\t}\r\nwelcome();",
+      "points": "2",
+      "testcase": ""
+    }
+  ],
+  "studentName": "valery.sturm"
+}

@@ -1,0 +1,1 @@
+{"teachersName":"valery.sturm","testname":"Test 1","exercices":[{"title":"Example of Exercise 1","description":"This is the description of the first exercise. This helps giving the students a better understanding of what to do.","optionstatus":"1","editorContent":"function welcome(){\r\n\tconsole.log(\"hello world\");\r\n\t}\r\nwelcome();","points":"4","testcase":""}]}

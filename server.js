@@ -269,43 +269,50 @@ app.listen(port, () => {
 
 //! Saving Test Post Req
 
-app.post('/submitTest', async (req, res) => {
-  const { savedExercisesToSubmit } = req.body;
 
-  if (!savedExercisesToSubmit) {
-      return res.status(400).json({ message: 'No exercises to submit' });
+app.post('/submitTest', async (req, res) => {
+  const { savedExercisesToSubmit, teacherName, studentName, testname, testId } = req.body;
+
+  console.log("req.body", req.body)
+
+  if (!savedExercisesToSubmit || !teacherName || !studentName || !testname || !testId) {
+      return res.status(400).json({ message: 'Missing required data to submit the test' });
   }
 
   // Parse the exercises (if necessary)
   const exercises = JSON.parse(savedExercisesToSubmit);
 
-  // Use placeholder values for teacherName, studentName, and testId
-  const teacherName = "dummyLP";  // Placeholder teacher name
-  const studentName = "Student";  // Placeholder student name
-  const testId = "1";  // Placeholder test ID
-
-  // Prepare the exercises object with placeholders
-  const exercisesWithPlaceholders = {
+  // Prepare the exercises object with actual teacherName, studentName, and testId
+  const exercisesWithDetails = {
       testId: testId,
+      testname: testname,
       studentName: studentName,
       exercises: exercises // Include the original exercises here
   };
 
-  // Define the base directory and the path where the test will be saved
+  // Define the base directory where the test will be saved
   const baseDir = path.join(path.dirname(fileURLToPath(import.meta.url)), 'dbv1', teacherName, 'recieved_tests');
 
   try {
       // Ensure the directories exist, create them if not
       await fs.mkdir(baseDir, { recursive: true });
 
-      // Create a unique filename for the test
-      const fileName = `${testId}.json`;
-      const filePath = path.join(baseDir, fileName);
+      // Generate a unique filename for the test
+      let fileName = `${testId}.json`;
+      let filePath = path.join(baseDir, fileName);
+      let counter = 1;
 
-      // Save the exercises with placeholders directly into the file
-      await fs.writeFile(filePath, JSON.stringify(exercisesWithPlaceholders, null, 2));
+      // Check if the file already exists, and if so, append a number to the filename
+      while (await fileExists(filePath)) {
+          fileName = `${testId} ${counter}.json`;
+          filePath = path.join(baseDir, fileName);
+          counter++;
+      }
 
-      // Respond back to the client
+      // Save the exercises with the actual details into the unique file
+      await fs.writeFile(filePath, JSON.stringify(exercisesWithDetails, null, 2));
+
+      // Respond back to the client with success and the file path
       res.status(200).json({ message: 'Test submitted and saved successfully!', filePath });
   } catch (error) {
       console.error('Error saving test:', error);
@@ -315,8 +322,9 @@ app.post('/submitTest', async (req, res) => {
 
 
 app.get('/recieveTest', async (req, res) => {
-  const userName = 'dummyLP'; // Replace with dynamic user input if necessary
-  const dirPath = path.join(__dirname, 'dbv1', userName, 'recieved_tests');
+  // Extract userName from query parameters
+  const userName = req.query.userName; // Get the userName from the request
+  const dirPath = path.join(__dirname, 'dbv1', userName, 'recieved_tests'); // Use userName to construct the path
 
   try {
       const files = await fs.readdir(dirPath);
@@ -342,7 +350,7 @@ app.get('/recieveTest', async (req, res) => {
 
 
 // Dynamic endpoint to append data to the JSON file based on testId
-app.post('/api/append-student-name', async (req, res) => {
+app.post('/api/replace-student-name', async (req, res) => {
   const { testId, studentName } = req.body;
 
   // Create the file path using the testId
@@ -353,16 +361,18 @@ app.post('/api/append-student-name', async (req, res) => {
       const data = await fs.readFile(filePath, 'utf-8');
       const jsonData = JSON.parse(data);
 
-      // Append the student name
-      jsonData.studentName = jsonData.studentName || []; // Ensure the studentNames array exists
-      jsonData.studentName.push(studentName);
+      // Replace the student name
+      jsonData.studentName = studentName; // Directly replace the studentName field
+
+      // Log the updated JSON data
+      console.log('Updated JSON:', jsonData);
 
       // Write the updated content back to the JSON file
       await fs.writeFile(filePath, JSON.stringify(jsonData, null, 2)); // Pretty print for readability
-      res.status(200).json({ message: 'Student name appended successfully' });
+      res.status(200).json({ message: 'Student name replaced successfully', updatedData: jsonData }); // Return the updated JSON in the response as well
   } catch (error) {
-      console.error('Error appending student name:', error);
-      res.status(500).json({ error: 'Failed to append student name' });
+      console.error('Error replacing student name:', error);
+      res.status(500).json({ error: 'Failed to replace student name' });
   }
 });
 

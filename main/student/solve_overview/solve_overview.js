@@ -94,6 +94,8 @@ async function openSeb() {
     // Fetch the student name from session storage
     const studentName = sessionStorage.getItem('userName');
 
+
+
     // Prepare the data to send
     const data = {
         testId: testId,
@@ -109,7 +111,7 @@ async function openSeb() {
 
 async function appendStudentNameToJson(data) {
     try {
-        const response = await fetch('/api/append-student-name', {
+        const response = await fetch('/api/replace-student-name', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -118,10 +120,10 @@ async function appendStudentNameToJson(data) {
         });
 
         if (!response.ok) {
-            throw new Error('Failed to append student name');
+            throw new Error('Failed to replace student name');
         }
         
-        console.log('Student name appended successfully');
+        console.log('Student name replace successfully');
     } catch (error) {
         console.error('Error:', error);
     }

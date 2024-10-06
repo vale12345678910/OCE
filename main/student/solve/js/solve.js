@@ -155,6 +155,7 @@ async function loadTestById(testId) {
           throw new Error(`Error: ${response.statusText}`);
       }
       const testData = await response.json();
+      testDataVar = testData
       displayTestData(testData)
       console.log("testName:", testData.testname)
       console.log("testData", testData)
@@ -329,27 +330,44 @@ function submitTest() {
   // Assuming savedExercises is the object you want to send
   const savedExercisesToSubmit = JSON.stringify(savedExercises); // Convert to JSON string
 
+ 
+  
+  // Check if testData contains the required fields
+  
+
+  // Add the required fields for submission from testData
+  const submissionData = {
+    savedExercisesToSubmit, 
+    teacherName: testDataVar.teachersName, 
+    studentName: testDataVar.studentName, 
+    testname: testDataVar.testname, // Assuming testname is used as testId
+    testId: testId
+  };
+
+  console.log("submissionData:", submissionData, testDataVar);
+
   // Make a POST request to the server
   fetch('/submitTest', {
-      method: 'POST',
-      headers: {
-          'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ savedExercisesToSubmit }), // Send the JSON in the request body
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(submissionData), // Send the JSON in the request body
   })
   .then(response => {
-      if (!response.ok) {
-          throw new Error('Network response was not ok');
-      }
-      return response.json();
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    return response.json();
   })
   .then(data => {
-      console.log(data.message); // Handle success response
+    console.log(data.message); // Handle success response
   })
   .catch(error => {
-      console.error('There was a problem with the fetch operation:', error);
+    console.error('There was a problem with the fetch operation:', error);
   });
 }
+
 
 
 //!TEST END (STORAGE)

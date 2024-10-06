@@ -1,0 +1,25 @@
+{
+  "teachersName": "valery.sturm",
+  "testname": "THIS IS THE TESTNAME",
+  "exercices": [
+    {
+      "title": "ex 1 title",
+      "description": "desc ex 1 ",
+      "optionstatus": "0",
+      "editorContent": "function welcome(){\r\n\tconsole.log(\"hello world\");\r\n\t}\r\nwelcome();",
+      "points": "",
+      "testcase": ""
+    },
+    {
+      "title": "ex 2 title",
+      "description": "desc ex 2",
+      "optionstatus": "0",
+      "editorContent": "function welcome(){\r\n\tconsole.log(\"hello world\");\r\n\t}\r\nwelcome();",
+      "points": "",
+      "testcase": ""
+    }
+  ],
+  "studentName": [
+    "valery.sturm"
+  ]
+}
