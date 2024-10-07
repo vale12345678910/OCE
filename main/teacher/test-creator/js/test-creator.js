@@ -1,6 +1,7 @@
 
 let exerciseCount = 0;
 let lastNumber = null;
+let index = 0;
 
 const userName = sessionStorage.getItem('userName')
 
@@ -219,6 +220,7 @@ exerciseTestcaseTextInput.addEventListener("input", function(){
 
 function saveModal(){
   exerciseCount++;
+  index++;
   const newDiv = createNewEx()
   createTextinNewEx(newDiv)
   placeCrossInEx(newDiv)
@@ -292,7 +294,7 @@ function placeCrossInEx(newDiv){
   ExCross.className = "material-symbols-outlined ExCross icons-animation"
   ExCross.id ="ExCross" + exerciseCount;
   ExCross.textContent = "close"
-  ExCross.setAttribute("onclick", `handleExPenClick(event, ${exerciseCount})`);
+  ExCross.setAttribute("onclick", `handleExCrossClick(event, ${exerciseCount})`);
   newDiv.appendChild(ExCross)
 
 }
@@ -321,7 +323,7 @@ function handleExPenClick(event, number) {
 
 
 function handleExCrossClick(event, number){
-  lastNumber = number  //VERY IMPORTANT BUT I DONT GET IT actually maybe i get it (check with lüthi maybe)
+  lastNumber = number 
   const newExDiv = event.target.closest('.newEx');
   if(newExDiv){
     const divID = newExDiv.id;
@@ -331,7 +333,7 @@ function handleExCrossClick(event, number){
 }
 
 function deleteExercise(lastNumber){
-  exerciseCount--;
+  index--;
   const exerciseToRemove = document.getElementById("newEx"+ lastNumber)
   container_list.removeChild(exerciseToRemove);
 }
@@ -488,7 +490,7 @@ checkbox_code_edit.addEventListener("change", function(){
 
 
 document.getElementById('createTestButton').addEventListener('click', async function() {
-  if (exerciseCount == 0) {
+  if (index == 0) {
     alert_div.style.visibility = "visible";
   } else {
     testname = prompt("Testname:")
@@ -506,6 +508,7 @@ document.getElementById('createTestButton').addEventListener('click', async func
     };
 
     exercices.forEach((exercise, index) => {
+      console.log(index, "this is displayexcount")
       const title = exercise.querySelector(`#exerciseTitleText${index + 1}`).textContent;
       const description = exercise.querySelector(`#exerciseDescText${index + 1}`).textContent;
       const optionstatus_div_test = exercise.querySelector(`#optionstatus${index + 1}`).textContent;
