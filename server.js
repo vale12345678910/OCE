@@ -1,11 +1,8 @@
-
 import express from 'express';
 import { fileURLToPath } from 'url';
 import path from 'path';
 import fs from 'fs/promises';
-import multer from 'multer';
-import crypto from 'crypto'
-import xml2js from 'xml2js'
+import session from 'express-session';
 
 
 // Convert file URL to file path
@@ -15,66 +12,10 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const app = express();
 
 
-
 // Serve static files from the root folder
 app.use(express.static(__dirname));
 app.use(express.json());
-
-
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-      const uploadPath = path.join(__dirname, 'public');
-      cb(null, uploadPath);
-  },
-  filename: function (req, file, cb) {
-      cb(null, file.originalname); // Save the file with its original name
-  }
-});
-
-const upload = multer({
-  storage: storage,
-  fileFilter: function (req, file, cb) {
-      const ext = path.extname(file.originalname);
-      if (ext !== '.seb') {
-          return cb(new Error('Only .seb files are allowed'));
-      }
-      cb(null, true);
-  }
-});
-
-
-// Handle file upload via POST request
-app.post('/upload-seb', upload.single('sebFile'), async (req, res) => {
-  try {
-      if (!req.file) {
-          return res.status(400).json({ success: false, message: 'No file uploaded or invalid file type' });
-      }
-      
-      const { testId, teacherName, studentName } = req.body; // Get testId, teacherName, and studentName from the request body
-      const newFileName = `${testId}.seb`; // Set new file name
-      
-      // Read the uploaded file content
-      let content = await fs.readFile(req.file.path, 'utf8');
-
-      // Construct the new startURL with parameters
-      const newStartURL = `http://127.0.0.1:3000/main/student/solve/solve.html?testId=${testId}&teacherName=${teacherName}&studentName=${studentName}`;
-
-      // Modify the content as needed (change startURL)
-      content = content.replace(/<key>startURL<\/key>\n\s*<string>.*?<\/string>/, `<key>startURL</key>\n    <string>${newStartURL}</string>`);
-
-      // Write the modified content to the new .seb file
-      await fs.writeFile(path.join(req.file.destination, newFileName), content);
-
-      // Optionally delete the original uploaded file
-      await fs.unlink(req.file.path);
-
-      res.json({ success: true, message: 'File uploaded and modified successfully', fileName: newFileName });
-  } catch (error) {
-      console.error("Upload error:", error);
-      res.status(500).json({ success: false, message: 'Error uploading file' });
-  }
-});
-
+app.use(express.urlencoded({ extended: true }))
 
 
 
@@ -86,6 +27,9 @@ app.get('/', (req, res) => {
 // Handle login requests
 app.get('/login', (req, res) => {
   const userType = req.query.type; // Assume a query parameter to identify user type
+
+  
+
   if (userType === 'teacher') {
     res.redirect('/main/teacher/teacher.html');
   } else if (userType === 'student') {
@@ -102,12 +46,14 @@ app.post('/api/checkDirectory', async (req, res) => {
   const userDirectoryPath = path.join(__dirname, 'dbv1', userName);
 
   try {
-    const directoryExists = await fs.access(userDirectoryPath);
-    res.json({ directoryExists: true });
+      await fs.access(userDirectoryPath);
+      res.json({ directoryExists: true });
   } catch (error) {
-    res.json({ directoryExists: false });
+      console.error(`Directory check failed: ${error.message}`);
+      res.json({ directoryExists: false });
   }
 });
+
 
 // Handle directory creation
 app.post('/api/createDirectory', async (req, res) => {
@@ -259,11 +205,7 @@ app.get('/api/getTestById', async (req, res) => {
 
 
 
-// Start the server
-const port = process.env.PORT || 3000;
-app.listen(port, () => {
-  console.log(`Server is listening on port ${port}`);
-});
+
 
 
 
@@ -345,10 +287,6 @@ app.get('/recieveTest', async (req, res) => {
 });
 
 
-
-
-
-
 // Dynamic endpoint to append data to the JSON file based on testId
 app.post('/api/replace-student-name', async (req, res) => {
   const { testId, studentName } = req.body;
@@ -377,6 +315,12 @@ app.post('/api/replace-student-name', async (req, res) => {
 });
 
 
+
+// Start the server
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+  console.log(`Server is listening on port ${port}`);
+});
 
 
 //! JUST SOME IDEA TO MAYBE HANDLE THE STUDNET INTERFACE BETTER
@@ -426,6 +370,7 @@ app.post('/api/replace-student-name', async (req, res) => {
 //       res.status(500).json({ success: false, message: 'Error preparing the test file' });
 //   }
 // });
+
 
 
 
