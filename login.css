@@ -1,5 +1,7 @@
 html {
     font-size: 1vw;
+    height: 100%;
+    width: 100%;
 }
 
 *, *::before, *::after {
@@ -8,8 +10,13 @@ html {
   
 
 body {
+    height: 100%;
+    width: 100%;
     background-color: rgb(0, 0, 0);
     overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .mainContainer{
@@ -18,13 +25,13 @@ body {
     justify-content: center;
     flex-direction: column;
     opacity: 0;
+    height: fit-content;
  }
 
 #title{
     color: rgb(255, 255, 255);
-    font-size: 4em;
+    font-size: 7em;
     margin: 0;
-    margin-top: 3em;
     
 }
 
