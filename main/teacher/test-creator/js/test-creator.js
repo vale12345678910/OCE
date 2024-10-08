@@ -472,6 +472,59 @@ saveCode.addEventListener("click", function() {
 });
 
 
+document.getElementById('createTestButton').addEventListener('click', async function() {
+  if (index == 0) {
+    alert_div.style.visibility = "visible";
+  } else {
+    testname = prompt("Testname:");
+    if (!testname) {
+      alert('Testname required!');
+      return;
+    } else {
+      const exercices = document.querySelectorAll('.container_list .newEx');
+      const testValues = {
+        userName: userName,
+        testname: testname,
+        exercices: []
+      };
+
+      exercices.forEach((exercise) => {
+        // Directly query the child elements of the current exercise div
+        const title = exercise.querySelector('.exerciseTitleText').textContent;
+        const description = exercise.querySelector('.exerciseDescText').textContent;
+        const optionstatus_div_test = exercise.querySelector('.optionstatus').textContent;
+        const editor_content = exercise.querySelector('.ex_editor_content').textContent;
+        const points = exercise.querySelector('.points').textContent;
+        const testcase = exercise.querySelector('.testCases').textContent;
+
+        // Push the values into an array
+        testValues.exercices.push({
+          title: title,
+          description: description,
+          optionstatus: optionstatus_div_test,
+          editorContent: editor_content,
+          points: points,
+          testcase: testcase
+        });
+      });
+
+      // Convert the array to JSON and store it in Local Storage
+      localStorage.setItem('testValues', JSON.stringify(testValues));
+
+      await fetchPost("/api/save", testValues);
+    }
+  }
+});
+
+function fetchPost(url, data) {
+  const options = {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data)
+  };
+
+  return fetch(url, options);
+}
 
 
 
@@ -489,63 +542,6 @@ checkbox_code_edit.addEventListener("change", function(){
 
 
 
-document.getElementById('createTestButton').addEventListener('click', async function() {
-  if (index == 0) {
-    alert_div.style.visibility = "visible";
-  } else {
-    testname = prompt("Testname:")
-    if(!testname){
-      alert('Testname required!')
-      return;
-    } else{
-
-    
-    const exercices = document.querySelectorAll('.newEx');
-    const testValues = {
-      userName: userName,
-      testname: testname,
-      exercices: []
-    };
-
-    exercices.forEach((exercise, index) => {
-      console.log(index, "this is displayexcount")
-      const title = exercise.querySelector(`#exerciseTitleText${index + 1}`).textContent;
-      const description = exercise.querySelector(`#exerciseDescText${index + 1}`).textContent;
-      const optionstatus_div_test = exercise.querySelector(`#optionstatus${index + 1}`).textContent;
-      const editor_content = exercise.querySelector(`#ex_editor_content${index + 1}`).textContent;
-      const points = exercise.querySelector(`#points${index + 1}`).textContent
-      const testcase = exercise.querySelector(`#testCases${index + 1}`).textContent
-      
-      // Push the values into an array
-      testValues.exercices.push({
-        title: title, 
-        description: description, 
-        optionstatus: optionstatus_div_test, 
-        editorContent: editor_content, 
-        points: points,
-        testcase: testcase
-      });
-    });
-
-    // Convert the array to JSON and store it in Local Storage
-    localStorage.setItem('testValues', JSON.stringify(testValues));
-   
-    await fetchPost("/api/save", testValues);
-    }
-  }
-});
-
-function fetchPost(url, data){
-  const options = {
-    method: 'POST', // Specify the method as POST
-    headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify(data) // Convert the data to JSON string
-  };
-
-  // Make the fetch request
-  return fetch(url, options)
-}
-
 
 //end
 
@@ -562,3 +558,5 @@ document.getElementById("Recieve").addEventListener("click", function(){
 document.getElementById("Correct").addEventListener("click", function(){
   window.location.href = '../correct/correct.html'
 })
+
+
