@@ -63,37 +63,50 @@ function changeLanguage() {
 
 function runCode() {
   var outputDiv = document.getElementById("output");
-  if (language == "node") {
-    console.log("js executed");
-    var code = editor.getValue();
-    var captured_output = '';
-    outputDiv.className = "";
-    
-    // Override console.log to capture its output
-    var original_console_log = console.log;
-    console.log = function(output) {
-      captured_output += output + '\n';
-    };
-    
-    try {
-      // Check for syntax errors by creating a Function from the code
-      new Function(code); 
-      // If there are no syntax errors, execute the code
-      eval(code); 
-      output_place.textContent = ""
-      output_place.textContent = captured_output; // Display the captured output
-      console.log = original_console_log; // Restore original console.log
-    } catch (e) {
-      outputDiv.className = "error_text"
-      outputDiv.innerHTML = ""
-      outputDiv.innerHTML = ("Error running the code:", e)
-      console.error("Error running the code:", e);
-      console.log = original_console_log; // Restore original console.log in case of error
+  var code = editor.getValue(); // Get the code from the editor
+  var captured_output = '';
+  outputDiv.className = "";
+
+  // Create an iframe for isolated execution
+  var iframe = document.createElement('iframe');
+  document.body.appendChild(iframe);
+  var iframeWindow = iframe.contentWindow;
+  
+  // Override console.log in the iframe context
+  iframeWindow.console.log = function(output) {
+    captured_output += output + '\n';
+  };
+
+  try {
+    if (language === "node") { // Check if the language is JavaScript
+      iframeWindow.print = function() {
+        alert("Wrong language selected");
+      };
+      
+      // Execute the code in the iframe
+      iframeWindow.eval(code); 
+      
+      outputDiv.textContent = captured_output; // Display the captured output
+    } else if (language === "python") { // Check if the language is Python
+      runPython(); 
+    } else {
+      outputDiv.className = "error_text";
+      outputDiv.innerHTML = "Unsupported language: " + language;
     }
-  } else {
-    runPython()
+  } catch (e) {
+    outputDiv.className = "error_text";
+    outputDiv.innerHTML = "Error running the code: " + e.message;
+    console.error("Error running the code:", e);
+  } finally {
+    // Remove the iframe after execution
+    document.body.removeChild(iframe);
   }
 }
+
+
+
+
+
 
 function runPython() {
   var code = editor.getValue();

@@ -86,29 +86,32 @@ function changeLanguage() {
   console.log("Language:", language);
 }
 
+
 function runCode() {
   var outputDiv = document.getElementById("output");
-  var code = editor.getValue(); // Assuming editor.getValue() retrieves the code from your editor
+  var code = editor.getValue(); // Get the code from the editor
   var captured_output = '';
   outputDiv.className = "";
 
-  // Override console.log to capture its output
-  var original_console_log = console.log;
-  console.log = function(output) {
+  // Create an iframe for isolated execution
+  var iframe = document.createElement('iframe');
+  document.body.appendChild(iframe);
+  var iframeWindow = iframe.contentWindow;
+  
+  // Override console.log in the iframe context
+  iframeWindow.console.log = function(output) {
     captured_output += output + '\n';
   };
 
   try {
     if (language === "node") { // Check if the language is JavaScript
-      
-      window.print = function() {
+      iframeWindow.print = function() {
         alert("Wrong language selected");
       };
-      // Check for syntax errors by creating a Function from the code
-      var func = new Function(code);
       
-      // If there are no syntax errors, execute the function
-      func(); 
+      // Execute the code in the iframe
+      iframeWindow.eval(code); 
+      
       outputDiv.textContent = captured_output; // Display the captured output
     } else if (language === "python") { // Check if the language is Python
       runPython(); 
@@ -121,9 +124,12 @@ function runCode() {
     outputDiv.innerHTML = "Error running the code: " + e.message;
     console.error("Error running the code:", e);
   } finally {
-    console.log = original_console_log; // Restore original console.log
+    // Remove the iframe after execution
+    document.body.removeChild(iframe);
   }
 }
+
+
 
 
 
