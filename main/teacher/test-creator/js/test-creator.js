@@ -312,11 +312,11 @@ function placePenInEx(newDiv){
 
 
 function handleExPenClick(event, number) {
-  lastNumber = number
+  lastNumber = number //Store in outer scope
   const newExDiv = event.target.closest('.newEx'); // Adjust the selector as needed
   if (newExDiv) {
       const divID = newExDiv.id;
-      const lastNumber = divID.match(/\d+$/)[0]; // Store lastNumber in the outer scope
+      const lastNumber = divID.match(/\d+$/)[0]; // Store lastNumber in the inner scope (just for this function)
       editExercise(lastNumber);
   }
 }
