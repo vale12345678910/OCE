@@ -72,7 +72,6 @@ function changeLanguage() {
     editor.session.setMode("ace/mode/javascript");
   }
 
-  console.log("Language:", language);
 }
 
 //! Run the code entered in the editor
@@ -130,7 +129,6 @@ function runPython() {
   Sk.misceval.asyncToPromise(function() {
     return Sk.importMainWithBody("<stdin>", false, code, true);
   }).then(function() {
-    console.log("Python code executed");
     outputDiv.className = "";
     
   }, function(err) {
@@ -160,7 +158,7 @@ openModal.addEventListener("click", () =>{
   exercisePointsValueInput.value = '';
   exerciseTestcaseTextInput.value = '';
   modal.showModal();
-  console.log("MODAL OPEN");
+  
 });
 
 //! Close the modal and clear inputs
@@ -170,27 +168,25 @@ closeModal.addEventListener("click", () =>{
   exercisePointsValueInput.value = '';
   exerciseTestcaseTextInput.value = '';
   modal.close();
-  console.log("MODAL CLOSED");
 });
 
 
 exerciseTitleTextInput.addEventListener("input", function() {
-  console.log("Value Updated");
   return exerciseTitleTextInput.value;
 });
 
 exerciseDescTextInput.addEventListener("input", function() {
-  console.log("Value Updated");
+  
   return exerciseDescTextInput.value;
 });
 
 exercisePointsValueInput.addEventListener("input", function() {
-  console.log("Value Updated");
+  
   return exercisePointsValueInput.value;
 });
 
 exerciseTestcaseTextInput.addEventListener("input", function() {
-  console.log("Value Updated");
+  
   return exerciseTestcaseTextInput.value;
 });
 
@@ -203,7 +199,7 @@ function saveModal() {
   placeCrossInEx(newDiv);
   placePenInEx(newDiv);
   modal.close();
-  console.log("MODAL SAVED");
+  
 }
 
 saveButton.addEventListener("click", function() {
@@ -325,7 +321,7 @@ saveButton.addEventListener('click', function() {
 
 //! Save the edited exercise data
 function saveEditedExercise() {
-  console.log(lastNumber); 
+  
 
   document.getElementById("exerciseTitleText" + lastNumber).textContent = exerciseTitleTextInputedit.value || "Title undefined";
   document.getElementById("exerciseDescText" + lastNumber).textContent = exerciseDescTextInputedit.value;
@@ -333,12 +329,12 @@ function saveEditedExercise() {
   document.getElementById("testCases" + lastNumber).textContent = exerciseTestcaseTextInputedit.value;
   checkOptionStatusEdit();
   modal_editExercise.close();
-  console.log("MODAL EDIT SAVED");
+  
 }
 
 closeEditedExerciseButton.addEventListener("click", function() {
   modal_editExercise.close();
-  console.log("MODAL EDIT CLOSED");
+  
 });
 
 let checkbox_value = "";
@@ -361,7 +357,7 @@ function editExercise(lastNumber) {
   }
   
   modal_editExercise.showModal();
-  console.log("MODAL EDIT OPEN");
+  
 }
 
 let optionstatus = 0;
@@ -369,11 +365,11 @@ let optionstatus = 0;
 //! Check the option status for the exercise
 function checkOptionStatus(optionstatus_div) {
   if (optionstatus % 2 == 0) {
-    console.log("off", optionstatus);
+    
     optionstatus_div.textContent = "0";
   } else {
     optionstatus_div.textContent = "1";
-    console.log("on", optionstatus);
+    
   }
 }
 
@@ -381,11 +377,11 @@ function checkOptionStatus(optionstatus_div) {
 function checkOptionStatusEdit() {
   const checkbox_div = document.getElementById("optionstatus" + lastNumber);
   if (optionstatus_edit % 2 == 0) {
-    console.log("off", optionstatus_edit);
+   
     checkbox_div.textContent = "0";
   } else {
     checkbox_div.textContent = "1";
-    console.log("on", optionstatus_edit);
+    
   }
 }
 
@@ -432,7 +428,7 @@ saveCode.addEventListener("click", function() {
   link.click(); // Trigger download
   document.body.removeChild(link); // Clean up
 
-  console.log("File saved as:", filename);
+ 
 });
 
 document.getElementById('createTestButton').addEventListener('click', async function() {
@@ -492,13 +488,13 @@ function fetchPost(url, data) {
 //! Update the option status when the checkbox is changed
 checkbox_code.addEventListener("change", function() {
   optionstatus++;
-  console.log("optionstatus", optionstatus);
+  
 });
 
 //! Update the edit option status when the checkbox is changed
 checkbox_code_edit.addEventListener("change", function() {
   optionstatus_edit++;
-  console.log("optionstatus_edit", optionstatus_edit);
+  
 });
 
 //! Navigate to the tests overview page
