@@ -1,16 +1,19 @@
+//! Structured Code
 
 let totalExercises = 0
 const loadButton = document.getElementById("loadButton")
 const fileInput = document.getElementById('fileInput');
 const saveCode = document.getElementById("saveCode")
 
-//! Alert if the wrong language is used
+//!Important: Disables the default print function with a custom alert
 window.print = function(){
   alert('You are not using the correct language!')
 }
 
+
 let editor;
 
+//! Initializes the editor with specific settings on page load
 window.onload = function() {
     editor = ace.edit("editor");
     editor.setTheme("ace/theme/tomorrow_night_bright");
@@ -20,7 +23,7 @@ window.onload = function() {
       enableLiveAutocompletion: true
     });
 
-    // Function to load default.js content into the editor
+    //! Loads the content of 'default.js' into the editor
     function loadDefaultFile() {
       fetch('js/default.js')
           .then(response => response.text())
@@ -28,22 +31,27 @@ window.onload = function() {
               editor.setValue(data, -1); // Set file content to the editor
           })
           .catch(error => console.error('Error loading default.js:', error));
-    }
+  }
 
-    // Call the function to load the file content
-    loadDefaultFile();
-    //end
+  //! Automatically loads the default file content when the editor is loaded
+  loadDefaultFile();
+//end
 
+    //! Tracks changes made in the editor
     editor.session.on("change", function(delta){
       const ace_content = editor.getValue();
     })
 }
 
+
+
 const output_place = document.getElementById("output")
+
+
 
 let language = "node";
 
-//! Change the programming language
+//! Changes the editor language based on user selection
 function changeLanguage() {
   language = $("#languages").val();
 
@@ -52,21 +60,23 @@ function changeLanguage() {
   } else {
     editor.session.setMode("ace/mode/javascript");
   }
+
+  console.log("Language:", language);
 }
 
-//! Run the code in the editor
+//! Runs the code based on the selected language (JavaScript or Python)
 function runCode() {
   var outputDiv = document.getElementById("output");
   var code = editor.getValue(); // Get the code from the editor
   var captured_output = '';
   outputDiv.className = "";
 
-  // Create an iframe for isolated execution
+  //! Create an iframe to run the code in isolation
   var iframe = document.createElement('iframe');
   document.body.appendChild(iframe);
   var iframeWindow = iframe.contentWindow;
   
-  // Override console.log in the iframe context
+  //! Overrides the console.log to capture output inside the iframe
   iframeWindow.console.log = function(output) {
     captured_output += output + '\n';
   };
@@ -77,7 +87,7 @@ function runCode() {
         alert("Wrong language selected");
       };
       
-      // Execute the code in the iframe
+      //! Runs JavaScript code inside the iframe
       iframeWindow.eval(code); 
       
       outputDiv.textContent = captured_output; // Display the captured output
@@ -92,12 +102,13 @@ function runCode() {
     outputDiv.innerHTML = "Error running the code: " + e.message;
     console.error("Error running the code:", e);
   } finally {
-    // Remove the iframe after execution
+    //! Removes the iframe after code execution
     document.body.removeChild(iframe);
   }
 }
 
-//! Function to run Python code
+
+//! Function to run Python code using the Skulpt library
 function runPython() {
   var code = editor.getValue();
   var outputDiv = document.getElementById("output");
@@ -110,9 +121,11 @@ function runPython() {
     }
   });
 
+  //! Asynchronously run the Python code and display output
   Sk.misceval.asyncToPromise(function() {
     return Sk.importMainWithBody("<stdin>", false, code, true);
   }).then(function() {
+    console.log("Python code executed");
     outputDiv.className = "";
     
   }, function(err) {
@@ -122,27 +135,29 @@ function runPython() {
   });
 }
 
+
+
 //OWN CODE
 
 const exerciseTitleTextInput = document.getElementById('exerciseTitleTextInput');
 const exerciseDescTextInput = document.getElementById('exerciseDescTextInput');
 const container_list = document.querySelector(".container_list") //where the saved ex. should go.
 
-//! LOAD TEST
-//! LOAD TEST
-//! LOAD TEST
 
+//! Event listener for page load, prompts the user for a test ID
 document.addEventListener('DOMContentLoaded', () =>{
 
   testId = prompt('enter the testId provided by your teacher')
 
   if(testId){
+    //! Load test data using the provided test ID
     loadTestById(testId)
   } else{
     alert('Test ID is required!')
   }
 })
 
+//! Loads test data from the server using the test ID
 async function loadTestById(testId) {
   
   try {
@@ -152,12 +167,17 @@ async function loadTestById(testId) {
       }
       const testData = await response.json();
       testDataVar = testData
+      //! Display the loaded test data in the UI
       displayTestData(testData)
+      console.log("testName:", testData.testname)
+      console.log("testData", testData)
   } catch (error) {
       console.error('Error loading test data:', error);
   }
 }
 
+
+//! Displays test data, creates div elements for each exercise
 function displayTestData(testData) {
   let i = 1;
 
@@ -179,7 +199,7 @@ function displayTestData(testData) {
   });
 }
 
-//! Load content into the editor
+//! Loads exercise content into the editor based on the provided parameters
 function loadExerciseContent(code, optionstatus, title, desc) {
   
   if(optionstatus == 1){
@@ -188,10 +208,11 @@ function loadExerciseContent(code, optionstatus, title, desc) {
     editor.setValue('', 1)
   }
 
+  //! Updates the title and description fields with exercise details
   changeTitleAndDesc(title, desc);
 }
 
-//! Change the title and description in the UI
+//! Changes the title and description displayed in the DOM
 function changeTitleAndDesc(title, desc) {
   const titleDiv = document.getElementById('title')
   const descDiv = document.getElementById('desc')
@@ -200,28 +221,32 @@ function changeTitleAndDesc(title, desc) {
   descDiv.textContent = desc
 }
 
-let savedExercises = {}; // Stores the saved exercises and their details
-let savedExerciseIds = new Set();  // To track exercises that have been saved at least once
 
-// Reference to the submit button
+
+//! Stores saved exercises and tracks saved exercise IDs
+let savedExercises = {}; 
+let savedExerciseIds = new Set();  // To track exercises saved at least once
+
+// Reference to the submit button and text
 const submitTestButton = document.querySelector('.submitTest');
 const submitTestText = document.getElementById('submitTestText')
 
+
+//! Handles saving the code of the currently selected exercise
 saveCode.addEventListener('click', function() {
     // Get the currently selected exercise's div
     const selectedExercise = document.querySelector('.exerciseDiv.selected');
     
     if (!selectedExercise) {
+        console.log("No exercise selected!");
         return; // Exit if no exercise is selected
     }
 
-    // Get the exercise ID
+    //! Extract the exercise ID and code from the editor
     const exerciseId = selectedExercise.id.replace('exerciseDiv', '');
-    
-    // Get the code from the editor
     const currentCode = editor.getValue();
     
-    // Create or update the exercise entry in the savedExercises object
+    //! Save or update the exercise in savedExercises
     savedExercises[exerciseId] = {
         id: exerciseId,
         title: selectedExercise.title,
@@ -231,82 +256,116 @@ saveCode.addEventListener('click', function() {
     
     alert('Exercise saved!');
     
-    // Mark the exercise as saved by adding its ID to the savedExerciseIds set
+    //! Mark the exercise as saved by adding its ID to savedExerciseIds
     savedExerciseIds.add(exerciseId);
     
-    // Find the specific exercise div by its ID and change its title color to green
+    //! Change the title color to green for saved exercises
     const changeTitleColor = document.getElementById(`exerciseDiv${exerciseId}`);
     const titleElement = changeTitleColor.querySelector('.title_ex');
     if (titleElement) {
         titleElement.style.color = 'lightgreen';
     }
 
-    // Check if all exercises have been saved
+    //! Check if all exercises have been saved
     checkIfAllExercisesSaved();
 });
 
-//! Check if all exercises have been saved at least once
+//! Checks if all exercises have been saved and enables the submit button if true
 function checkIfAllExercisesSaved() {
     if (savedExerciseIds.size === totalExercises) {
-        // Remove the 'disabled' class and add the 'enabled' class
         submitTestButton.classList.remove('disabled');
         submitTestButton.classList.add('enabled');
+        console.log("All exercises saved! Submit button enabled.");
     } else {
-
+        console.log(`Saved ${savedExerciseIds.size} of ${totalExercises} exercises.`);
     }
 }
 
-//! Example of how you might add a 'selected' class when an exercise is clicked
+
+//! Adds 'selected' class to clicked exercise and loads its content into the editor
 function ExerciseClicked(event) {
-    // Deselect previous exercise
+    //! Deselect previous exercise
     document.querySelectorAll('.exerciseDiv').forEach(div => div.classList.remove('selected'));
     
-    // Select the clicked exercise
+    //! Select the clicked exercise
     const clickedDiv = event.currentTarget;
     clickedDiv.classList.add('selected');
     
-    // Pass the editor code value to loadExerciseContent
+    //! Load exercise content into the editor
     const editorCodeValue = clickedDiv.dataset.code; 
     const optionstatus = clickedDiv.optionstatus;
     const title = clickedDiv.title;
     const desc = clickedDiv.description;
+    
+    console.log("optionstatus:", optionstatus);
     loadExerciseContent(editorCodeValue, optionstatus, title, desc);
 }
 
-//! Event listener for the submit test button
+
+
+
+//! Event listener for the submit test button, handles test submission
 submitTestButton.addEventListener('click', function() {
-    // Check if the button has the 'enabled' class
     if (submitTestButton.classList.contains('enabled')) {
-        // Trigger the submission process
-        alert('Test submitted!');
+        //! Confirmation dialog before submission
+        const confirmed = confirm("Are you sure you want to submit the test?");
+        
+        if (confirmed) {
+            //! Call the submitTest function and disable the submit button after submission
+            submitTest();
+            submitTestButton.classList.add('disabled');
+            submitTestButton.classList.remove('enabled');
+            submitTestButton.style.cursor = 'not-allowed';
+            submitTestText.style.color = 'grey'; 
+            submitTestButton.disabled = true;
+            alert('You can quit SEB now with the password provided by your teacher.')
+        } else {
+            console.log("Test submission canceled.");
+        }
     } else {
-        alert('Please save all exercises before submitting.');
+        console.log("Submission not allowed: Test has already been submitted or is not enabled.");
     }
 });
 
-//! Check if the user has entered a test ID and then load the test
-document.addEventListener('DOMContentLoaded', () => {
-    const testId = prompt('Enter the test ID provided by your teacher');
-    if (testId) {
-        loadTestById(testId);
-    } else {
-        alert('Test ID is required!');
+
+
+//! Submits the saved exercises to the server
+function submitTest() {
+  //! Convert saved exercises to a JSON string
+  const savedExercisesToSubmit = JSON.stringify(savedExercises); 
+  
+  //! Add additional required fields for submission
+  const submissionData = {
+    savedExercisesToSubmit, 
+    teacherName: testDataVar.teachersName, 
+    studentName: testDataVar.studentName, 
+    testname: testDataVar.testname, 
+    testId: testId
+  };
+
+  console.log("submissionData:", submissionData, testDataVar);
+
+  //! Make a POST request to submit the test data to the server
+  fetch('/submitTest', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(submissionData),
+  })
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
     }
-});
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    return response.json();
+  })
+  .then(data => {
+    console.log(data.message); // Handle success response
+  })
+  .catch(error => {
+    console.error('There was a problem with the fetch operation:', error);
+  });
+}
 
 
 
@@ -513,6 +572,19 @@ document.addEventListener('DOMContentLoaded', () => {
 //     totalExercises = i - 1 //Total Exercises
 //   });
 // }
+
+
+
+
+// //!FIRST BREAK 
+// //!FIRST BREAK 
+// //!FIRST BREAK 
+// //!FIRST BREAK 
+// //!FIRST BREAK 
+// //!FIRST BREAK 
+
+
+
 
 // function loadExerciseContent(code, optionstatus, title, desc) {
   

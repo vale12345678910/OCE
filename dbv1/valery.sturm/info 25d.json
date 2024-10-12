@@ -1,1 +1,0 @@
-{"userName":"valery.sturm","testname":"info 25d","exercices":[{"title":"ex 1","description":"desc ex 1","optionstatus":"1","editorContent":"function welcome(){\r\n\tconsole.log(\"hello world\");\r\n\t}\r\nwelcome();.","points":"4","testcase":""},{"title":"testcode 2","description":"desc 2","optionstatus":"1","editorContent":"testcode","points":"1","testcase":""}]}

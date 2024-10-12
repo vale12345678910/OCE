@@ -1,0 +1,13 @@
+{
+  "testId": "1728765597710",
+  "testname": "proving stuff",
+  "studentName": "valery.sturm",
+  "exercises": {
+    "1": {
+      "id": "1",
+      "title": "this is proof",
+      "description": "desc of proof",
+      "code": "I am modifying code, this is my answer"
+    }
+  }
+}
