@@ -35,15 +35,12 @@ function removeDefaultText() {
         testDataWrapper.style.display = 'flex';
         listContainer.style.justifyContent = 'left';
         listContainer.style.alignItems = 'top';
-        
-        console.log("Wrapper Removed");
     }
 }
 
 //! Function to load and display the list of tests
 async function loadTestList() {
     userName = sessionStorage.getItem('userName');
-    console.log("userName at loadTestList", userName);
 
     try {
         const response = await fetch(`/api/listTests?userName=${encodeURIComponent(userName)}`);
@@ -76,7 +73,7 @@ async function displayTestList(testData) {
 
         //! Create a button for sending test data
         let sendButton = document.createElement('div');
-        sendButton.textContent = 'Send';
+        sendButton.textContent = 'Send to students';
         sendButton.className = 'commit';
         listItem.appendChild(sendButton);
 
@@ -111,7 +108,6 @@ async function displayTestList(testData) {
 
         configKeyInput.addEventListener('input', function() {
             configKey = configKeyInput.value;
-            console.log("configKey:", configKey);
         });
 
         //! Create the container for test details (initially hidden)
@@ -135,7 +131,6 @@ async function displayTestList(testData) {
 
             //! Get the current configuration key for this test
             configKey = configKeyInput.value || undefined;
-            console.log(`Config key for test ${fileName}:`, configKey);
 
             //! Send the current test data and the entered configuration details
             await saveTest(fileName, configKey); 
@@ -158,7 +153,6 @@ async function loadTestDetails(fileName, detailsContainer) {
         }
         testData = await response.json();
         displayTestDetails(testData, detailsContainer);
-        console.log('testData at load testDetails', testData);
     } catch (error) {
         console.error('Error loading test details:', error);
     }
@@ -191,7 +185,6 @@ async function saveTest(fileName, configFile) {
     // Load test details based on the specific clicked test
     const detailsContainer = document.createElement('div');
     await loadTestDetails(fileName, detailsContainer);
-    console.log('cf:,', configFile);
 
     const testValues = {
         teachersName: teachersName,
@@ -211,7 +204,6 @@ async function saveTest(fileName, configFile) {
             throw new Error(`Error: ${response.statusText}`);
         }
 
-        console.log('testdata', testValues);
         const data = await response.json();
         testId = data.testId;
 
