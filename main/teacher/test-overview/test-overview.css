@@ -196,6 +196,8 @@ body {
 }
 
 
+
+
 #details #line{
     margin-top: 10px;
     width: 100%;
@@ -242,6 +244,10 @@ code{
     margin-top: 1em;
     border-top: white 1px solid;
     font-family: 'Roboto Mono';
+}
+
+.exerciseDiv p{
+    font-size: 0.6em;
 }
 
 .descEx{

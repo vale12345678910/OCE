@@ -23,18 +23,7 @@ window.onload = function() {
       enableLiveAutocompletion: true
     });
 
-    //! Loads the content of 'default.js' into the editor
-    function loadDefaultFile() {
-      fetch('js/default.js')
-          .then(response => response.text())
-          .then(data => {
-              editor.setValue(data, -1); // Set file content to the editor
-          })
-          .catch(error => console.error('Error loading default.js:', error));
-  }
 
-  //! Automatically loads the default file content when the editor is loaded
-  loadDefaultFile();
 //end
 
     //! Tracks changes made in the editor

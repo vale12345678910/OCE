@@ -152,13 +152,13 @@ async function loadTestDetails(fileName, detailsContainer) {
             throw new Error(`Error: ${response.statusText}`);
         }
         testData = await response.json();
+        console.log("testData", testData)
         displayTestDetails(testData, detailsContainer);
     } catch (error) {
         console.error('Error loading test details:', error);
     }
 }
-
-//! Function to display test details within the specific test's div
+//! Updated function to correctly access optionstatus within exercise
 function displayTestDetails(testData, detailsContainer) {
     if (!testData) {
         detailsContainer.innerHTML = '<p>No details available.</p>';
@@ -166,19 +166,23 @@ function displayTestDetails(testData, detailsContainer) {
     }
 
     detailsContainer.innerHTML = `
-        ${testData.exercices.map(ex => `
+        ${testData.exercices.map((exercise, index) => `
             <div class="exerciseDiv">
-                <p id='title' class='titleEx'>${ex.title}</p>
-                <p class='descEx'>${ex.description}</p>
-                <p id='points'>Points: ${ex.points}</p>
-                <pre><code>Code:<br>${ex.editorContent}</code></pre>
-                <p id='testcase'>Testcase: ${ex.testcase}</p>
+                <p id='title' class='titleEx'>${exercise.title}</p>
+                <p class='descEx'>${exercise.description}</p>
+                <p id='points'>Points: ${exercise.points}</p>
+                
+                <!-- Access optionstatus correctly for each exercise and display content accordingly -->
+                ${exercise.optionstatus === '1' ? `<pre><code>Code:<br>${exercise.editorContent}</code></pre>` : `<p>No code will be shown in this exercise</p>`}
+                
+                <p id='testcase'>Testcase: ${exercise.testcase}</p>
                 
                 <div id='line'></div>
             </div>
         `).join('')}
     `;
 }
+
 
 //! Function to save the test
 async function saveTest(fileName, configFile) {
