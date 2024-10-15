@@ -176,11 +176,9 @@ async function loadTestById(testId) {
   }
 }
 
-
 //! Displays test data, creates div elements for each exercise
 function displayTestData(testData) {
   let i = 1;
-
   const container_list = document.querySelector('.container_list');
 
   testData.exercices.forEach(exercise => {
@@ -189,15 +187,21 @@ function displayTestData(testData) {
     exerciseDiv.id = `exerciseDiv${i}`;
     exerciseDiv.dataset.code = exercise.editorContent; // Store the editor code value in a data attribute
     exerciseDiv.optionstatus = exercise.optionstatus;
-    exerciseDiv.title = exercise.title
-    exerciseDiv.description = exercise.description
+    exerciseDiv.title = exercise.title;
+    exerciseDiv.description = exercise.description;
     exerciseDiv.onclick = ExerciseClicked;
     i++;
     exerciseDiv.innerHTML = `<p class="title_ex">${exercise.title}</p><p class="desc_ex">${exercise.description}</p>`;
     container_list.appendChild(exerciseDiv);
-    totalExercises = i - 1 //Total Exercises
+    totalExercises = i - 1; // Total Exercises
   });
+
+  //! Trigger click on the first exercise if available
+  if (totalExercises > 0) {
+    document.getElementById('exerciseDiv1').click();
+  }
 }
+
 
 //! Loads exercise content into the editor based on the provided parameters
 function loadExerciseContent(code, optionstatus, title, desc) {
