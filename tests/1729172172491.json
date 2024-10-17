@@ -1,0 +1,31 @@
+{
+  "teachersName": "valery.sturm",
+  "testname": "testing the receive page",
+  "exercices": [
+    {
+      "title": "ex 1 ",
+      "description": "desc 1",
+      "optionstatus": "1",
+      "editorContent": "code for ex 1",
+      "points": "",
+      "testcase": ""
+    },
+    {
+      "title": "ex 2",
+      "description": "desc 2",
+      "optionstatus": "1",
+      "editorContent": "code for ex 2",
+      "points": "",
+      "testcase": ""
+    },
+    {
+      "title": "ex 3",
+      "description": "desc 3",
+      "optionstatus": "0",
+      "editorContent": "code for ex 2",
+      "points": "",
+      "testcase": ""
+    }
+  ],
+  "studentName": "valery.sturm"
+}
