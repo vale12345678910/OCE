@@ -1,0 +1,19 @@
+{
+  "testId": "123",
+  "testname": "test 1 ",
+  "studentName": "valery.sturm",
+  "exercises": {
+    "1": {
+      "id": "1",
+      "title": "ex 1",
+      "description": "desc 1",
+      "code": "this is the first answer"
+    },
+    "2": {
+      "id": "2",
+      "title": "ex 2",
+      "description": "desc 2",
+      "code": "code 2 is the second answer"
+    }
+  }
+}
