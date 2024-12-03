@@ -211,6 +211,15 @@ function loadExerciseContent(code, optionstatus, title, desc) {
 }
 
 
+function changeTitleAndDesc(title, desc) {
+  const titleDiv = document.getElementById('title')
+  const descDiv = document.getElementById('desc')
+
+  titleDiv.textContent = title
+  descDiv.textContent = desc
+}
+
+
 
 //! Stores saved exercises and tracks saved exercise IDs
 let savedExercises = {}; 
