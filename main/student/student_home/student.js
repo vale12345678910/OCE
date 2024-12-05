@@ -1,5 +1,7 @@
 //! STRUCTURED CODE
 
+import { logout } from "https://dev.gymburgdorf.ch/auth/Authhelpers-min.js";
+
 document.addEventListener("DOMContentLoaded", function() {
     // Code to animate title and menu items
     const title = document.getElementById('title');
@@ -53,15 +55,19 @@ document.addEventListener("DOMContentLoaded", function() {
     document.getElementById("correctionChange").addEventListener("click", function() {
         window.location.href = 'correctionChange/correctionChange.html';
     });
+
 });
 
-//! Function to handle sign-out
+
 function signOut() {
+    logout('http://127.0.0.1:3000/');
+    console.log("cookies deleted");
     sessionStorage.removeItem('userPic');
     sessionStorage.removeItem('userName');
-    window.location.href = `../../login.html`;
+    // window.location.href = '../../login.html';
 }
 
+window.signOut = signOut;
 
 
 

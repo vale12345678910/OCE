@@ -20,6 +20,7 @@ let userData = await tryToGetUser();
 if (!userData) {
   console.log(userData)
 } else {
+  console.log(userData)
   
     const userType = userData.type;
     const userName = sessionStorage.getItem('userName') || userData.email;
