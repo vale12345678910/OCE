@@ -194,18 +194,23 @@ function displayTestData(testData) {
 
 //! Loads exercise content into the editor based on the provided parameters
 function loadExerciseContent(code, optionstatus, title, desc) {
+  console.log(`Loading content: Optionstatus = ${optionstatus}, Title = ${title}`);
   
-  if(optionstatus == 1){
-    editor.setValue(code, 1)    
-  } else{
-    editor.setValue('', 1)
+  if (optionstatus == 1 || code.trim() !== '') {
+      //! Load the provided code into the editor only if there's content
+      editor.setValue(code, 1);
+      console.log("Editor content loaded:", code);
+  } else {
+      //! If there's no content, keep the editor empty (mainly for optionstatus == 0)
+      editor.setValue('', 1);
+      console.log("Editor content cleared.");
   }
 
-  //! Updates the title and description fields with exercise details
+  //! Updates the title and description fields
   changeTitleAndDesc(title, desc);
 }
 
-//! Changes the title and description displayed in the DOM
+
 function changeTitleAndDesc(title, desc) {
   const titleDiv = document.getElementById('title')
   const descDiv = document.getElementById('desc')
@@ -274,25 +279,86 @@ function checkIfAllExercisesSaved() {
     }
 }
 
-
 //! Adds 'selected' class to clicked exercise and loads its content into the editor
 function ExerciseClicked(event) {
-    //! Deselect previous exercise
-    document.querySelectorAll('.exerciseDiv').forEach(div => div.classList.remove('selected'));
-    
-    //! Select the clicked exercise
-    const clickedDiv = event.currentTarget;
-    clickedDiv.classList.add('selected');
-    
-    //! Load exercise content into the editor
-    const editorCodeValue = clickedDiv.dataset.code; 
-    const optionstatus = clickedDiv.optionstatus;
-    const title = clickedDiv.title;
-    const desc = clickedDiv.description;
-    
-    console.log("optionstatus:", optionstatus);
-    loadExerciseContent(editorCodeValue, optionstatus, title, desc);
+  console.log("Exercise clicked!");
+
+  // Save the current exercise's content before switching
+  const currentSelectedExercise = document.querySelector('.exerciseDiv.selected');
+  if (currentSelectedExercise) {
+      const exerciseId = currentSelectedExercise.id.replace('exerciseDiv', '');
+      const currentCode = editor.getValue();
+      console.log(`Saving code for exercise ID ${exerciseId}:`, currentCode);
+
+      // Save the content only if the editor has some content
+      if (currentCode.trim() !== '') {
+          savedExercises[exerciseId] = {
+              id: exerciseId,
+              title: currentSelectedExercise.title,
+              description: currentSelectedExercise.description,
+              code: currentCode
+          };
+          console.log(`Exercise ${exerciseId} saved!`);
+      }
+  }
+
+  //! Deselect previous exercise
+  document.querySelectorAll('.exerciseDiv').forEach(div => div.classList.remove('selected'));
+  document.querySelectorAll('.exerciseDiv').forEach(div => div.classList.remove('selectedColor'));
+
+  //! Select the clicked exercise
+  const clickedDiv = event.currentTarget;
+  clickedDiv.classList.add('selected');
+  clickedDiv.classList.add('selectedColor');
+
+  //! Check if the exercise has been saved before
+  const exerciseId = clickedDiv.id.replace('exerciseDiv', '');
+  const savedExercise = savedExercises[exerciseId];
+  
+  let editorCodeValue;
+  
+  if (savedExercise) {
+      //! Load saved content if available
+      editorCodeValue = savedExercise.code;
+      console.log(`Loading saved code for exercise ID ${exerciseId}:`, editorCodeValue);
+  } else if (clickedDiv.optionstatus == 1) {
+      //! If no saved content, load default content if optionstatus is 1
+      editorCodeValue = clickedDiv.dataset.code;
+      console.log(`Loading default code for exercise ID ${exerciseId}:`, editorCodeValue);
+  } else {
+      //! If no saved content and optionstatus is 0, keep the editor empty
+      editorCodeValue = ''; // Clear editor for unsaved exercises with no default code
+      console.log(`No default code for exercise ID ${exerciseId}, starting with empty editor.`);
+  }
+  
+  const optionstatus = clickedDiv.optionstatus;
+  const title = clickedDiv.title;
+  const desc = clickedDiv.description;
+  
+  console.log("optionstatus:", optionstatus);
+  loadExerciseContent(editorCodeValue, optionstatus, title, desc);
 }
+
+
+
+// function ExerciseClicked(event) {
+//     //! Deselect previous exercise
+//     document.querySelectorAll('.exerciseDiv').forEach(div => div.classList.remove('selected'));
+//     document.querySelectorAll('.exerciseDiv').forEach(div => div.classList.remove('selectedColor'));
+//     //! Select the clicked exercise
+    
+//     const clickedDiv = event.currentTarget;
+//     clickedDiv.classList.add('selected');
+//     clickedDiv.classList.add('selectedColor')
+//     //! Load exercise content into the editor
+//     const editorCodeValue = clickedDiv.dataset.code; 
+//     const optionstatus = clickedDiv.optionstatus;
+//     const title = clickedDiv.title;
+//     const desc = clickedDiv.description;
+    
+//     console.log("optionstatus:", optionstatus);
+//     loadExerciseContent(editorCodeValue, optionstatus, title, desc);
+// }
 
 
 

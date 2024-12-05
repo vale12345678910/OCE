@@ -1,13 +1,29 @@
 {
   "testId": "123",
+<<<<<<< HEAD
   "testname": "proving stuff",
+=======
+  "testname": "test 1 ",
+>>>>>>> f3b88d35e5f7a097ef4f782c74641f484b1fff29
   "studentName": "valery.sturm",
   "exercises": {
     "1": {
       "id": "1",
+<<<<<<< HEAD
       "title": "this is proof",
       "description": "desc of proof",
       "code": "proof that it works"
+=======
+      "title": "ex 1",
+      "description": "desc 1",
+      "code": "this is the first answer"
+    },
+    "2": {
+      "id": "2",
+      "title": "ex 2",
+      "description": "desc 2",
+      "code": "code 2 is the second answer"
+>>>>>>> f3b88d35e5f7a097ef4f782c74641f484b1fff29
     }
   }
 }

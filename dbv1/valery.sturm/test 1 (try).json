@@ -1,0 +1,1 @@
+{"userName":"valery.sturm","testname":"test 1 (try)","exercices":[{"title":"ex 1","description":"desc. 1","optionstatus":"0","editorContent":"function welcome(){\r\n\tconsole.log(\"hello world\");\r\n\t}\r\nwelcome();","points":"3","testcase":""},{"title":"ex 2","description":"desc. 2","optionstatus":"1","editorContent":"hello this is me ","points":"2","testcase":""}]}

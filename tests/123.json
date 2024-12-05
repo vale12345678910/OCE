@@ -1,13 +1,21 @@
 {
   "teachersName": "valery.sturm",
-  "testname": "proving stuff",
+  "testname": "test 1 ",
   "exercices": [
     {
-      "title": "this is proof",
-      "description": "desc of proof",
+      "title": "ex 1",
+      "description": "desc 1",
+      "optionstatus": "0",
+      "editorContent": "function welcome(){\r\n\tconsole.log(\"hello world\");\r\n\t}\r\nwelcome();",
+      "points": "1",
+      "testcase": ""
+    },
+    {
+      "title": "ex 2",
+      "description": "desc 2",
       "optionstatus": "1",
-      "editorContent": "proof that it works",
-      "points": "",
+      "editorContent": "code 2",
+      "points": "2",
       "testcase": ""
     }
   ],
