@@ -1,7 +1,7 @@
 //! Structure Code
 
 
-import { tryToGetUser } from "https://dev.gymburgdorf.ch/auth/Authhelpers-min.js";
+import { tryToGetUser, login } from "https://dev.gymburgdorf.ch/auth/Authhelpers-min.js";
 
 document.addEventListener("DOMContentLoaded", async function() {
 
@@ -13,33 +13,34 @@ document.addEventListener("DOMContentLoaded", async function() {
   
 });
 
-//! Fetch user data and set user-related variables
 let userData = await tryToGetUser();
-const userType = userData.type;
-const userName = sessionStorage.getItem('userName') || userData.email;
-const userPic = 'https://dev.gymburgdorf.ch/auth/getpic';
+//! Fetch user data and set user-related variables
 
-sessionStorage.setItem('userName', userName);
-sessionStorage.setItem('userPic', userPic);
 
-console.log("userType", userType); 
-console.log("userName", userName); 
-console.log("userPic", userPic); 
+if (!userData) {
+  console.log(userData)
+} else {
+  
+    const userType = userData.type;
+    const userName = sessionStorage.getItem('userName') || userData.email;
+    const userPic = 'https://dev.gymburgdorf.ch/auth/getpic';
 
+    sessionStorage.setItem('userName', userName);
+    sessionStorage.setItem('userPic', userPic);
+
+    console.log("userType", userType); 
+    console.log("userName", userName); 
+    console.log("userPic", userPic); 
+    await handleUserDirectory(userName);
+    login1(userType);
+}
 //! Connect function triggered by user interaction
 async function connect(){
-  
-  if (!userData) {
-    throw new Error("failed to fetch userdata", error);
-  } else {
-      await handleUserDirectory();
-      login();
-  }
+  login(location.href)
 }
 
 //! Handle user directory check and creation
-async function handleUserDirectory() {
-  
+async function handleUserDirectory(userName) {
   if (!userName) {
     throw new Error('No userName in sessionStorage');
   } 
@@ -73,7 +74,7 @@ function fetchPost(url, data) {
 }
 
 //! Function to trigger login based on user type
-function login() {
+function login1(userType) {
   // Construct the URL with the query parameter
   const url = `/login?type=${encodeURIComponent(userType)}`;
 
